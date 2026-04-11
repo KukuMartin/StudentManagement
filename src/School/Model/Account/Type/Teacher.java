@@ -19,6 +19,14 @@ public class Teacher extends Account{
         this.password = password;
     }
     
+    public StructureSystem search(UUID sectionId){
+        
+    }
+    
+    public StructureSystem search(int index){
+        
+    }
+    
     public String getUsername(){
         
     }
