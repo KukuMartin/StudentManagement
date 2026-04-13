@@ -61,6 +61,5 @@ public class Attendance {
     }
     
     public int setStateCount(Attendance.State type, int value){
-        
     }
 }

@@ -7,17 +7,16 @@ import java.util.UUID;
 
 public abstract class Account{
     protected enum Type {
-    ADVISOR,
-    TEACHER;
+        ADVISOR,
+        TEACHER;
     }
     
-    private UUID accountId;
-    private Credential credential;
+    String tableName;
+    private UUID accountId;//TODO: maybe change it later
     private Type type;
 
-    public Account(UUID accountId, Credential credential, Type type) {
+    public Account(UUID accountId, Type type) {
         this.accountId = accountId;
-        this.credential = credential;
         this.type = type;
     }
 
@@ -26,7 +25,6 @@ public abstract class Account{
     }
 
     public Credential getCredential() {
-        return credential;
     }
 
     public Type getType() {

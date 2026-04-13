@@ -9,7 +9,7 @@ public class Student extends Account{
     String studentId;
     
     public Student(UUID accountId, Credential credential, Type type) {
-        super(accountId, credential, type);
+        super(accountId, type);
     }
     
     public UUID getSectionId(){
