@@ -46,8 +46,8 @@ public class Palette {
     
     public static Color darken(Color color, float intensity){
         float hueIncrease = .1f * intensity;
-        float satIncrease = .5f * intensity;
-        float valDecrease = .8f * intensity;
+        float satIncrease = .6f * intensity;
+        float valDecrease = .9f * intensity;
         float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
         
         float hue = Math.max(0f, hsb[0] - hueIncrease);

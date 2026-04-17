@@ -18,7 +18,7 @@ public class SubjectStructureManagement {
     public Subject search(int index){
         
     }
-    
+    //FIXME: change this they shouldnt be able to add or remove students
     //TODO: make sure to use copy when you add
     public void addAllAssessment(Assessment assessment){
         

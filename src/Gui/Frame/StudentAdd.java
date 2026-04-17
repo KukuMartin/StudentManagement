@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Gui.Frame;
 
-/**
- *
- * @author Netmanet
- */
+import School.Model.Account.Type.Student;
+
 public class StudentAdd {
+    public static Student createStudent(){
+        Student student;
+        StudentAdd.initializeFrame();
+    }
     
+    private static void initializeFrame(){
+        JFrame frame = new
+    }
 }

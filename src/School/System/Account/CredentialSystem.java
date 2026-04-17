@@ -29,7 +29,7 @@ public class CredentialSystem {
     public String getPhoneNumber() {
     }
 
-    public AddressSystem getAddressSystem() {
+    public String getAddress() {
     }
 
     public void setFirstName(String firstName) {

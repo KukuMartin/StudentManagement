@@ -4,6 +4,7 @@ import Tool.Gui.Palette;
 import Tool.Gui.Signal;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -133,5 +134,17 @@ public abstract class Pane extends JPanel{
     protected int getY(JComponent comp, double xPercent){
         int x = (int)(frame.height * xPercent) - (comp.getWidth() / 2);
         return x;
+    }
+    
+    protected void setButton(JButton button, Point point, Dimension siZe){
+        button.setLocation(point.x, point.y);
+        button.setSize(siZe.width, siZe.height);
+        
+        button.setContentAreaFilled(false);
+        button.setOpaque(true);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        
+        this.add(button);
     }
 }

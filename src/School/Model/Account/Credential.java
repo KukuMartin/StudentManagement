@@ -28,7 +28,7 @@ public class Credential {
     public String getPhoneNumber() {
     }
 
-    public Address getAddress() {
+    public String getAddress() {
     }
 
     public void setFirstName(String firstName) {

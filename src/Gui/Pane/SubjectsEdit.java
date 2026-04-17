@@ -4,6 +4,6 @@ import Tool.Gui.Palette;
 import Tool.Gui.Signal;
 import java.awt.Dimension;
 
-public class SectionEdit extends Pane{
-    
+public class SubjectsEdit extends Pane{
+    private Signal signal;
 }

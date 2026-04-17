@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
 public class MainFrame extends JFrame{
-    private final static Dimension size = new Dimension(700, 400);
+    private final static Dimension size = new Dimension(850, 460);
     
     private final static Palette palette = getPalette();
     
@@ -25,8 +25,10 @@ public class MainFrame extends JFrame{
         JLayeredPane pane = new JLayeredPane();
         pane.setLayout(null);
         NavBar bar = new NavBar(size, palette, null);
-        bar.addButton(new JButton("Heyy"), null);
-        bar.addButton(new JButton("whatt"), null);
+        bar.addButton(new JButton("Account"), null);
+        bar.addButton(new JButton("Sections"), null);
+        bar.addButton(new JButton("Subject"), null);
+        
         pane.add(bar, 1);
         this.setPanel(pane);
     }
@@ -39,13 +41,13 @@ public class MainFrame extends JFrame{
     
     
     private static Palette getPalette(){
-        Color primary = Color.RED;
-        Color secondary = Color.ORANGE;
-        Color accent = Color.GREEN;
-        Color neutral = Color.WHITE;
+        Color primary = new Color(3, 79, 132);
+        Color secondary = new Color(146, 168, 209);
+        Color accent = new Color(251, 119, 26);
+        Color neutral = new Color(245, 245, 245);
 
         Color textLight = Color.WHITE;
-        Color textDark = Color.BLACK;
+        Color textDark = new Color(33, 33, 33);
         
         return new Palette(primary, secondary, accent, neutral, textLight, textDark);
     }

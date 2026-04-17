@@ -16,6 +16,7 @@ public class SectionManagement { //handles all of the students
         
     }
     
+    //FIXME: change this they shouldnt be able to add or remove students
     public void add(Student student){
         
     }

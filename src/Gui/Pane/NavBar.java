@@ -42,7 +42,19 @@ public class NavBar extends Pane{
         this.setSize(this.frame.width, this.frame.height);
         this.setLayout(null);
         
+        
         this.addExit();
+        this.something();
+    }
+    
+    private void something(){
+        JButton button = new JButton("Hello");
+        button.setLocation(this.getX(button, 0.5), this.getY(button, 0.75));
+        button.setSize(100, 50);
+        
+        button.setBackground(Color.blue);
+        
+        this.add(button);
     }
     
     //java documentation testing
@@ -64,7 +76,7 @@ public class NavBar extends Pane{
         x = xPadding + ((space + buttonWidth) * index);
         y = yPadding;
         
-        setComponent(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
+        this.setButton(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
         buttons.add(button);
     }
     
@@ -72,29 +84,17 @@ public class NavBar extends Pane{
         int x, y;
         JButton button = new JButton("Exit"); //TODO: turn into imageIcon
         
-        button.setBackground(palette.getSecondary());
+        button.setBackground(palette.getAccent());
         button.setForeground(palette.getTextLight());
         
         button.addActionListener(this.getActionListener());
-        button.addMouseListener(this.getMouseClick(button));
+        button.addMouseListener(this.getMouseAll(button));
         
         x = frame.width - buttonWidth - xPadding;
         System.out.println(x);
         System.out.println(this.getWidth());
         y = yPadding;
         
-        setComponent(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
-    }
-    
-    private void setComponent(JButton button, Point point, Dimension siZe){
-        button.setLocation(point.x, point.y);
-        button.setSize(siZe.width, siZe.height);
-        
-        button.setContentAreaFilled(false);
-        button.setOpaque(true);
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        
-        this.add(button);
+        this.setButton(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
     }
 }
