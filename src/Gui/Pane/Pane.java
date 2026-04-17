@@ -14,21 +14,19 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public abstract class Pane extends JPanel{
-    private Dimension frame;
-    final private Palette palette;
-    final private Signal signal;
+    protected Dimension frame;
+    protected Palette palette;
     
     //misc
     private final static float clickIntensity = 0.30f;
     private final static float hoverIntensity = 0.10f;
     
-    public Pane(Dimension frame, Palette palette, Signal signal){
+    public Pane(Dimension frame, Palette palette){
         this.frame = frame;
-        this.signal = signal;
         this.palette = palette;
     }
     
-    protected ActionListener getActionListener(){
+    public ActionListener getActionClick(Signal signal){
         ActionListener actionEvent = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,7 +36,7 @@ public abstract class Pane extends JPanel{
         return actionEvent;
     }
     
-    protected MouseAdapter getMouseClick(JButton button){
+    public MouseAdapter getMouseClick(JButton button){
         MouseAdapter mouseEvent = new MouseAdapter(){
             private final Color originalColor = button.getBackground();
             private final Color originalText = button.getForeground();
@@ -59,7 +57,7 @@ public abstract class Pane extends JPanel{
         return mouseEvent;
     }
     
-    protected MouseAdapter getMouseHover(JButton button){
+    public MouseAdapter getMouseHover(JButton button){
         MouseAdapter mouseEvent = new MouseAdapter(){
             private final Color originalColor = button.getBackground();
             private final Color originalText = button.getForeground();
@@ -80,7 +78,7 @@ public abstract class Pane extends JPanel{
         return mouseEvent;
     }
     
-    protected MouseAdapter getMouseAll(JButton button){
+    public MouseAdapter getMouseAll(JButton button){
         MouseAdapter mouseEvent = new MouseAdapter(){
             private final Color originalColor = button.getBackground();
             private final Color originalText = button.getForeground();
@@ -131,8 +129,18 @@ public abstract class Pane extends JPanel{
         return x;
     }
     
+    protected int getX(int width, double xPercent){
+        int x = (int)(frame.width * xPercent) - (int)(width / 2.0);
+        return x;
+    }
+    
     protected int getY(JComponent comp, double xPercent){
         int x = (int)(frame.height * xPercent) - (comp.getWidth() / 2);
+        return x;
+    }
+    
+    protected int getY(int height, double xPercent){
+        int x = (int)(frame.height * xPercent) - (height / 2);
         return x;
     }
     
@@ -140,6 +148,15 @@ public abstract class Pane extends JPanel{
         button.setLocation(point.x, point.y);
         button.setSize(siZe.width, siZe.height);
         
+        button.setContentAreaFilled(false);
+        button.setOpaque(true);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        
+        this.add(button);
+    }
+    
+    protected void setButton(JButton button){
         button.setContentAreaFilled(false);
         button.setOpaque(true);
         button.setFocusPainted(false);

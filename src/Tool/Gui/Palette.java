@@ -50,7 +50,7 @@ public class Palette {
         float valDecrease = .9f * intensity;
         float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
         
-        float hue = Math.max(0f, hsb[0] - hueIncrease);
+        float hue = Math.min(1f, hsb[0] + hueIncrease);
         float saturation = Math.min(1.0f, hsb[1] + satIncrease);
         float value = Math.max(0f, hsb[2] - valDecrease);
         

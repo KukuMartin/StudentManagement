@@ -2,6 +2,7 @@ package Gui;
 
 import Gui.Pane.NavBar;
 import Tool.Gui.Palette;
+import Tool.Gui.Signal;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JButton;
@@ -19,18 +20,11 @@ public class MainFrame extends JFrame{
         this.setSize(size);
         
         this.setLayout(null);
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        //everything below here is jsut for testing
-        JLayeredPane pane = new JLayeredPane();
-        pane.setLayout(null);
-        NavBar bar = new NavBar(size, palette, null);
-        bar.addButton(new JButton("Account"), null);
-        bar.addButton(new JButton("Sections"), null);
-        bar.addButton(new JButton("Subject"), null);
-        
-        pane.add(bar, 1);
-        this.setPanel(pane);
+        Panel panel = new AccountPanel(this, size, palette);
+        this.setPanel(panel);
     }
     
     public static void main(String[] args){
@@ -52,7 +46,20 @@ public class MainFrame extends JFrame{
         return new Palette(primary, secondary, accent, neutral, textLight, textDark);
     }
     
+    public Signal getSignal(JLayeredPane newPanel){
+        Signal signal = new Signal(){
+            @Override
+            public void sendNotif(){
+                MainFrame.this.setPanel(newPanel);
+            }
+        };
+        return signal;
+    }
+    
     public void setPanel(JLayeredPane newPanel){
+        newPanel.setSize(size);
+        newPanel.setLocation(0, 0);
+        newPanel.setLayout(null);
         this.setContentPane(newPanel);
         this.repaint();
     }

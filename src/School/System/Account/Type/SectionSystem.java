@@ -2,9 +2,12 @@ package School.System.Account.Type;
 
 import School.Management.SectionManagement;
 import School.Model.Account.Type.Student;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class SectionSystem {//handles the entire section
+    
+    
     SectionManagement sectionManager;
     
     public Student search(String studentId){
@@ -16,7 +19,6 @@ public class SectionSystem {//handles the entire section
     }
     
     public void add(Student student){
-        
     }
     
     public void add(Student student, int index){

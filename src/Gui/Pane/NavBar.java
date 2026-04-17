@@ -12,31 +12,33 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class NavBar extends Pane{
     final private List<JButton> buttons = new ArrayList<>();
     final private Dimension frame = new Dimension();
-    final private Palette palette;
+    final private Signal exit;
     
     //specifics
     final private int xPadding = 10;
     final private int yPadding = 10;
-    final private int space = 10;
+    final private int space = 5;
     
     final private int buttonWidth = 100;
     final private int buttonHeight;
     
-    public NavBar(Dimension frame, Palette palette, Signal signal){
-        super(frame, palette, signal);
+    public NavBar(Dimension frame, Palette palette, Signal exit){
+        super(frame, palette);
         double heightPercent = 0.10;
         
-        this.frame.width = frame.width- xPadding;
+        this.frame.width = frame.width - xPadding;
         this.frame.height = (int)(heightPercent * frame.height);
         
-        buttonHeight = this.frame.height - (yPadding * 2);
+        buttonHeight = this.frame.height - (yPadding);
         
         this.palette = palette;
+        this.exit = exit;
         this.setBackground(this.palette.getPrimary());
         
         this.setSize(this.frame.width, this.frame.height);
@@ -60,8 +62,8 @@ public class NavBar extends Pane{
     //java documentation testing
     /**
      * adds a button in navBar for both event create an anonymous class
-     * @param button the button you click
-     * @param actionEvent function of button when pressed
+     * @param button the button gonna be used
+     * @param actionEvent what happens when clicked
      */
     public void addButton(JButton button, ActionListener actionEvent){
         int index = buttons.size();
@@ -87,7 +89,7 @@ public class NavBar extends Pane{
         button.setBackground(palette.getAccent());
         button.setForeground(palette.getTextLight());
         
-        button.addActionListener(this.getActionListener());
+        button.addActionListener(this.getActionClick(exit));
         button.addMouseListener(this.getMouseAll(button));
         
         x = frame.width - buttonWidth - xPadding;
@@ -97,4 +99,6 @@ public class NavBar extends Pane{
         
         this.setButton(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
     }
+    
+    
 }
