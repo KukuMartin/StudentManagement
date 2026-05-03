@@ -23,6 +23,7 @@ public class Attendance {
         }
     }
     
+    private UUID attendanceId;
     private UUID subjectId;
     private List<Day> attendance;
     private int[] stateCount = new int[State.values().length];
@@ -34,19 +35,14 @@ public class Attendance {
     public void add(Day day) {
     }
 
-    public void add(Day day, int index) {
-    }
-
     public void remove(Day day) {
-    }
-
-    public void remove(int index) {
     }
 
     public Day search(LocalDate date) {
     }
-
-    public Day search(int index) {
+    
+    public UUID getAttendanceId(){
+        
     }
     
     public UUID getSubjectId(){

@@ -73,7 +73,7 @@ public class NavBar extends Pane{
         button.setForeground(palette.getTextLight());
         
         button.addActionListener(actionEvent);
-        button.addMouseListener(this.getMouseAll(button));
+        button.addMouseListener(this.getMouse(button));
         
         x = xPadding + ((space + buttonWidth) * index);
         y = yPadding;
@@ -89,8 +89,8 @@ public class NavBar extends Pane{
         button.setBackground(palette.getAccent());
         button.setForeground(palette.getTextLight());
         
-        button.addActionListener(this.getActionClick(exit));
-        button.addMouseListener(this.getMouseAll(button));
+        button.addActionListener(this.getAction(exit));
+        button.addMouseListener(this.getMouse(button));
         
         x = frame.width - buttonWidth - xPadding;
         System.out.println(x);

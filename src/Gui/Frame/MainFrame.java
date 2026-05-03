@@ -1,19 +1,22 @@
-package Gui;
+package Gui.Frame;
 
-import Gui.Pane.NavBar;
+import Gui.Panel.AccountPanel;
+import Gui.Panel.Panel;
+import Tool.Gui.Label;
 import Tool.Gui.Palette;
-import Tool.Gui.Signal;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JComponent;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
 public class MainFrame extends JFrame{
     private final static Dimension size = new Dimension(850, 460);
     
-    private final static Palette palette = getPalette();
+    private final static Palette palette = createPalette();
+    private final static Label label = createLabel();
     
     public MainFrame(){
         this.setTitle("Student Management");
@@ -34,7 +37,7 @@ public class MainFrame extends JFrame{
     
     
     
-    private static Palette getPalette(){
+    private static Palette createPalette(){
         Color primary = new Color(3, 79, 132);
         Color secondary = new Color(146, 168, 209);
         Color accent = new Color(251, 119, 26);
@@ -46,10 +49,20 @@ public class MainFrame extends JFrame{
         return new Palette(primary, secondary, accent, neutral, textLight, textDark);
     }
     
-    public Signal getSignal(JLayeredPane newPanel){
-        Signal signal = new Signal(){
+    private static Label createLabel(){
+        Font title = new Font("Arial", Font.BOLD | Font.ITALIC, 40);
+        Font heading = new Font("Arial", Font.BOLD, 30);
+        Font subHeading = new Font("Arial", Font.BOLD, 20);
+        Font body = new Font("Arial", Font.PLAIN, 10);
+        Font caption = new Font("Arial", Font.PLAIN, 5);
+        
+        return new Label(title, heading, subHeading, body, caption);
+    }
+    
+    public ActionListener getActionEvent(JLayeredPane newPanel){
+        ActionListener signal = new ActionListener(){
             @Override
-            public void sendNotif(){
+            public void actionPerformed(ActionEvent e){
                 MainFrame.this.setPanel(newPanel);
             }
         };
@@ -62,5 +75,9 @@ public class MainFrame extends JFrame{
         newPanel.setLayout(null);
         this.setContentPane(newPanel);
         this.repaint();
+    }
+    
+    public Palette getPalette(){
+        return null;
     }
 }

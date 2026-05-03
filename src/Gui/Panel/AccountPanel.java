@@ -1,5 +1,6 @@
-package Gui;
+package Gui.Panel;
 
+import Gui.Frame.MainFrame;
 import Gui.Pane.Validate.AccountPick;
 import Gui.Pane.Validate.SignIn;
 import Tool.Gui.Palette;

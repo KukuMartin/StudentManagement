@@ -1,5 +1,6 @@
 package School.Management;
 
+import School.Model.Attendance.Attendance;
 import School.Model.Subject.Activity;
 import School.Model.Subject.Assessment;
 import School.Model.Subject.Subject;
@@ -7,12 +8,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class AttendanceStructureManagement {
-    List<Subject> subjects;
+    List<Attendance> attendance;
     
-    public Subject search(String studentId){
+    public Attendance search(String studentId){
     }
     
-    public Subject search(int index){
+    public Attendance search(int index){
         
     }
     //TODO: make sure to use copy when you add

@@ -18,40 +18,5 @@ public class TeacherManagement {
         
     }
     
-    public Teacher searchTeacher(int index){
-        
-    }
-    
-    public void addTeacher(Teacher teacher){
-        
-    }
-    
-    public void addTeacher(Teacher teacher, int index){
-        
-    }
-    
-    public void removeTeacher(Teacher teacher){
-        
-    }
-    
-    public void removeTeacher(int index){
-        
-    }
-    
     //subjects management because a teacher cant remove a class it should be an admin right?
-    public void addStructure(StructureSystem system){
-        
-    }
-    
-    public void addStructure(StructureSystem system, int index){
-        
-    }
-    
-    public void removeStructure(StructureSystem system){
-        
-    }
-    
-    public void removeStructure(int index){
-        
-    }
 }

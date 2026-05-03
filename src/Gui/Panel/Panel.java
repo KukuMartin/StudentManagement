@@ -1,5 +1,6 @@
-package Gui;
+package Gui.Panel;
 
+import Gui.Frame.MainFrame;
 import Gui.Pane.NavBar;
 import Gui.Pane.Pane;
 import Tool.Gui.Palette;

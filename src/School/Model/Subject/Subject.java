@@ -15,10 +15,10 @@ public class Subject {
     UUID subjectId;
     
     List<Assessment> midtermsWork;
-    List<Attendance> midtermsAttendance;
+    Attendance midtermsAttendance;
     
     List<Assessment> finalsWork;
-    List<Attendance> finalsAttendance;
+    Attendance finalsAttendance;
     
     public Subject(String studentId, UUID subjectId, List<Assessment> midtermsWork, 
                    List<Attendance> midtermsAttendance, List<Assessment> finalsWork, 

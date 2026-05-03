@@ -37,15 +37,15 @@ import javax.swing.SwingConstants;
             advisorBtn = new JButton("ADVISOR");
             advisorBtn.setBounds(getX(width, 0.5), 150, 300, 60);
             styleButton(advisorBtn);
-            advisorBtn.addActionListener(this.getActionClick(advisorSignal));
-            advisorBtn.addMouseListener(this.getMouseAll(advisorBtn));
+            advisorBtn.addActionListener(this.getAction(advisorSignal));
+            advisorBtn.addMouseListener(this.getMouse(advisorBtn));
             this.setButton(advisorBtn);
 
             teacherBtn = new JButton("TEACHER");
             teacherBtn.setBounds(getX(width, 0.5), 250, 300, 60);
             styleButton(teacherBtn);
-            teacherBtn.addActionListener(this.getActionClick(teacherSignal));
-            teacherBtn.addMouseListener(this.getMouseAll(teacherBtn));
+            teacherBtn.addActionListener(this.getAction(teacherSignal));
+            teacherBtn.addMouseListener(this.getMouse(teacherBtn));
             this.setButton(teacherBtn);
         }
 

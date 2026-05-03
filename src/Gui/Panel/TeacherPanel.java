@@ -1,7 +1,9 @@
-package Gui;
+package Gui.Panel;
 
+import Gui.Frame.MainFrame;
 import Gui.Pane.Account.AccountView;
 import Gui.Pane.Account.SectionEdit;
+import Gui.Pane.Account.SubjectsEdit;
 import Gui.Pane.NavBar;
 import Tool.Gui.Palette;
 import Tool.Gui.Signal;
@@ -10,18 +12,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
-public class AdvisorPanel extends Panel{
+public class TeacherPanel extends Panel{
     private NavBar navbar;
     private AccountView account;
-    private SectionEdit section;
+    private SubjectsEdit section;
     boolean activeAccount = true;
     
-    public AdvisorPanel(MainFrame frame, Dimension size, Palette palette, Signal exit) {
+    public TeacherPanel(MainFrame frame, Dimension size, Palette palette, Signal exit) {
         super(frame, size, palette);
         
         navbar = new NavBar(size, palette, exit);
         account = new AccountView(size, palette);
-        section = new SectionEdit(size, palette);
+        section = new SubjectsEdit(size, palette);
         
         navbar.addButton(this.getAccoutButton(), this.getAccountAction());
         navbar.addButton(this.getSectionButton(), this.getSectionAction());
@@ -45,7 +47,7 @@ public class AdvisorPanel extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!activeAccount){
-                    AdvisorPanel.this.setMiddle(section, account);
+                    TeacherPanel.this.setMiddle(section, account);
                     activeAccount = true;
                 }            }
         };
@@ -53,7 +55,7 @@ public class AdvisorPanel extends Panel{
     }
     
     private JButton getSectionButton(){
-        JButton button = new JButton("Section");
+        JButton button = new JButton("Subject");
         button.setBackground(palette.getSecondary());
         button.setForeground(palette.getTextDark());
         
@@ -66,7 +68,7 @@ public class AdvisorPanel extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(activeAccount){
-                    AdvisorPanel.this.setMiddle(account, section);
+                    TeacherPanel.this.setMiddle(account, section);
                     activeAccount = false;
                 }
             }
