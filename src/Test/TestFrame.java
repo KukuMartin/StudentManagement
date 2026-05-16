@@ -19,9 +19,8 @@ import javax.swing.JLayeredPane;
 
 public class TestFrame extends Frame{
     private final boolean showNavBar = false;
-    public TestFrame(){
-        String title = "Testing Pane";
-        super(title, MainFrame.createSize(), MainFrame.createPalette(), MainFrame.createLabel());
+    public TestFrame(String title, Dimension size, Palette palette, Label label){
+        super(title, size, palette, label);
         
         Panel panel = new Panel(this, size, palette, label);
         
@@ -39,7 +38,13 @@ public class TestFrame extends Frame{
     }
     
     public static void main(String[] args){
-        TestFrame frame = new TestFrame();
+        String title = "Testing Pane";
+        
+        Dimension size = MainFrame.createSize();
+        Palette palette = MainFrame.createPalette();
+        Label label = MainFrame.createLabel();
+        
+        TestFrame frame = new TestFrame(title, size, palette, label);
         frame.setVisible(true);
     }
 }

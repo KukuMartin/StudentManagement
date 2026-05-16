@@ -2,6 +2,7 @@ package Gui.Frame;
 
 import Gui.Panel.AccountPanel;
 import Gui.Panel.Panel;
+import Test.TestFrame;
 import Tool.Gui.Label;
 import Tool.Gui.Palette;
 import java.awt.Color;
@@ -14,17 +15,21 @@ import javax.swing.JLayeredPane;
 
 public class MainFrame extends Frame{
     
-    public MainFrame(){
-        String title = "Student Management";
-        
-        super(title, MainFrame.createSize(), MainFrame.createPalette(), MainFrame.createLabel());
+    public MainFrame(String title, Dimension size, Palette palette, Label label){
+        super(title, size, palette, label);
         
         Panel panel = new AccountPanel(this, size, palette);
         this.setPanel(panel);
     }
     
     public static void main(String[] args){
-        MainFrame frame = new MainFrame();
+        String title = "Testing Pane";
+        
+        Dimension size = MainFrame.createSize();
+        Palette palette = MainFrame.createPalette();
+        Label label = MainFrame.createLabel();
+        
+        TestFrame frame = new TestFrame(title, size, palette, label);
         frame.setVisible(true);
     }
     

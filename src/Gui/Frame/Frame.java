@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 public abstract class Frame extends JFrame{
-    public final Dimension size;
-    public final Palette palette;
-    public final Label label;
+    private final Dimension size;
+    private final Palette palette;
+    private final Label label;
     
     public Frame(String title, Dimension size, Palette palette, Label label){
         this.size = size;
