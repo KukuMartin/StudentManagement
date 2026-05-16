@@ -1,14 +1,19 @@
 package Gui.Panel;
 
+import Gui.Frame.Frame;
 import Gui.Frame.MainFrame;
-import Gui.Pane.NavBar;
 import Gui.Pane.Pane;
+import Tool.Gui.Label;
 import Tool.Gui.Palette;
+import Tool.Gui.Signal;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JLayeredPane;
 
 public class Panel extends JLayeredPane{
-    protected enum Layer{
+    public enum Layer{
         BOTTOM(1),
         MIDDLE(2),
         TOP(3);
@@ -24,37 +29,40 @@ public class Panel extends JLayeredPane{
         }
     }
     
-    protected MainFrame frame;
-    protected Dimension size;
-    protected Palette palette;
+    protected final Frame frame;
+    protected final Dimension size;
+    protected final Palette palette;
+    protected final Label label;
     
-    public Panel(MainFrame frame, Dimension size, Palette palette){
+    public Panel(Frame frame, Dimension size, Palette palette, Label label){
         this.frame = frame;
         this.size = size;
         this.palette = palette;
+        this.label = label;
     }
     
-    protected void setMiddle(Pane oldPane, Pane newPane){
-        if(oldPane != null){
-            if(this.isAncestorOf(oldPane)){
-                this.remove(oldPane);
+    public void setPane(Pane pane, Layer layer){
+        Component[] comps = this.getComponents();
+        for(Component comp : comps){
+            if(this.getLayer(comp) == layer.getLayer()){
+                this.remove(comp);
             }
         }
-        setLayer(newPane, Layer.MIDDLE);
-    }
-    
-    protected void setNavBar(Pane pane){
-        Layer layer = Layer.TOP;
-        setLayer(pane, layer.getLayer());
-        this.add(pane, layer.getLayer());
-        this.repaint();
-    }
-    
-    private void setLayer(Pane pane, Layer layer){
+        
         pane.setSize(size);
         pane.setLocation(0, 0);
         pane.setLayout(null);
         this.add(pane, layer.getLayer());
         this.repaint();
+    }
+    
+    public Signal getSignal(Pane pane, Layer layer){
+        Signal signal = new Signal(){
+            @Override
+            public void sendSignal() {
+                Panel.this.setPane(pane, layer);
+            }
+        };
+        return signal;
     }
 }

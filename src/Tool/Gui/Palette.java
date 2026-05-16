@@ -7,15 +7,17 @@ public class Palette {
     final private Color secondary;
     final private Color accent;
     final private Color neutral;
+    final private Color background;
     
     final private Color textLight;
     final private Color textDark;
 
-    public Palette(Color primary, Color secondary, Color accent, Color neutral, Color textLight, Color textDark) {
+    public Palette(Color primary, Color secondary, Color accent, Color neutral, Color textLight, Color textDark, Color background) {
         this.primary = primary;
         this.secondary = secondary;
         this.accent = accent;
         this.neutral = neutral;
+        this.background = background;
         
         this.textLight = textLight;
         this.textDark = textDark;
@@ -35,6 +37,10 @@ public class Palette {
 
     public Color getNeutral() {
         return neutral;
+    }
+    
+    public Color getBackground() {
+        return background;
     }
     
     public Color getTextLight() {

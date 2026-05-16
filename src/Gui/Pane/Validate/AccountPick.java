@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
         private Signal advisorSignal, teacherSignal; 
 
         public AccountPick(Dimension frame, Palette palette, Signal advisorSignal, Signal teacherSignal) {
-            super(frame, palette);
+            super(frame, palette, label);
             this.palette = palette;
             setBackground(this.palette.getNeutral());
 
@@ -37,7 +37,7 @@ import javax.swing.SwingConstants;
             advisorBtn = new JButton("ADVISOR");
             advisorBtn.setBounds(getX(width, 0.5), 150, 300, 60);
             styleButton(advisorBtn);
-            advisorBtn.addActionListener(this.getAction(advisorSignal));
+            advisorBtn.addActionListener(this.getActionEvent(advisorSignal));
             advisorBtn.addMouseListener(this.getMouse(advisorBtn));
             this.setButton(advisorBtn);
 

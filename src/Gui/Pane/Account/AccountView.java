@@ -1,8 +1,8 @@
 package Gui.Pane.Account;
 
 import Gui.Pane.Pane;
+import Tool.Gui.Label;
 import Tool.Gui.Palette;
-import Tool.Gui.Signal;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,9 +14,9 @@ public class AccountView extends Pane{
     private JLabel windowTitle, accID, accType, accCredentials, accAddress;
     private JButton mgButton;
     
-    public AccountView(Dimension frame, Palette palette)
+    public AccountView(Dimension frame, Palette palette, Label label)
     {
-        super(frame,palette);
+        super(frame,palette, label);
         this.setLayout(null);
         this.setSize(frame);
 
@@ -85,8 +85,7 @@ public class AccountView extends Pane{
         mgButton.setBackground(palette.getSecondary());
         mgButton.setForeground(palette.getTextLight());
         
-        mgButton.addMouseListener(this.getMouseAll(mgButton));
-        this.setButton(mgButton);
+        mgButton.addMouseListener(this.getMouseEvent(mgButton));
       
         add(windowTitle);
         add(accID);

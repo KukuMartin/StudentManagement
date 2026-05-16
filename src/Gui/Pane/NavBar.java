@@ -1,9 +1,11 @@
 package Gui.Pane;
 
+import Tool.Gui.Label;
 import Tool.Gui.Palette;
 import Tool.Gui.Signal;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +20,8 @@ import javax.swing.JPanel;
 public class NavBar extends Pane{
     final private List<JButton> buttons = new ArrayList<>();
     final private Dimension frame = new Dimension();
-    final private Signal exit;
+    
+    final static private double heightPercent = 0.1;
     
     //specifics
     final private int xPadding = 10;
@@ -28,35 +31,20 @@ public class NavBar extends Pane{
     final private int buttonWidth = 100;
     final private int buttonHeight;
     
-    public NavBar(Dimension frame, Palette palette, Signal exit){
-        super(frame, palette);
-        double heightPercent = 0.10;
+    public NavBar(Dimension frame, Palette palette, Label label){
+        super(frame, palette, label);
         
         this.frame.width = frame.width - xPadding;
         this.frame.height = (int)(heightPercent * frame.height);
         
         buttonHeight = this.frame.height - (yPadding);
         
-        this.palette = palette;
-        this.exit = exit;
         this.setBackground(this.palette.getPrimary());
-        
         this.setSize(this.frame.width, this.frame.height);
         this.setLayout(null);
         
         
         this.addExit();
-        this.something();
-    }
-    
-    private void something(){
-        JButton button = new JButton("Hello");
-        button.setLocation(this.getX(button, 0.5), this.getY(button, 0.75));
-        button.setSize(100, 50);
-        
-        button.setBackground(Color.blue);
-        
-        this.add(button);
     }
     
     //java documentation testing
@@ -65,20 +53,30 @@ public class NavBar extends Pane{
      * @param button the button gonna be used
      * @param actionEvent what happens when clicked
      */
+    private void createButton(JButton button, Signal signal){
+        JPanel newButton = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+            }
+        };
+        
+        newButton.setBackground(palette.getSecondary());
+        newButton.setForeground(palette.getTextLight());
+        
+        newButton.addActionListener(signal.getActionEvent());
+        newButton.addMouseListener(this.getMouseEvent(button));
+    }
+    
     public void addButton(JButton button, ActionListener actionEvent){
         int index = buttons.size();
         int x, y, padding;
         
-        button.setBackground(palette.getSecondary());
-        button.setForeground(palette.getTextLight());
-        
-        button.addActionListener(actionEvent);
-        button.addMouseListener(this.getMouse(button));
         
         x = xPadding + ((space + buttonWidth) * index);
         y = yPadding;
         
-        this.setButton(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
+        this.setComponent(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
         buttons.add(button);
     }
     
@@ -100,5 +98,7 @@ public class NavBar extends Pane{
         this.setButton(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
     }
     
-    
+    public static double getHeightPercent(){
+        return heightPercent;
+    }
 }
