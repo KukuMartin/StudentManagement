@@ -49,7 +49,6 @@ public class Panel extends JLayeredPane{
             }
         }
         
-        pane.setSize(size);
         pane.setLocation(0, 0);
         pane.setLayout(null);
         this.add(pane, layer.getLayer());

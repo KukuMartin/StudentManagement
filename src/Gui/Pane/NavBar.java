@@ -31,7 +31,7 @@ public class NavBar extends Pane{
     final private int buttonWidth = 100;
     final private int buttonHeight;
     
-    public NavBar(Dimension frame, Palette palette, Label label){
+    public NavBar(Dimension frame, Palette palette, Label label, Signal exit){
         super(frame, palette, label);
         
         this.frame.width = frame.width - xPadding;
@@ -44,7 +44,7 @@ public class NavBar extends Pane{
         this.setLayout(null);
         
         
-        this.addExit();
+        this.addExit(exit);
     }
     
     //java documentation testing
@@ -61,11 +61,11 @@ public class NavBar extends Pane{
             }
         };
         
-        newButton.setBackground(palette.getSecondary());
-        newButton.setForeground(palette.getTextLight());
+        button.setBackground(palette.getSecondary());
+        button.setForeground(palette.getTextLight());
         
-        newButton.addActionListener(signal.getActionEvent());
-        newButton.addMouseListener(this.getMouseEvent(button));
+        button.addActionListener(signal.getActionEvent());
+        button.addMouseListener(this.getMouseEvent(button));
     }
     
     public void addButton(JButton button, ActionListener actionEvent){
@@ -76,26 +76,26 @@ public class NavBar extends Pane{
         x = xPadding + ((space + buttonWidth) * index);
         y = yPadding;
         
-        this.setComponent(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
+        this.setComponent(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
         buttons.add(button);
     }
     
-    private void addExit(){
+    private void addExit(Signal signal){
         int x, y;
         JButton button = new JButton("Exit"); //TODO: turn into imageIcon
         
         button.setBackground(palette.getAccent());
         button.setForeground(palette.getTextLight());
         
-        button.addActionListener(this.getAction(exit));
-        button.addMouseListener(this.getMouse(button));
+        button.addActionListener(signal.getActionEvent());
+        button.addMouseListener(this.getMouseEvent(button));
         
         x = frame.width - buttonWidth - xPadding;
         System.out.println(x);
         System.out.println(this.getWidth());
         y = yPadding;
         
-        this.setButton(button, new Point(x, y), new Dimension(buttonWidth, buttonHeight));
+        this.setComponent(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
     }
     
     public static double getHeightPercent(){
