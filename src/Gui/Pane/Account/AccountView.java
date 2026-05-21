@@ -1,97 +1,109 @@
 package Gui.Pane.Account;
 
+import Gui.Misc.Tool.Label;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
 import Gui.Pane.Pane;
-import Tool.Gui.Label;
-import Tool.Gui.Palette;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class AccountView extends Pane{
-    private JLabel windowTitle, accID, accType, accCredentials, accAddress;
+    private JLabel windowTitle, accID, accType, phone, birthday, accAddress;
+    private JTextField idField, typeField, phoneField, birthdayField;
+    private JTextArea addressArea;
     private JButton mgButton;
+    private boolean toggleEdit = false;
     
     public AccountView(Dimension frame, Palette palette, Label label)
     {
         super(frame,palette, label);
-        this.setLayout(null);
         this.setSize(frame);
+        this.setBackground(palette.getBackground());
 
-        int labelWidth = 200;
-        int fieldWidth = 500;
-        int fieldHeight = 40;
+        windowTitle = new JLabel("Your Account");
+        windowTitle.setFont(label.getHeading());
+        this.setComponent(windowTitle, getSize(windowTitle, 260), 0.5, 0.17);
 
-        Font font = new Font("SansSerif", Font.BOLD, 18);
-        
-        windowTitle = new JLabel("My Account");
-        windowTitle.setBounds(this.getX(labelWidth, 0.535), 60, labelWidth, 30);
-        windowTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
-        add(windowTitle);
-        
         accID = new JLabel("Account ID:");
-        accID.setBounds(this.getX(labelWidth, 0.2), 125, labelWidth, 25);
-        accID.setFont(font);
-        add(accID);
+        accID.setFont(label.getBody());
+        this.setComponent(accID, getSize(accID, 200), 0.2, 0.27);
 
-        JTextField idField = new JTextField();
-        idField.setEditable(false);
-        idField.setBackground(palette.getSecondary());
-        idField.setBorder(null);
-        idField.setBounds(this.getX(fieldWidth, 0.55), 125, fieldWidth, fieldHeight);
-        add(idField);
+        idField = this.getTextField("2022-00560-MT-5", 8);
+        idField.setBackground(palette.getNeutral());
+        this.setComponent(idField, false, new Dimension(500, 30), 0.55, 0.27);
 
         accType = new JLabel("Account Type:");
-        accType.setBounds(this.getX(labelWidth, 0.2), 185, labelWidth, 25);
-        accType.setFont(font);
-        add(accType);
+        accType.setFont(label.getBody());
+        this.setComponent(accType, getSize(accType, 200), 0.2, 0.37);
 
-        JTextField typeField = new JTextField();
-        typeField.setEditable(false);
-        typeField.setBackground(palette.getSecondary());
-        typeField.setBorder(null);
-        typeField.setBounds(this.getX(fieldWidth, 0.55), 185, fieldWidth, fieldHeight);
-        add(typeField);
+        typeField = this.getTextField("User", 8);
+        typeField.setBackground(palette.getNeutral());
+        this.setComponent(typeField, false, new Dimension(500, 30), 0.55, 0.37);
 
-        accCredentials = new JLabel("Credentials:");
-        accCredentials.setBounds(this.getX(labelWidth, 0.2), 245, labelWidth, 25);
-        accCredentials.setFont(font);
-        add(accCredentials);
+        phone = new JLabel("Phone Number:");
+        phone.setFont(label.getBody());
+        this.setComponent(phone, getSize(phone, 200), 0.2, 0.47);
 
-        JTextField credentialsField = new JTextField();
-        credentialsField.setEditable(false);
-        credentialsField.setBackground(palette.getSecondary());
-        credentialsField.setBorder(null);
-        credentialsField.setBounds(this.getX(fieldWidth, 0.55), 245, fieldWidth, fieldHeight);
-        add(credentialsField);
+        phoneField = this.getTextField("0935-456-6784", 8);
+        phoneField.setBackground(palette.getNeutral());
+        this.setComponent(phoneField, false, new Dimension(500, 30), 0.55, 0.47);
 
-        accAddress = new JLabel("Address:");
-        accAddress.setBounds(this.getX(labelWidth, 0.2), 305, labelWidth, 25);
-        accAddress.setFont(font);
-        add(accAddress);
+        birthday = new JLabel("Birth Date:");
+        birthday.setFont(label.getBody());
+        this.setComponent(birthday, getSize(birthday, 200), 0.2, 0.57);
 
-        JTextField addressField = new JTextField();
-        addressField.setEditable(false);
-        addressField.setBackground(palette.getSecondary());
-        addressField.setBorder(null);
-        addressField.setBounds(this.getX(fieldWidth, 0.55), 305, fieldWidth, fieldHeight);
-        add(addressField);
-
-        mgButton = new JButton("Manage");
-        mgButton.setBounds(this.getX(100, 0.5), 360, 100, 30);
+        birthdayField = this.getTextField("October 5 2026", 8);
+        birthdayField.setBackground(palette.getNeutral());
+        birthdayField.setFont(label.getCaption());
+        this.setComponent(birthdayField, false, new Dimension(500, 30), 0.55, 0.57);
         
+        accAddress = new JLabel("Address:");
+        accAddress.setFont(label.getBody());
+        this.setComponent(accAddress, getSize(accAddress, 200), 0.2, 0.67);
+
+        addressArea = this.getTextArea("Unit 5B, Sampaguita Residences\n" +
+                "1234 Mabini Street, Barangay San Isidro\n" +
+                "Santa Rosa City, Laguna 4026\n" +
+                "Philippines", 8);
+        addressArea.setEditable(false);
+        addressArea.setBackground(palette.getNeutral());
+        addressArea.setFont(label.getCaption());
+
+        JScrollPane addressScrollPane = new JScrollPane(addressArea);
+        addressScrollPane.setBorder(null);
+        addressScrollPane.setBackground(palette.getSecondary());
+        addressScrollPane.setViewportView(addressArea);
+        addressScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        addressScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.setComponent(addressScrollPane, new Dimension(500, 60), 0.55, 0.705);
+
+        mgButton = this.getButton("Manage", 8);
         mgButton.setBackground(palette.getSecondary());
         mgButton.setForeground(palette.getTextLight());
-        
+        mgButton.setFont(label.getBody());
+        this.setComponent(mgButton, getSize(mgButton, 150), 0.5, 0.82);
         mgButton.addMouseListener(this.getMouseEvent(mgButton));
-      
-        add(windowTitle);
-        add(accID);
-        add(accType);
-        add(accCredentials);
-        add(accAddress);
-        add(mgButton);
+        mgButton.addActionListener(this.getManageSignal().getActionEvent());
+    }
+    
+    private Signal getManageSignal(){
+        Signal signal = new Signal(){
+            @Override
+            public void sendSignal(){
+                toggleEdit = !toggleEdit;
+                if(toggleEdit){
+                    mgButton.setText("Done?");
+                } else{
+                    mgButton.setText("Manage");
+                }
+
+                idField.setEditable(toggleEdit);
+                typeField.setEditable(toggleEdit);
+                phoneField.setEditable(toggleEdit);
+                birthdayField.setEditable(toggleEdit);
+                addressArea.setEditable(toggleEdit);
+            }
+        };
+        return signal;
     }
 }

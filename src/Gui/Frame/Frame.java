@@ -1,12 +1,10 @@
 package Gui.Frame;
 
 import Gui.Panel.Panel;
-import Tool.Gui.Label;
-import Tool.Gui.Palette;
-import Tool.Gui.Signal;
+import Gui.Misc.Tool.Label;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 public abstract class Frame extends JFrame{
@@ -24,7 +22,8 @@ public abstract class Frame extends JFrame{
         
         this.setLayout(null);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
     
     public void setPanel(Panel panel){

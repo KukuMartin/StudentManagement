@@ -105,8 +105,8 @@ public class AttendanceEdit extends Pane{
         
         
 
-        setComponent(addcBtn, new Dimension(90, 20), new Point(40, 390));
-        setComponent(delcBtn, new Dimension(90, 20), new Point(140, 390));
+        setComponent(addcBtn, new Dimension(110, 20), new Point(40, 390));
+        setComponent(delcBtn, new Dimension(120, 20), new Point(170, 390));
 
         // hoverr n click
         addcBtn.addMouseListener(getMouseEvent(addcBtn));

@@ -8,16 +8,10 @@ import Gui.Pane.Pane;
 import Gui.Panel.AccountPanel;
 import Gui.Panel.Panel;
 import Gui.Panel.Panel.Layer;
-import Tool.Gui.Label;
-import Tool.Gui.Palette;
-import Tool.Gui.Signal;
-import java.awt.Color;
+import Gui.Misc.Tool.Label;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 
 public class TestFrame extends Frame{
     private final boolean showNavBar = true;
@@ -28,7 +22,7 @@ public class TestFrame extends Frame{
     }
     
     private void setUp(Dimension size, Palette palette, Label label){
-        Panel panel = new Panel(this, size, palette, label);
+        Panel panel = new Panel(this);
         
         if(showNavBar){
             Signal signal = new Signal(){
@@ -36,7 +30,7 @@ public class TestFrame extends Frame{
                 public void sendSignal() {
                 }
             };
-            NavBar navbar = new NavBar(size, palette, label, signal);
+            NavBar navbar = new NavBar(size, palette, label);
             panel.setPane(navbar, Layer.TOP);
         }
         

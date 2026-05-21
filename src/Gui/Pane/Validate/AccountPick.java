@@ -1,73 +1,59 @@
-    package Gui.Pane.Validate;
+package Gui.Pane.Validate;
 
-    import Gui.Pane.Pane;
-    import Tool.Gui.Palette;
-    import Tool.Gui.Signal;
-import java.awt.BasicStroke;
-    import java.awt.Color;
-    import java.awt.Dimension;
-    import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-    import java.awt.event.ActionEvent;
-    import java.awt.event.ActionListener;
-    import javax.swing.JButton;
+import Gui.Misc.Tool.Label;
+import Gui.Pane.Pane;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
-    public class AccountPick extends Pane{
-        private Palette palette;
-        private Signal advisorSignal, teacherSignal; 
-
-        public AccountPick(Dimension frame, Palette palette, Signal advisorSignal, Signal teacherSignal) {
-            super(frame, palette, label);
-            this.palette = palette;
-            setBackground(this.palette.getNeutral());
-
-            JButton advisorBtn, teacherBtn;
-
-            JLabel title = new JLabel("STUDENT SYSTEM", SwingConstants.CENTER);
-            int width = 800;
-            title.setBounds(getX(width, 0.5), 40, 800, 40);
-            title.setFont(new Font("SansSerif", Font.BOLD, 50));
-            title.setForeground(palette.getPrimary());
-            add(title);
-            
-            width = 300;
-            advisorBtn = new JButton("ADVISOR");
-            advisorBtn.setBounds(getX(width, 0.5), 150, 300, 60);
-            styleButton(advisorBtn);
-            advisorBtn.addActionListener(this.getActionEvent(advisorSignal));
-            advisorBtn.addMouseListener(this.getMouse(advisorBtn));
-            this.setButton(advisorBtn);
-
-            teacherBtn = new JButton("TEACHER");
-            teacherBtn.setBounds(getX(width, 0.5), 250, 300, 60);
-            styleButton(teacherBtn);
-            teacherBtn.addActionListener(this.getAction(teacherSignal));
-            teacherBtn.addMouseListener(this.getMouse(teacherBtn));
-            this.setButton(teacherBtn);
-        }
-
-        private void styleButton(JButton btn) {
-            btn.setBackground(palette.getSecondary());
-            btn.setForeground(palette.getTextLight());
-            btn.setFont(new Font("SansSerif", Font.BOLD, 18));
-            btn.setFocusPainted(false);
-            btn.setBorderPainted(false);
-            btn.setOpaque(true);
-        }     
+public class AccountPick extends Pane{
+    public AccountPick(Dimension frame, Palette palette, Label label, Signal advisorSignal, Signal teacherSignal) {
+        super(frame, palette, label);
         
-    @Override
-    protected void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D)g;
-        int width = 500;
-        int height = 280;
-        int arch = 20;
+        this.setBackground(palette.getBackground());
+        this.setSize(frame);
         
-        g2d.setColor(palette.getPrimary());
-        g2d.setStroke(new BasicStroke(10));
-        g2d.drawRoundRect(this.getX(width, 0.5), this.getY(height, 0.5), width, height, arch, arch);
+        this.createTitle(.5f, .35f);
+        
+        JLabel subtitle = new JLabel("Student Management System");
+        subtitle.setFont(label.getHeading());
+        this.setComponent(subtitle, getSize(subtitle, 600), .5, .5);
+        
+        JLabel selection = new JLabel("Select your SMS version");
+        selection.setFont(new Font("SansSerif", Font.PLAIN,15));
+        this.setComponent(selection, getSize(selection, 180), .5, .75);
+              
+        JButton teacher = this.getButton("I'm a Teacher", 10);
+        teacher.setBackground(palette.getAccent());
+        teacher.setForeground(palette.getTextLight());
+        teacher.setFont(label.getBody());
+        this.setComponent(teacher, getSize(teacher, 150), .4, .84);
+        teacher.addActionListener(teacherSignal.getActionEvent());
+        teacher.addMouseListener(this.getMouseEvent(teacher));
+        
+        JButton advisor = this.getButton("I'm an Advisor", 10);
+        advisor.setBackground(palette.getAccent());
+        advisor.setForeground(palette.getTextLight());
+        advisor.setFont(label.getBody());
+        this.setComponent(advisor, getSize(advisor, 150), .6, .84);
+        advisor.addActionListener(advisorSignal.getActionEvent());
+        advisor.addMouseListener(this.getMouseEvent(advisor));
+    }
+    
+    private void createTitle(float xPercent, float yPercentS){
+        Dimension size;
+        Color textDark = palette.getTextDark();
+        Color accent = palette.getAccent();
+        JLabel title = new JLabel("<html>" + 
+                "<span style='color:rgb(" + textDark.getRed() + ", " + textDark.getGreen() + ", " + textDark.getBlue() + ");'>SM</span>" + 
+                "<span style='color:rgb(" + accent.getRed() + ", " + accent.getGreen() + ", " + accent.getBlue() + ");'>S</span>" + 
+                "</html>");
+        title.setFont(label.getTitle());
+        size = title.getPreferredSize();
+        this.setComponent(title, getSize(title, size.width + 10), xPercent, yPercentS);
     }
 }
