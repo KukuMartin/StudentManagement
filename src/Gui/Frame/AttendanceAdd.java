@@ -18,7 +18,7 @@ public class AttendanceAdd extends Frame {
     private JButton btnSubmit;
 
     public AttendanceAdd(String title, Dimension size, Palette palette, Label label) {
-        super(title, size, palette, label);
+        super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
         lblTitle = new JLabel("ATTENDANCE RECORD");
         lblTitle.setBounds(120, 10, 200, 25);
         add(lblTitle);

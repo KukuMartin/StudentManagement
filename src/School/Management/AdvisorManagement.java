@@ -20,7 +20,6 @@ public class AdvisorManagement {
     public Advisor searchAdvisor(int index){
         
     }
-    }
     
     //subjects management because a teacher cant remove a class it should be an admin right?
     public SectionSystem searchSection(String username){

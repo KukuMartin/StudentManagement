@@ -12,7 +12,7 @@ public abstract class Frame extends JFrame{
     private final Palette palette;
     private final Label label;
     
-    public Frame(String title, Dimension size, Palette palette, Label label){
+    public Frame(String title, Dimension size, Palette palette, Label label, int operation){
         this.size = size;
         this.palette = palette;
         this.label = label;
@@ -22,7 +22,7 @@ public abstract class Frame extends JFrame{
         
         this.setLayout(null);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(operation);
         setLocationRelativeTo(null);
     }
     

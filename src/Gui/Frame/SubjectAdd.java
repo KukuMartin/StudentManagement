@@ -15,7 +15,7 @@ public class SubjectAdd extends Frame {
     private JButton btnSubmit;
 
     public SubjectAdd(String title, Dimension size, Palette palette, Label label) {
-        super(title, size, palette, label);
+        super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
 
         lblTitle = new JLabel("ADD ASSESSMENT");
         lblTitle.setBounds(130, 10, 200, 25);

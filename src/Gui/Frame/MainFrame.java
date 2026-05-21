@@ -10,11 +10,12 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+import javax.swing.JFrame;
 
 public class MainFrame extends Frame{
     
     public MainFrame(String title, Dimension size, Palette palette, Label label){
-        super(title, size, palette, label);
+        super(title, size, palette, label, JFrame.EXIT_ON_CLOSE);
         
         Panel panel = new AccountPanel(this);
         this.setPanel(panel);
