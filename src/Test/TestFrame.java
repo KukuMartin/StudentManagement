@@ -2,7 +2,7 @@ package Test;
 
 import Gui.Frame.Frame;
 import Gui.Frame.MainFrame;
-import Gui.Pane.Account.AccountView;
+import Gui.Pane.Account.SubjectsEdit;
 import Gui.Pane.NavBar;
 import Gui.Pane.Pane;
 import Gui.Panel.AccountPanel;
@@ -40,7 +40,7 @@ public class TestFrame extends Frame{
             panel.setPane(navbar, Layer.TOP);
         }
         
-        Pane pane = new AccountView(size, palette, label);
+        Pane pane = new SubjectsEdit(size, palette, label);
         panel.setPane(pane, Layer.MIDDLE);
         
         this.setPanel(panel);
