@@ -1,14 +1,10 @@
 package Gui.Panel;
 
-import Gui.Frame.MainFrame;
+import Gui.Frame.Frame;
 import Gui.Pane.Account.AccountView;
 import Gui.Pane.Account.SectionEdit;
 import Gui.Pane.NavBar;
-import Tool.Gui.Palette;
-import Tool.Gui.Signal;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Gui.Misc.Tool.Signal;
 import javax.swing.JButton;
 
 public class AdvisorPanel extends Panel{
@@ -17,61 +13,68 @@ public class AdvisorPanel extends Panel{
     private SectionEdit section;
     boolean activeAccount = true;
     
-    public AdvisorPanel(MainFrame frame, Dimension size, Palette palette, Signal exit) {
-        super(frame, size, palette);
+    public AdvisorPanel(Frame frame, Signal signOut) {
+        super(frame);
         
-        navbar = new NavBar(size, palette, exit);
-        account = new AccountView(size, palette);
-        section = new SectionEdit(size, palette);
+        navbar = new NavBar(size, palette, label);
+        navbar.addSignOut(signOut);
         
-        navbar.addButton(this.getAccoutButton(), this.getAccountAction());
-        navbar.addButton(this.getSectionButton(), this.getSectionAction());
+        account = new AccountView(size, palette, label);
+        section = new SectionEdit(size, palette, label);
+        
+        navbar.addButton(this.getAccoutButton(), this.getAccountSignal());
+        navbar.addButton(this.getSectionButton(), this.getSectionSignal());
         
         this.setBackground(palette.getNeutral());
-        this.setMiddle(null, account);
-        this.setNavBar(navbar);
+        this.setPane(account, Layer.MIDDLE);
+        this.setPane(navbar, Layer.TOP);
     }
     
     private JButton getAccoutButton(){
-        JButton button = new JButton("Account");
-        button.setBackground(palette.getSecondary());
-        button.setForeground(palette.getTextDark());
+        JButton button = account.getButton("Account", 8);
+        button.setBackground(palette.getPrimary());
+        button.setForeground(palette.getTextLight());
         
-        button.addMouseListener(navbar.getMouse(button));
+        button.setFont(label.getBody());
+        
+        button.addMouseListener(navbar.getMouseEvent(button));
         return button;
     }
     
-    private ActionListener getAccountAction(){
-        ActionListener event = new ActionListener(){
+    private Signal getAccountSignal(){
+        Signal signal = new Signal(){
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if(!activeAccount){
-                    AdvisorPanel.this.setMiddle(section, account);
-                    activeAccount = true;
-                }            }
+            public void sendSignal() {
+                if(activeAccount){
+                    AdvisorPanel.this.setPane(section, Layer.MIDDLE);
+                    activeAccount = false;
+                }  
+            }
         };
-        return event;
+        return signal;
     }
     
     private JButton getSectionButton(){
-        JButton button = new JButton("Section");
-        button.setBackground(palette.getSecondary());
-        button.setForeground(palette.getTextDark());
+        JButton button = account.getButton("Section", 8);
         
-        button.addMouseListener(navbar.getMouse(button));
+        button.setBackground(palette.getPrimary());
+        button.setForeground(palette.getTextLight());
+        
+        button.setFont(label.getBody());
+        
+        button.addMouseListener(navbar.getMouseEvent(button));
         return button;
     }
     
-    private ActionListener getSectionAction(){
-        ActionListener event = new ActionListener(){
+    private Signal getSectionSignal(){
+        Signal signal = new Signal(){
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void sendSignal() {
                 if(activeAccount){
-                    AdvisorPanel.this.setMiddle(account, section);
+                    AdvisorPanel.this.setPane(section, Layer.MIDDLE);
                     activeAccount = false;
-                }
-            }
+                }           }
         };
-        return event;
+        return signal;
     }
 }
