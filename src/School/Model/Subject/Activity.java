@@ -1,25 +1,25 @@
 package School.Model.Subject;
 
-import Tool.IntHolder;
-import Tool.StringHolder;
+import School.Model.Subject.Record.Name;
+import School.Model.Subject.Record.Score;
 
 public class Activity {
-    private StringHolder name;
-    private IntHolder totalScore;
+    private Name name;
+    private Score totalScore;
     private int currentScore;
 
-    public Activity(StringHolder name, IntHolder totalScore) {
+    public Activity(Name name, Score totalScore) {
         this.name = name;
         this.totalScore = totalScore;
         this.currentScore = 0;
     }
 
     public String getName() {
-        return name.getString();
+        return name.getName();
     }
 
     public int getTotalScore() {
-        return totalScore.getInt();
+        return totalScore.getScore();
     }
 
     public int getCurrentScore() {

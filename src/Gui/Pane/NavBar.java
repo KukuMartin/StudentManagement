@@ -1,25 +1,20 @@
 package Gui.Pane;
 
-import Tool.Gui.Label;
-import Tool.Gui.Palette;
-import Tool.Gui.Signal;
-import java.awt.Color;
+import Gui.Misc.Tool.Label;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class NavBar extends Pane{
     final private List<JButton> buttons = new ArrayList<>();
-    final private Dimension frame = new Dimension();
+    final private Dimension size = new Dimension();
     
     final static private double heightPercent = 0.1;
     
@@ -31,20 +26,16 @@ public class NavBar extends Pane{
     final private int buttonWidth = 100;
     final private int buttonHeight;
     
-    public NavBar(Dimension frame, Palette palette, Label label, Signal exit){
+    public NavBar(Dimension frame, Palette palette, Label label){
         super(frame, palette, label);
         
-        this.frame.width = frame.width - xPadding;
-        this.frame.height = (int)(heightPercent * frame.height);
+        this.size.width = frame.width - xPadding;
+        this.size.height = (int)(heightPercent * frame.height);
         
-        buttonHeight = this.frame.height - (yPadding);
+        buttonHeight = this.size.height;
         
-        this.setBackground(this.palette.getPrimary());
-        this.setSize(this.frame.width, this.frame.height);
-        this.setLayout(null);
-        
-        
-        this.addExit(exit);
+        this.setBackground(this.palette.getSecondary());
+        this.setSize(this.size.width, this.size.height);
     }
     
     //java documentation testing
@@ -53,22 +44,8 @@ public class NavBar extends Pane{
      * @param button the button gonna be used
      * @param actionEvent what happens when clicked
      */
-    private void createButton(JButton button, Signal signal){
-        JPanel newButton = new JPanel(){
-            @Override
-            protected void paintComponent(Graphics g){
-                super.paintComponent(g);
-            }
-        };
-        
-        button.setBackground(palette.getSecondary());
-        button.setForeground(palette.getTextLight());
-        
-        button.addActionListener(signal.getActionEvent());
-        button.addMouseListener(this.getMouseEvent(button));
-    }
     
-    public void addButton(JButton button, ActionListener actionEvent){
+    public void addButton(JButton button, Signal signal){
         int index = buttons.size();
         int x, y, padding;
         
@@ -76,23 +53,26 @@ public class NavBar extends Pane{
         x = xPadding + ((space + buttonWidth) * index);
         y = yPadding;
         
+        button.addActionListener(signal.getActionEvent());
+        button.addMouseListener(this.getMouseEvent(button));
+        
         this.setComponent(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
         buttons.add(button);
     }
     
-    private void addExit(Signal signal){
+    public void addSignOut(Signal signOut){
         int x, y;
-        JButton button = new JButton("Exit"); //TODO: turn into imageIcon
+        JButton button = this.getButton("< Exit", 8); //TODO: turn into imageIcon
         
         button.setBackground(palette.getAccent());
         button.setForeground(palette.getTextLight());
         
-        button.addActionListener(signal.getActionEvent());
+        button.setFont(label.getBody());
+        
+        button.addActionListener(signOut.getActionEvent());
         button.addMouseListener(this.getMouseEvent(button));
         
-        x = frame.width - buttonWidth - xPadding;
-        System.out.println(x);
-        System.out.println(this.getWidth());
+        x = frame.width - buttonWidth - 22;
         y = yPadding;
         
         this.setComponent(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));

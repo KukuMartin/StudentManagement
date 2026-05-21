@@ -1,4 +1,4 @@
-package Tool.Gui;
+package Gui.Misc.Tool;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

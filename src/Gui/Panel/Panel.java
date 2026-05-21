@@ -3,9 +3,10 @@ package Gui.Panel;
 import Gui.Frame.Frame;
 import Gui.Frame.MainFrame;
 import Gui.Pane.Pane;
-import Tool.Gui.Label;
-import Tool.Gui.Palette;
-import Tool.Gui.Signal;
+import Gui.Misc.Tool.Label;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -14,9 +15,9 @@ import javax.swing.JLayeredPane;
 
 public class Panel extends JLayeredPane{
     public enum Layer{
-        BOTTOM(1),
-        MIDDLE(2),
-        TOP(3);
+        BOTTOM(10),
+        MIDDLE(20),
+        TOP(30);
         
         private final Integer number;
         
@@ -34,11 +35,11 @@ public class Panel extends JLayeredPane{
     protected final Palette palette;
     protected final Label label;
     
-    public Panel(Frame frame, Dimension size, Palette palette, Label label){
+    public Panel(Frame frame){
         this.frame = frame;
-        this.size = size;
-        this.palette = palette;
-        this.label = label;
+        this.size = frame.getDimension();
+        this.palette = frame.getPalette();
+        this.label = frame.getLabel();
     }
     
     public void setPane(Pane pane, Layer layer){

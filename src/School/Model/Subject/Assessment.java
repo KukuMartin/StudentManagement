@@ -1,16 +1,16 @@
 package School.Model.Subject;
 
-import Tool.DoubleHolder;
-import Tool.StringHolder;
+import School.Model.Subject.Record.Name;
+import School.Model.Subject.Record.Percentage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Assessment {
     private List<Activity> activities;
-    private StringHolder name;
-    private DoubleHolder percent;
+    private Name name;
+    private Percentage percent;
 
-    public Assessment(List<Activity> activities, StringHolder name, DoubleHolder percent) {
+    public Assessment(List<Activity> activities, Name name, Percentage percent) {
         this.activities = activities;
         this.name = name;
         this.percent = percent;

@@ -1,9 +1,9 @@
-package Tool;
+package School.Model.Subject.Record;
 
-public class DoubleHolder {
+public class Percentage {
     private double decimal;
     
-    public DoubleHolder(int decimal){
+    public Percentage(int decimal){
         this.decimal = decimal;
     }
     

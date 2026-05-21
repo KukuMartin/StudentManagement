@@ -1,4 +1,4 @@
-package Tool.Gui;
+package Gui.Misc.Tool;
 
 import java.awt.Color;
 
@@ -6,16 +6,18 @@ public class Palette {
     final private Color primary;
     final private Color secondary;
     final private Color accent;
+    final private Color light;
     final private Color neutral;
     final private Color background;
     
     final private Color textLight;
     final private Color textDark;
 
-    public Palette(Color primary, Color secondary, Color accent, Color neutral, Color textLight, Color textDark, Color background) {
+    public Palette(Color primary, Color secondary, Color accent, Color light, Color neutral, Color background, Color textLight, Color textDark) {
         this.primary = primary;
         this.secondary = secondary;
         this.accent = accent;
+        this.light = light;
         this.neutral = neutral;
         this.background = background;
         
@@ -33,6 +35,10 @@ public class Palette {
 
     public Color getAccent() {
         return accent;
+    }
+    
+    public Color getLight() {
+        return light;
     }
 
     public Color getNeutral() {
@@ -52,12 +58,12 @@ public class Palette {
     
     public static Color darken(Color color, float intensity){
         float hueIncrease = .1f * intensity;
-        float satIncrease = .6f * intensity;
-        float valDecrease = .9f * intensity;
+        float satIncrease = .1f * intensity;
+        float valDecrease = .6f * intensity;
         float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
         
         float hue = Math.min(1f, hsb[0] + hueIncrease);
-        float saturation = Math.min(1.0f, hsb[1] + satIncrease);
+        float saturation = Math.max(0f, hsb[1] - satIncrease);
         float value = Math.max(0f, hsb[2] - valDecrease);
         
         return (new Color(Color.HSBtoRGB(hue, saturation, value)));
