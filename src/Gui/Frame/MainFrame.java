@@ -22,7 +22,7 @@ public class MainFrame extends Frame{
     }
     
     public static void main(String[] args){
-        String title = "Testing Pane";
+        String title = "Student Record System";
         
         Dimension size = MainFrame.createSize();
         Palette palette = MainFrame.createPalette();

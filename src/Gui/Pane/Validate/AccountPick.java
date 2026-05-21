@@ -19,11 +19,11 @@ public class AccountPick extends Pane{
         
         this.createTitle(.5f, .35f);
         
-        JLabel subtitle = new JLabel("Student Management System");
+        JLabel subtitle = new JLabel("Student Record System");
         subtitle.setFont(label.getHeading());
-        this.setComponent(subtitle, getSize(subtitle, 600), .5, .5);
+        this.setComponent(subtitle, getSize(subtitle, 450), .5, .5);
         
-        JLabel selection = new JLabel("Select your SMS version");
+        JLabel selection = new JLabel("Select your SRS version");
         selection.setFont(new Font("SansSerif", Font.PLAIN,15));
         this.setComponent(selection, getSize(selection, 180), .5, .75);
               
@@ -49,7 +49,7 @@ public class AccountPick extends Pane{
         Color textDark = palette.getTextDark();
         Color accent = palette.getAccent();
         JLabel title = new JLabel("<html>" + 
-                "<span style='color:rgb(" + textDark.getRed() + ", " + textDark.getGreen() + ", " + textDark.getBlue() + ");'>SM</span>" + 
+                "<span style='color:rgb(" + textDark.getRed() + ", " + textDark.getGreen() + ", " + textDark.getBlue() + ");'>SR</span>" + 
                 "<span style='color:rgb(" + accent.getRed() + ", " + accent.getGreen() + ", " + accent.getBlue() + ");'>S</span>" + 
                 "</html>");
         title.setFont(label.getTitle());
