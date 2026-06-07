@@ -1,6 +1,6 @@
 package Gui.Pane.Account;
 
-import Gui.Frame.AttendanceAdd;
+import Gui.Frame.DayAdd;
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
 import Gui.Misc.Tool.Signal;
@@ -143,7 +143,7 @@ public class AttendanceEdit extends Pane{
         Signal signal = new Signal(){
             @Override
             public void sendSignal(){
-                new AttendanceAdd("Add an activity", new Dimension(380, 320), palette, label);
+                new DayAdd("Add an activity", new Dimension(380, 320), palette, label);
             }
         };
         return signal;

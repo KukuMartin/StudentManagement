@@ -1,6 +1,6 @@
 package Gui.Pane.Account;
 
-import Gui.Frame.SubjectAdd;
+import Gui.Frame.Subject.ActivityAdd;
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
 import Gui.Misc.Tool.Signal;
@@ -145,7 +145,7 @@ public class SubjectsEdit extends Pane{
         Signal signal = new Signal(){
             @Override
             public void sendSignal(){
-                new SubjectAdd("Add an activity", new Dimension(380, 320), palette, label);
+                new ActivityAdd("Add an activity", new Dimension(380, 320), palette, label);
             }
         };
         return signal;

@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 
 import java.util.Date;
 
-public class AttendanceAdd extends Frame {
+public class DayAdd extends Frame {
 
     private JLabel lblTitle, lblName, lblDate;
     private JTextField txtName;
     private JSpinner dateSpinner;
     private JButton btnSubmit;
 
-    public AttendanceAdd(String title, Dimension size, Palette palette, Label label) {
+    public DayAdd(String title, Dimension size, Palette palette, Label label) {
         super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
         lblTitle = new JLabel("ATTENDANCE RECORD");
         lblTitle.setBounds(120, 10, 200, 25);

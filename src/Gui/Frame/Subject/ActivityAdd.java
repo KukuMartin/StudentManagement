@@ -1,5 +1,6 @@
-package Gui.Frame;
+package Gui.Frame.Subject;
 
+import Gui.Frame.Frame;
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
 import java.awt.Dimension;
@@ -7,14 +8,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SubjectAdd extends Frame {
+public class ActivityAdd extends Frame {
 
     private JLabel lblTitle, lblType, lblName, lblScore;
     private JComboBox<String> cboType;
     private JTextField txtName, txtScore;
     private JButton btnSubmit;
 
-    public SubjectAdd(String title, Dimension size, Palette palette, Label label) {
+    public ActivityAdd(String title, Dimension size, Palette palette, Label label) {
         super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
 
         lblTitle = new JLabel("ADD ASSESSMENT");
