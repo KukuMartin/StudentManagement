@@ -3,11 +3,103 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Gui.Frame;
-
+import Gui.Misc.Tool.Label;
+import Gui.Misc.Tool.Palette;
+import Gui.Misc.Tool.Signal;
+import Gui.Pane.NavBar;
+import Gui.Pane.Pane;
+import Gui.Panel.Panel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 /**
  *
  * @author Netmanet
  */
-public class SectionAdd {
-    
+public class SectionAdd extends Frame{
+
+    public SectionAdd(String title, Dimension size, Palette palette, Label label) {
+        super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
+
+        Panel panel = new Panel(this);
+
+        // ── NavBar ────────────────────────────────────────────────────────
+        int navH = (int)(NavBar.getHeightPercent() * size.height);
+
+        NavBar navBar = new NavBar(getDimension(), getPalette(), getLabel());
+        navBar.setLocation(0, 0);
+        navBar.addSignOut(new Signal() {
+            @Override
+            public void sendSignal() {
+                SectionAdd.this.dispose();
+            }
+        });
+        panel.setPane(navBar, Panel.Layer.TOP);
+        Pane content = new Pane(getDimension(), getPalette(), getLabel()) {
+            {
+                setBackground(palette.getBackground());
+                setLocation(0, navH);
+                setSize(size.width, size.height - navH);
+
+               
+                JLabel lblTitle = new JLabel("Add New Section");
+                lblTitle.setFont(label.getHeading());
+                lblTitle.setForeground(palette.getTextDark());
+                setComponent(lblTitle, new Dimension(400, 100), new Point(230, 30));
+
+               
+                JLabel lblName = new JLabel("Section Name");
+                lblName.setFont(label.getSubHeading());
+                lblName.setForeground(palette.getTextDark());
+                setComponent(lblName, new Dimension(180, 40), new Point(70, 140));
+                
+                
+                JTextField txtSectionName = getTextField(8);
+                txtSectionName.setBackground(palette.getNeutral());
+                txtSectionName.setForeground(palette.getTextDark());
+                setComponent(txtSectionName, true, new Dimension(550, 45), new Point(250, 140));
+
+                
+                JLabel lblCode = new JLabel("Section Code");
+                lblCode.setFont(label.getSubHeading());
+                lblCode.setForeground(palette.getTextDark());
+                setComponent(lblCode, new Dimension(180, 40), new Point(70, 210));
+
+                
+                JTextField txtSectionCode = getTextField(8);
+                txtSectionCode.setBackground(palette.getNeutral());
+                txtSectionCode.setForeground(palette.getTextDark());
+                setComponent(txtSectionCode, true, new Dimension(550, 45), new Point(250, 210));
+
+                
+                JButton btnAdd = getButton("Add Section", 30);
+                btnAdd.setBackground(new Color(80, 200, 40));
+                btnAdd.setForeground(palette.getTextLight());
+                btnAdd.setFont(label.getSubHeading());
+                btnAdd.addMouseListener(getMouseEvent(btnAdd));
+                btnAdd.addActionListener(e -> {
+                    System.out.println(txtSectionName.getText());
+                    System.out.println(txtSectionCode.getText());
+                });
+                setComponent(btnAdd, new Dimension(200, 50), new Point(325, 330));
+            }
+        };
+
+        panel.setPane(content, Panel.Layer.BOTTOM);
+        this.setPanel(panel);
+    }
+//  to run
+//    public static void main(String[] args) {
+//        String title    = "Add New Section";
+//        Dimension size  = MainFrame.createSize();
+//        Palette palette = MainFrame.createPalette();
+//        Label label     = MainFrame.createLabel();
+//
+//        SectionAdd frame = new SectionAdd(title, size, palette, label);
+//        frame.setVisible(true);
+//    }
 }
