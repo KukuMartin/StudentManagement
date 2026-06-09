@@ -3,32 +3,78 @@ package School.Model.Account;
 import java.time.LocalDate;
 import java.util.UUID;
 
-
-
-public abstract class Account{
-    protected enum Type {
-        ADVISOR,
-        TEACHER;
-    }
+public abstract class Account {
+    private int id;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     
-    String tableName;
-    private UUID accountId;//TODO: maybe change it later
-    private Type type;
+    private String gender;
+    private LocalDate birthDate;
+    private String phoneNumber;
+    private String address;
 
-    public Account(UUID accountId, Type type) {
-        this.accountId = accountId;
-        this.type = type;
+    public Account(int id) {
+        this.id = id;
     }
 
-    public UUID getAccountId() {
-        return accountId;
+    public int getId() {
+        return id;
     }
 
-    public Credential getCredential() {
-        return null;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Type getType() {
-        return type;
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -1,6 +1,7 @@
 package School.Model.Attendance;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,13 +24,18 @@ public class Attendance {
         }
     }
     
-    private UUID attendanceId;
-    private UUID subjectId;
-    private List<Day> attendance;
-    private int[] stateCount = new int[State.values().length];
+    private int id;
+    private int subjectId;
+    private Period period;
     
-    public Attendance(List<Day> attendance) {
-        this.attendance = attendance;
+    public Attendance(int id, int subjectId, Period period) {
+        this.id = id;
+        this.subjectId = subjectId;
+        this.period = period;
+    }
+    
+    public Day search(LocalDate date) {
+        return null;
     }
 
     public void add(Day day) {
@@ -38,30 +44,24 @@ public class Attendance {
     public void remove(Day day) {
     }
 
-    public Day search(LocalDate date) {
-        return null;
+    public int getId(){
+        return id;
     }
     
-    public UUID getAttendanceId(){
-        return null;
-        
+    public int getSubjectId(){
+        return subjectId;
     }
     
-    public UUID getSubjectId(){
-        return null;
-        
-    }
-    
-    public int getStateCount(Attendance.State type){
-        return 0;
-        
+    public Period getPeriod(){
+        return period;
     }
     
     public int getSize() {
         return 0;
     }
     
-    public int setStateCount(Attendance.State type, int value){
+    public int getStateSize(Attendance.State type){
         return 0;
+        
     }
 }

@@ -1,19 +1,18 @@
 package School.Model.Account.Type;
 
 import School.Model.Account.Account;
-import School.Model.Account.Credential;
 import School.System.Structure.StructureSystem;
 import java.util.List;
 import java.util.UUID;
 
-public class Teacher extends Account{
-    String username;
-    String password;
-    List<StructureSystem> subjects;
+public class Teacher{
+    private int id;
+    private String username;
+    private String password;
+    private int accountId;
     
-    public Teacher(String username, String password, UUID accountId, Credential credential) {
-        Account.Type type = Account.Type.TEACHER;
-        super(accountId, type);
+    public Teacher(String username, String password, UUID accountId) {
+        super(accountId);
         
         this.username = username;
         this.password = password;

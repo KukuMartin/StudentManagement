@@ -1,20 +1,18 @@
 package School.Model.Account.Type;
 
 import School.Model.Account.Account;
-import School.Model.Account.Credential;
 import School.System.Account.Type.SectionSystem;
 import School.System.Structure.StructureSystem;
 import java.util.List;
 import java.util.UUID;
 
-public class Advisor extends Account{
-    String username;
-    String password;
-    List<SectionSystem> advisory;
+public class Advisor{
+    private int id;
+    private String username;
+    private String password;
+    private int accountId;
     
-    public Advisor(String username, String password, UUID accountId, Credential credential) {
-        Account.Type type = Account.Type.ADVISOR;
-        super(accountId, type);
+    public Advisor(String username, String password, int accountId) {
         
         this.username = username;
         this.password = password;

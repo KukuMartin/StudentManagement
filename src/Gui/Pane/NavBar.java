@@ -28,7 +28,6 @@ public class NavBar extends Pane{
     
     public NavBar(Dimension frame, Palette palette, Label label){
         super(frame, palette, label);
-        
         this.size.width = frame.width - xPadding;
         this.size.height = (int)(heightPercent * frame.height);
         
@@ -36,6 +35,9 @@ public class NavBar extends Pane{
         
         this.setBackground(this.palette.getSecondary());
         this.setSize(this.size.width, this.size.height);
+        
+        
+        this.addMouseListener(this.getMouseEvent(this));
     }
     
     //java documentation testing

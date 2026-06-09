@@ -3,10 +3,9 @@ package School.Model.Account;
 import java.util.UUID;
 
 public class Address {
-    String tableName;
-    UUID accountId;
+    private int accountId;
     
-    public Address(UUID accountId){
+    public Address(int accountId){
     }
     
     public String getHouseNumber(){
@@ -33,10 +32,6 @@ public class Address {
         return null;
     }
     
-    public String getCountry(){
-        return null;
-    }
-    
     public void setHouseNumber(String houseNumber){
     } 
     
@@ -53,8 +48,5 @@ public class Address {
     }
     
     public void setZipCode(String zipCode){
-    }
-    
-    public void setCountry(String country){
     }
 }

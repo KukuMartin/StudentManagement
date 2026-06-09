@@ -1,39 +1,44 @@
 package School.Model.Subject;
 
-import School.Model.Subject.Record.Name;
-import School.Model.Subject.Record.Score;
-
 public class Activity {
-    private Name name;
-    private Score totalScore;
+    private int id;
+    private String name;
+    private int totalScore;
     private int currentScore;
 
-    public Activity(Name name, Score totalScore) {
+    public Activity(int id, String name, int totalScore) {
+        this.id = id;
         this.name = name;
         this.totalScore = totalScore;
         this.currentScore = 0;
     }
+    
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
-        return name.getName();
+        return name;
     }
 
     public int getTotalScore() {
-        return totalScore.getScore();
+        return totalScore;
     }
 
     public int getCurrentScore() {
         return currentScore;
     }
     
-    public double getGrade(){
-        return 0;
+    public double getPercent() {
+        return (double) currentScore / totalScore;
     }
 
     public void setName(String name) {
+        this.name = name;
     }
     
     public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
     
     public void setCurrentScore(int currentScore) {

@@ -129,7 +129,6 @@ public abstract class Pane extends JPanel{
             
             @Override
             public void mouseExited(MouseEvent e){
-                this.updateComponent();
                 entered = false;
                 
                 for(int index = 0; index < comps.size(); index++){

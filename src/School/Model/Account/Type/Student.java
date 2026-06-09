@@ -1,61 +1,57 @@
 package School.Model.Account.Type;
 
-import School.Model.Account.Account;
-import School.Model.Account.Credential;
-import java.time.LocalDate;
+import School.Model.Subject.Subject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.security.auth.Subject;
 
-public class Student extends Account{
-    private UUID sectionId;
+public class Student {
+
+    private int id;
     private String studentId;
-    private List<Subject> subjects = new ArrayList<>();
-    
-    
-    private static int year = LocalDate.now().getYear();
-    private static int index = 1;
-    private static String city = "BN-0";
-    
-    public Student(UUID accountId, Credential credential, Type type) {
-        super(accountId, type);
-        String serial = "0".repeat(6 - String.valueOf(index).length());
-        studentId = year + serial + index + city;
+    private String course;
+    private int sectionId;
+
+    private List<Subject> subjects;
+
+    public Student(int id, String studentId, String course, int sectionId) {
+        this.id = id;
+        this.studentId = studentId;
+        this.course = course;
+        this.sectionId = sectionId;
+        this.subjects = new ArrayList<>();
     }
-    
-    public Subject search(UUID subjectId){
+
+    public Subject search(int subjectId) {
+        for (Subject subject : subjects) {
+            if (subject.getId() == subjectId) {
+                return subject;
+            }
+        }
         return null;
-        
     }
-    
-    public Subject search(int index){
-        return null;
-        
+
+    public void add(Subject subject) {
+        subjects.add(subject);
     }
-    
-    public void add(Subject subject){
+
+    public void add(Subject subject, int index) {
+        subjects.add(index, subject);
     }
-    
-    public void add(Subject subject, int index){
+
+    public void remove(Subject subject) {
+        subjects.remove(subject);
     }
-    
-    public void remove(Subject subject){
+
+    public void remove(int index) {
+        subjects.remove(index);
     }
-    
-    public void remove(int index){
+
+    public int getSectionId() {
+        return sectionId;
     }
-    
-    public UUID getSectionId(){
-        return null;
-        
-    }
-    
-    public String getStudentId(){
-        return null;
-        
-    }
-    
-    public void getStudentId(Student studentId){
+
+    public String getStudentId() {
+        return studentId;
     }
 }
