@@ -1,7 +1,7 @@
 package School.Model.Account;
 
 public class Address {
-    private int id;
+    private int accountId;
 
     private String houseNumber;
     private String street;
@@ -10,13 +10,12 @@ public class Address {
     private String province;
     private String zipCode;
     
-    private int accountId;
 
-    public Address(int id, String houseNumber,
+    public Address(int accountId, String houseNumber,
                String street, String barangay, String city,
-               String province, String zipCode, int accountId) {
+               String province, String zipCode) {
 
-        this.id = id;
+        this.accountId = accountId;
         
         this.houseNumber = houseNumber;
         this.street = street;
@@ -28,18 +27,20 @@ public class Address {
         this.accountId = accountId;
     }
 
+    public int getAccountId() { return accountId; }
     public String getHouseNumber() { return houseNumber; }
     public String getStreet() { return street; }
     public String getBarangay() { return barangay; }
     public String getCity() { return city; }
     public String getProvince() { return province; }
     public String getZipCode() { return zipCode; }
-    public int getAccountId() { return accountId; }
-
-    public void setHouseNumber(String houseNumber) { this.houseNumber = houseNumber; }
-    public void setStreet(String street) { this.street = street; }
-    public void setBarangay(String barangay) { this.barangay = barangay; }
-    public void setCity(String city) { this.city = city; }
-    public void setProvince(String province) { this.province = province; }
-    public void setZipCode(String zipCode) { this.zipCode = zipCode; }
+    
+    public void update(Address address) {
+        this.houseNumber = address.getHouseNumber();
+        this.street = address.getStreet();
+        this.barangay = address.getBarangay();
+        this.city = address.getCity();
+        this.province = address.getProvince();
+        this.zipCode = address.getZipCode();
+    }
 }

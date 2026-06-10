@@ -12,10 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class DatabaseSystem { //TODO change this so it validates if theres already a school db and redo sql again if ever
+public class DatabaseSystem { 
     private String database = "schoolDB";
     private String connection = "jdbc:mysql://localhost:3306/";
     private Connection sql;
+    
+    private boolean freshDB = true; 
     
     public DatabaseSystem() {
         try{
@@ -43,10 +45,11 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
     public void createDatabase() {
         try {
             InputStream input = DatabaseSystem.class.getResourceAsStream("/School/Data/" + database + ".sql");
-            if(input == null){
+
+            if (input == null) {
                 input = new FileInputStream("src/School/Data/schoolDB.sql");
             }
-            
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             StringBuilder statement = new StringBuilder();
             String line = "";
@@ -65,7 +68,7 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
                     continue;
                 }
             }
-        } catch(IOException | NullPointerException e){ 
+        } catch(IOException e){ 
             e.printStackTrace(); 
         }
     }
@@ -79,7 +82,5 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
         } catch(SQLException e){ e.printStackTrace(); }
     }
     
-    public static void main(String[] args) throws SQLException {
-        DatabaseSystem db = new DatabaseSystem();
-    }
+    public Connection getConnection(){ return sql; }
 }

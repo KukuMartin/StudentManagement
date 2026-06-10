@@ -8,9 +8,9 @@ public class Section {
     private int id;
     private String name;
     private String code;
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students;
 
-    public Section(int id, String name, String code) {
+    public Section(int id, String name, String code, List<Student> students) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -45,5 +45,6 @@ public class Section {
     public int getId() { return id; }
     public String getName() { return name; }
     public String getCode() { return code; }
+    public List<Student> getStudent() { return students; }
     
 }

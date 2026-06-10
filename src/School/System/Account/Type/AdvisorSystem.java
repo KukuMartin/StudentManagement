@@ -1,6 +1,97 @@
 package School.System.Account.Type;
 
-//TODO: make sure it can only edit the data not add and delete
+import School.Management.Account.Type.AdvisorManagement;
+import School.Model.Account.Type.Advisor;
+import School.System.Account.AccountSystem;
+import School.System.Account.AddressSystem;
+import School.System.Account.SectionSystem;
+
+import java.sql.Connection;
+import java.util.List;
+
 public class AdvisorSystem {
-    
+
+    private AdvisorManagement management;
+    private SectionSystem sectionSystem;
+    private AddressSystem addressSystem;
+    private AccountSystem accountSystem;
+
+    public AdvisorSystem(Connection sql) {
+
+        this.accountSystem = new AccountSystem(sql);
+        this.sectionSystem = new SectionSystem(sql);
+        this.addressSystem = new AddressSystem(sql);
+
+        this.management = new AdvisorManagement(
+                sql,
+                sectionSystem,
+                addressSystem,
+                accountSystem
+        );
+    }
+
+    public boolean createAdvisor(Advisor advisor) {
+        if (isAdvisorInvalid(advisor)) {
+            return false;
+        }
+
+        management.add(advisor);
+        return true;
+    }
+
+    public boolean deleteAdvisor(int id) {
+        if (id <= 0) {
+            return false;
+        }
+
+        Advisor temp = new Advisor(id, null, null, 0, null, null, null, null, null, null, null, null);
+        int result = management.remove(temp);
+        return result > 0;
+    }
+
+    public boolean updateAdvisor(Advisor advisor) {
+        if (isAdvisorInvalid(advisor)) {
+            return false;
+        }
+
+        int result = management.update(advisor);
+        return result > 0;
+    }
+
+    public Advisor getAdvisor(String username) {
+        if (username == null) {
+            return null;
+        }
+
+        return management.search(username);
+    }
+
+    public List<Advisor> getAllAdvisors() {
+        return management.getAdvisors();
+    }
+
+    public SectionSystem getSectionSystem() {
+        return sectionSystem;
+    }
+
+    public AddressSystem getAddressSystem() {
+        return addressSystem;
+    }
+
+    private boolean isAdvisorInvalid(Advisor advisor) {
+        if (advisor == null) return true;
+
+        if (advisor.getId() <= 0) return true;
+        if (advisor.getAccountId() <= 0) return true;
+        if (advisor.getUsername() == null || advisor.getUsername().isBlank()) return true;
+        if (advisor.getPassword() == null || advisor.getPassword().isBlank()) return true;
+        if (advisor.getFirstName() == null || advisor.getFirstName().isBlank()) return true;
+        if (advisor.getMiddleName() == null || advisor.getMiddleName().isBlank()) return true;
+        if (advisor.getLastName() == null || advisor.getLastName().isBlank()) return true;
+        if (advisor.getGender() == null || advisor.getGender().isBlank()) return true;
+        if (advisor.getBirthDate() == null) return true;
+        if (advisor.getPhoneNumber() == null || advisor.getPhoneNumber().isBlank()) return true;
+
+        return false;
+    }
 }

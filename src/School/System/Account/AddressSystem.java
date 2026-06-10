@@ -1,60 +1,64 @@
 package School.System.Account;
 
+import School.Management.Account.AddressManagement;
 import School.Model.Account.Address;
 
+import java.sql.Connection;
+
 public class AddressSystem {
-    private Address address;
-    
-    public AddressSystem(Address address){
-        this.address = address;
+
+    private AddressManagement management;
+
+    public AddressSystem(Connection sql) {
+        management = new AddressManagement(sql);
     }
-    
-    public String getHouseNumber(){
-        return null;
-    } 
-    
-    public String getStreet(){
-        return null;
+
+    public boolean createAddress(Address address) {
+        if (isAddressInvalid(address)) {
+            return false;
+        }
+
+        management.add(address);
+        return true;
     }
-    
-    public String getBarangay(){
-        return null;
+
+    public boolean deleteAddress(int accountId) {
+        if (accountId <= 0) {
+            return false;
+        }
+
+        int result = management.remove(accountId);
+        return result > 0;
     }
-    
-    public String getCity(){
-        return null;
+
+    public boolean updateAddress(Address address) {
+        if (isAddressInvalid(address)) {
+            return false;
+        }
+
+        int result = management.update(address);
+        return result > 0;
     }
-    
-    public String getProvince(){
-        return null;
+
+    public Address getAddress(int accountId) {
+        if (accountId <= 0) {
+            return null;
+        }
+
+        return management.search(accountId);
     }
-    
-    public String getZipCode(){
-        return null;
-    }
-    
-    public String getCountry(){
-        return null;
-    }
-    
-    public void setHouseNumber(String houseNumber){
-    } 
-    
-    public void setStreet(String street){
-    }
-    
-    public void setBarangay(String barangay){
-    }
-    
-    public void setCity(String city){
-    }
-    
-    public void setProvince(String province){
-    }
-    
-    public void setZipCode(String zipCode){
-    }
-    
-    public void setCountry(String country){
+
+    private boolean isAddressInvalid(Address address) {
+        if (address == null) return true;
+
+        if (address.getAccountId() <= 0) return true;
+        if (address.getHouseNumber() == null || address.getHouseNumber().isBlank()) return true;
+        if (address.getStreet() == null || address.getStreet().isBlank()) return true;
+        if (address.getBarangay() == null || address.getBarangay().isBlank()) return true;
+        if (address.getCity() == null || address.getCity().isBlank()) return true;
+        if (address.getProvince() == null || address.getProvince().isBlank()) return true;
+        if (address.getZipCode() == null || address.getZipCode().isBlank()) return true;
+
+        return false;
     }
 }

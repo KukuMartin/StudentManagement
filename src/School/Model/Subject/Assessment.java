@@ -5,64 +5,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Assessment {
+
     private int id;
     private String name;
     private double percent;
-    private int subjectId;
+    private int recordId;
     private Period period;
+    private List<Activity> activities;
 
-    public Assessment(int id, String name, double percent, int subjectId, Period period) {
+    public Assessment(int id, String name, double percent, int recordId, Period period, List<Activity> activities) {
         this.id = id;
         this.name = name;
         this.percent = percent;
-        this.subjectId = subjectId;
+        this.recordId = recordId;
         this.period = period;
+        this.activities = (activities != null) ? activities : new ArrayList<>();
     }
-    
+
     public Activity search(int activityId) {
+        for (Activity a : activities) {
+            if (a.getId() == activityId) {
+                return a;
+            }
+        }
         return null;
     }
-    
+
     public void add(Activity activity) {
+        activities.add(activity);
     }
 
     public void remove(Activity activity) {
-    }
-    
-    public int getId() {
-        return id;
-    }
-    
-    public String getName() {
-        return name;
-    }
-
-    public double getPercent() {
-        return percent;
-    }
-    
-    public int getSubjectId() {
-        return subjectId;
-    }
-    
-    public int getPeriodId() {
-        return 0;
+        activities.remove(activity);
     }
 
     public double getGrade() {
-//        return (total / activities.size()) * percent;
-        return 0;
-    }
-    
-    public int getSize() {
-        return 0;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
+        if (activities.isEmpty()) return 0.0;
+
+        double total = 0;
+
+        for (Activity a : activities) {
+            total += a.getPercent();
+        }
+
+        return total * percent;
     }
 
-    public void setPercent(double percent) {
-        this.percent = percent;
+    public int getSize() { return activities.size(); }
+
+    public void update(Assessment assessment) {
+        this.name = assessment.name;
+        this.percent = assessment.percent;
+        this.period = assessment.period;
     }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public double getPercent() { return percent; }
+    public int getRecordId() { return recordId; }
+    public Period getPeriod() { return period; }
+    public List<Activity> getAllActivities() { return activities; }
 }

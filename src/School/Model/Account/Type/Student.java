@@ -1,7 +1,9 @@
 package School.Model.Account.Type;
 
 import School.Model.Account.Account;
+import School.Model.Account.Address;
 import School.Model.Subject.Subject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,8 +18,19 @@ public class Student extends Account{
 
     private List<Subject> subjects;
 
-    public Student(int id) {
-        super(id);
+    public Student(int id, String studentId, String course, 
+            int accountId, int sectionId, List<Subject> subjects,
+            String firstName, String middleName, 
+            String lastName, String gender, LocalDate birthDate, 
+            String phoneNumber, Address address) {
+        super(id, firstName, middleName, lastName, gender, birthDate, phoneNumber, address);
+        
+        this.id = id;
+        this.studentId = studentId;
+        this.course = course;
+        this.accountId = accountId;
+        this.sectionId = sectionId;
+        this.subjects = subjects;
     }
 
 
@@ -33,24 +46,23 @@ public class Student extends Account{
     public void add(Subject subject) {
         subjects.add(subject);
     }
-
-    public void add(Subject subject, int index) {
-        subjects.add(index, subject);
-    }
-
+    
     public void remove(Subject subject) {
-        subjects.remove(subject);
+        subjects.remove(id);
     }
+    
 
-    public void remove(int index) {
-        subjects.remove(index);
+    public void updateCredentials(String course) {
+        this.course = course;
     }
-
-    public int getSectionId() {
-        return sectionId;
-    }
-
-    public String getStudentId() {
-        return studentId;
+    
+    public int getId(){ return id; }
+    public String getStudentId(){ return studentId; }
+    public String getCourse(){ return course; }
+    public int getAccountId(){ return accountId; }
+    public int getSectionId(){ return sectionId; }
+    
+    public void Update(Advisor advisor){
+        course = course;
     }
 }

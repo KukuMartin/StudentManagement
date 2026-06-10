@@ -10,6 +10,7 @@ public class DatabaseTable {
     public static final String STUDENT = "Student";
     
     public static final String SUBJECT = "Subject";
+    public static final String RECORD = "Record";
     public static final String ASSESSMENT = "Assessment";
     public static final String ACTIVITY = "Activity";
     

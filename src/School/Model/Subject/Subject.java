@@ -1,58 +1,101 @@
 package School.Model.Subject;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Subject {
+
     public enum State {
         PENDING,
         PASSED,
-        FAILED;
+        FAILED
     }
-    
 
     private int id;
+    private String name;
+    private String code;
+    private LocalTime scheduleStart;
+    private LocalTime scheduleEnd;
+
     private int teacherId;
-    private int studentId;
+    private List<Record> records;
 
-    public Subject(int id, int studentId) {
+    public Subject(int id, String name, String code,
+                   LocalTime scheduleStart, LocalTime scheduleEnd,
+                   int teacherId,
+                   List<Record> records) {
+
         this.id = id;
-        this.studentId = studentId;
+        this.name = name;
+        this.code = code;
+        this.scheduleStart = scheduleStart;
+        this.scheduleEnd = scheduleEnd;
+        this.teacherId = teacherId;
+        this.records = (records != null) ? records : new ArrayList<>();
     }
 
-    public Assessment search(Period period, String name) {
+    public Record search(int studentId) {
+        for (Record r : records) {
+            if (r.getStudentId() == studentId) {
+                return r;
+            }
+        }
         return null;
     }
 
-    public void add(Period period, Assessment assessment) {
+    public void add(Record record) {
+        if (record == null) return;
+        records.add(record);
     }
 
-    public void remove(Period period, Assessment assessment) {
+    public void remove(Record record) {
+        records.remove(record);
     }
 
-    public int getId() {
-        return id;
-    }
+    public void update(Subject subject) {
+        if (subject == null) return;
 
-    public Subject.State getState() {
-        return null;
-    }
-    
-    public int getStudentId() {
-        return studentId;
-    }
-
-
-    public int getTeacherId() {
-        return teacherId;
-    }
-
-    public double getGrade(Period period) {
-        return 0;
+        this.name = subject.name;
+        this.code = subject.code;
+        this.scheduleStart = subject.scheduleStart;
+        this.scheduleEnd = subject.scheduleEnd;
+        this.teacherId = subject.teacherId;
     }
 
     public double getTotalGrade() {
-        return 0;
+        if (records.isEmpty()) return 0.0;
+
+        double total = 0;
+
+        for (Record r : records) {
+            total += r.getGrade();
+        }
+
+        return total / records.size();
     }
 
-    public int getSize(boolean midterm) {
-        return 0;
+    public State getState() {
+        if (records.isEmpty()) return State.PENDING;
+
+        double grade = getTotalGrade();
+
+        if (grade >= 75) return State.PASSED;
+        if (grade > 0) return State.FAILED;
+
+        return State.PENDING;
     }
+
+    public int getSize() {
+        return records.size();
+    }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getCode() { return code; }
+    public LocalTime getScheduleStart() { return scheduleStart; }
+    public LocalTime getScheduleEnd() { return scheduleEnd; }
+
+    public int getTeacherId() { return teacherId; }
+    public List<Record> getRecords() { return records; }
 }

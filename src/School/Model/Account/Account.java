@@ -2,7 +2,7 @@ package School.Model.Account;
 
 import java.time.LocalDate;
 
-public abstract class Account {
+public class Account {
 
     private int id;
     private String firstName;
@@ -13,7 +13,20 @@ public abstract class Account {
     private String phoneNumber;
     private Address address;
 
-    public Account(int id) { this.id = id; }
+    public Account(int id, String firstName, String middleName,
+                   String lastName, String gender,
+                   LocalDate birthDate, String phoneNumber,
+                   Address address) {
+
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
 
     public int getId() { return id; }
     public String getFirstName() { return firstName; }
@@ -24,11 +37,13 @@ public abstract class Account {
     public String getPhoneNumber() { return phoneNumber; }
     public Address getAddress() { return address; }
 
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-    public void setMiddleName(String middleName) { this.middleName = middleName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
-    public void setGender(String gender) { this.gender = gender; }
-    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    public void setAddress(Address address) { this.address = address; }
+    public void update(Account account) {
+        this.firstName = account.getFirstName();
+        this.middleName = account.getMiddleName();
+        this.lastName = account.getLastName();
+        this.gender = account.getGender();
+        this.birthDate = account.getBirthDate();
+        this.phoneNumber = account.getPhoneNumber();
+        this.address = account.getAddress();
+    }
 }
