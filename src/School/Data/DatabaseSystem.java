@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DatabaseSystem { //TODO change this so it validates if theres already a school db and redo sql again if ever
@@ -39,10 +41,17 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
     }
     
     public void createDatabase() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/School/Data/" + database + ".sql")))){
+        try {
+            InputStream input = DatabaseSystem.class.getResourceAsStream("/School/Data/" + database + ".sql");
+            if(input == null){
+                input = new FileInputStream("src/School/Data/schoolDB.sql");
+            }
+            
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             StringBuilder statement = new StringBuilder();
             String line = "";
 
+            System.out.println("Reading lines...");
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
                 if(line.isBlank()){ 
@@ -57,7 +66,6 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
                 }
             }
         } catch(IOException | NullPointerException e){ 
-            System.out.println("FilePath: " + this.getClass().getResourceAsStream("/School/Data/" + database + ".sql"));
             e.printStackTrace(); 
         }
     }

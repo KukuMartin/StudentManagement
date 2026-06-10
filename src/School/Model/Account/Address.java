@@ -1,7 +1,7 @@
 package School.Model.Account;
 
 public class Address {
-    private int accountId;
+    private int id;
 
     private String houseNumber;
     private String street;
@@ -9,8 +9,22 @@ public class Address {
     private String city;
     private String province;
     private String zipCode;
+    
+    private int accountId;
 
-    public Address(int accountId) {
+    public Address(int id, String houseNumber,
+               String street, String barangay, String city,
+               String province, String zipCode, int accountId) {
+
+        this.id = id;
+        
+        this.houseNumber = houseNumber;
+        this.street = street;
+        this.barangay = barangay;
+        this.city = city;
+        this.province = province;
+        this.zipCode = zipCode;
+        
         this.accountId = accountId;
     }
 

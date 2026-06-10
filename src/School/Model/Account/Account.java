@@ -11,7 +11,7 @@ public abstract class Account {
     private String gender;
     private LocalDate birthDate;
     private String phoneNumber;
-    private String address;
+    private Address address;
 
     public Account(int id) { this.id = id; }
 
@@ -22,7 +22,7 @@ public abstract class Account {
     public String getGender() { return gender; }
     public LocalDate getBirthDate() { return birthDate; }
     public String getPhoneNumber() { return phoneNumber; }
-    public String getAddress() { return address; }
+    public Address getAddress() { return address; }
 
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public void setMiddleName(String middleName) { this.middleName = middleName; }
@@ -30,5 +30,5 @@ public abstract class Account {
     public void setGender(String gender) { this.gender = gender; }
     public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    public void setAddress(String address) { this.address = address; }
+    public void setAddress(Address address) { this.address = address; }
 }
