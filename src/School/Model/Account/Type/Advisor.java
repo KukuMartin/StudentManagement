@@ -6,7 +6,7 @@ import School.System.Structure.StructureSystem;
 import java.util.List;
 import java.util.UUID;
 
-public class Advisor{
+public class Advisor extends Account{
     private int id;
     private String username;
     private String password;

@@ -1,44 +1,85 @@
 package School.Management;
 
-import School.Model.Account.Type.Student;
-import java.util.List;
-import java.util.UUID;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class SectionManagement { //handles all of the students
-    UUID sectionId;
-    List<Student> students;
-    
-    public Student search(String studentId){
+import School.Data.DatabaseTable;
+import School.Model.Account.Section;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SectionManagement {
+    private String table = DatabaseTable.SECTION;
+    private Connection sql;
+    public SectionManagement(Connection sql){
+        this.sql = sql;
+    }
+
+    public void add(Section section) {
+        String query = "INSERT INTO " + table + " (name, code) VALUES (?, ?)";
+        try (PreparedStatement command = sql.prepareStatement(query)) {
+            command.setString(1, section.getName());
+            command.setString(2, section.getCode());
+            command.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void remove(int id) {
+        String query = "DELETE FROM " + table + " WHERE id = ?";
+
+        try (PreparedStatement stmt = sql.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Section search(int id) {
+        String query = "SELECT * FROM " + table + " WHERE id = ?";
+
+        try (PreparedStatement stmt = sql.prepareStatement(query)) {
+            stmt.setInt(1, id);
+
+            ResultSet result = stmt.executeQuery();
+            if (result.next()) {
+                return new Section(
+                    result.getInt("id"), 
+                    result.getString("name"), 
+                    result.getString("code")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
-    
-    public Student search(int index){
-        return null;
-    }
-    
-    //FIXME: change this they shouldnt be able to add or remove students
-    public void add(Student student){
-        
-    }
-    
-    public void add(Student student, int index){
-        
-    }
-    
-    public void remove(Student student){
-        
-    }
-    
-    public void remove(int index){
-        
-    }
-    
-    public UUID getSectionIds(){
-        return null;
-    }
-    
-    public int getSize(){
-        
-        return 0;
+
+    public List<Section> getAllSection() {
+        List<Section> list = new ArrayList<>();
+
+        String query = "SELECT * FROM " + table;
+
+        try (PreparedStatement stmt = sql.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new Section(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("code")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

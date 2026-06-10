@@ -1,4 +1,4 @@
-package School.System.Structure;
+package School.System;
 
 import School.Model.Subject.Assessment;
 import java.util.UUID;

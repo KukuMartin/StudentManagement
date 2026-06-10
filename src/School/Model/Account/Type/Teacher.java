@@ -5,17 +5,14 @@ import School.System.Structure.StructureSystem;
 import java.util.List;
 import java.util.UUID;
 
-public class Teacher{
+public class Teacher extends Account{
     private int id;
     private String username;
     private String password;
     private int accountId;
-    
-    public Teacher(String username, String password, UUID accountId) {
-        super(accountId);
-        
-        this.username = username;
-        this.password = password;
+
+    public Teacher(int id) {
+        super(id);
     }
     
     public StructureSystem search(UUID sectionId){

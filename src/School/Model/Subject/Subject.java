@@ -1,16 +1,12 @@
 package School.Model.Subject;
 
 public class Subject {
-    enum State {
+    public enum State {
         PENDING,
         PASSED,
         FAILED;
     }
     
-    enum Period{
-        MIDTERM,
-        FINAL;
-    }
 
     private int id;
     private int teacherId;
@@ -36,7 +32,7 @@ public class Subject {
     }
 
     public Subject.State getState() {
-        
+        return null;
     }
     
     public int getStudentId() {

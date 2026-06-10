@@ -1,6 +1,6 @@
 package School.Model.Subject;
 
-import School.Model.Subject.Subject.Period;
+import School.Model.Subject.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class Assessment {
     }
     
     public Activity search(int activityId) {
+        return null;
     }
     
     public void add(Activity activity) {
@@ -45,14 +46,16 @@ public class Assessment {
     }
     
     public int getPeriodId() {
-        return periodId;
+        return 0;
     }
 
     public double getGrade() {
-        return (total / activities.size()) * percent;
+//        return (total / activities.size()) * percent;
+        return 0;
     }
     
     public int getSize() {
+        return 0;
     }
     
     public void setName(String name) {

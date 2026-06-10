@@ -1,5 +1,7 @@
 package School.System.Structure;
 
+import School.System.AttendanceSystem;
+import School.System.SubjectSystem;
 import java.util.UUID;
 
 public class StructureSystem {

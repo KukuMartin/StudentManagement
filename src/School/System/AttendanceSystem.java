@@ -1,4 +1,4 @@
-package School.System.Structure;
+package School.System;
 
 import School.Model.Attendance.Attendance;
 import School.Model.Attendance.Day;

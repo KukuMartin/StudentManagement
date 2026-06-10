@@ -1,17 +1,18 @@
 package School.Model.Account.Type;
 
-public class Admin {
+import School.Model.Account.Account;
+
+public class Admin extends Account{
 
     private int id;
     private String username;
     private String password;
     private int accountId;
 
-    public Admin(int id, String username, int accountId) {
-        this.id = id;
-        this.username = username;
-        this.accountId = accountId;
+    public Admin(int adminId, int accountId) {
+        super(accountId);
     }
+
 
     public int getId() {
         return id;

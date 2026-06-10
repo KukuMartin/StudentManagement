@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Student {
+public class Student extends Account{
 
     private int id;
     private String studentId;
     private String course;
+    private int accountId;
     private int sectionId;
 
     private List<Subject> subjects;
