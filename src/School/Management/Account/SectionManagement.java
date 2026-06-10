@@ -1,4 +1,4 @@
-package School.Management;
+package School.Management.Account;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,29 +16,7 @@ public class SectionManagement {
     public SectionManagement(Connection sql){
         this.sql = sql;
     }
-
-    public void add(Section section) {
-        String query = "INSERT INTO " + table + " (name, code) VALUES (?, ?)";
-        try (PreparedStatement command = sql.prepareStatement(query)) {
-            command.setString(1, section.getName());
-            command.setString(2, section.getCode());
-            command.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void remove(int id) {
-        String query = "DELETE FROM " + table + " WHERE id = ?";
-
-        try (PreparedStatement stmt = sql.prepareStatement(query)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     public Section search(int id) {
         String query = "SELECT * FROM " + table + " WHERE id = ?";
 
@@ -58,6 +36,47 @@ public class SectionManagement {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void add(Section section) {
+        String query = "INSERT INTO " + table + " (name, code) VALUES (?, ?)";
+        try (PreparedStatement command = sql.prepareStatement(query)) {
+            command.setString(1, section.getName());
+            command.setString(2, section.getCode());
+            command.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int remove(int id) {
+        String query = "DELETE FROM " + table + " WHERE id = ?";
+        int result = 0;
+        try (PreparedStatement command = sql.prepareStatement(query)) {
+            command.setInt(1, id);
+            result = command.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int update(Section section){
+        String query = "UPDATE " + table + " SET name = ?, code = ? WHERE id = ?";
+
+        int result = 0;
+        try (PreparedStatement command = sql.prepareStatement(query)) {
+            command.setString(1, section.getName());
+            command.setString(2, section.getCode());
+            command.setInt(3, section.getId());
+
+            result = command.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     public List<Section> getAllSection() {

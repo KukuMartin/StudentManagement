@@ -33,22 +33,22 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
             System.out.println("Connecting... " + database);
             sql = DriverManager.getConnection(connection + database, "root", "");
         } catch(SQLException e){
+            System.out.println("Check your mySQL connections");
             e.printStackTrace();
         }
     }
-    
     
     public void createDatabase() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/School/Data/" + database + ".sql")))){
             StringBuilder statement = new StringBuilder();
             String line = "";
-            
+
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
                 if(line.isBlank()){ 
                     continue; 
                 }
-                
+
                 statement.append(line).append(" ");
                 if(line.endsWith(";")){
                     this.executeCommand(statement.substring(0, statement.length() - 1));
@@ -56,8 +56,12 @@ public class DatabaseSystem { //TODO change this so it validates if theres alrea
                     continue;
                 }
             }
-        } catch(IOException e){ e.printStackTrace(); }
+        } catch(IOException | NullPointerException e){ 
+            System.out.println("FilePath: " + this.getClass().getResourceAsStream("/School/Data/" + database + ".sql"));
+            e.printStackTrace(); 
+        }
     }
+    
     
     private void executeCommand(String statement) {
         System.out.println("Executing... " + statement);

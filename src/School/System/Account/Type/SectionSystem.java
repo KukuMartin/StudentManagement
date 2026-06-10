@@ -1,6 +1,6 @@
 package School.System.Account.Type;
 
-import School.Management.SectionManagement;
+import School.Management.Account.SectionManagement;
 import School.Model.Account.Type.Student;
 import java.time.LocalDate;
 import java.util.UUID;

@@ -1,7 +1,5 @@
 package School.Data;
 
-import java.lang.reflect.Field;
-
 public class DatabaseTable {
     public static final String ACCOUNT = "Account";
     public static final String ADDRESS = "Address";
@@ -17,19 +15,4 @@ public class DatabaseTable {
     
     public static final String ATTENDANCE = "Attendance";
     public static final String DAY = "Day";
-    
-    public static boolean hasNull(Object object) {
-        for(Field variable : object.getClass().getDeclaredFields()){
-            variable.setAccessible(true);
-            try {
-                Object value = variable.get(object);
-                if (value == null) {
-                    return true;
-                }
-            } catch(IllegalAccessException e){
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
 }

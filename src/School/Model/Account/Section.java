@@ -32,6 +32,11 @@ public class Section {
     public void remove(Student student) {
         students.remove(student);
     }
+    
+    public void update(Section section) { 
+        this.name = section.name; 
+        this.code = section.code;
+    }
 
     public int getSize() {
         return students.size();
@@ -41,6 +46,4 @@ public class Section {
     public String getName() { return name; }
     public String getCode() { return code; }
     
-    public void setName(String name) { this.name = name; }
-    public void setCode(String code) { this.code = code; }
 }
