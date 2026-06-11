@@ -6,21 +6,38 @@ import Gui.Misc.Tool.Signal;
 import Gui.Pane.NavBar;
 import Gui.Pane.Pane;
 import Gui.Pane.Validate.AccountSignIn;
+import School.Model.Account.Type.Advisor;
+import School.Model.Account.Type.Teacher;
+import School.System.Account.Type.AdvisorSystem;
+import School.System.Account.Type.TeacherSystem;
+import School.System.SchoolSystem;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 public class AccountPanel extends Panel{
+    SchoolSystem system;
+    
+    TeacherSystem teacherSystem;
+    AdvisorSystem advisorSystem;
+    
+    TeacherPanel teacherPanel;
+    AdvisorPanel advisorPanel;
+    
     AccountSignIn signInTeacher;
     AccountSignIn signInAdvisor;
-    public AccountPanel(Frame frame) {
+    public AccountPanel(Frame frame, SchoolSystem system) {
         super(frame);
-        
+        this.system = system;
+        teacherSystem = system.getTeacherSystem();
+        advisorSystem = system.getAdvisorSystem();
         NavBar navbar = new NavBar(size, palette, label);
         
         Signal signOut = frame.getSignal(this);
-        TeacherPanel teacher = new TeacherPanel(frame, signOut);
-        AdvisorPanel advisor = new AdvisorPanel(frame, signOut);
+        teacherPanel = new TeacherPanel(frame, signOut);
+        advisorPanel = new AdvisorPanel(frame, signOut);
         
-        Signal teacherSignal = this.getTeacherSignIn(frame.getSignal(teacher));
-        Signal advisorSignal = this.getAdvisorSignIn(frame.getSignal(advisor));
+        Signal teacherSignal = this.getTeacherSignIn(getTeacherSignal());
+        Signal advisorSignal = this.getAdvisorSignIn(frame.getSignal(advisorPanel));
         
         
         Pane pick = new AccountPick(size, palette, label, advisorSignal, teacherSignal);
@@ -35,6 +52,41 @@ public class AccountPanel extends Panel{
         Signal sigInSignal = this.getSignal(signInTeacher, Layer.MIDDLE);
         
         return sigInSignal;
+    }
+    
+    private Signal getTeacherSignal(){
+        TeacherSystem teacherSystem = system.getTeacherSystem();
+        Signal signal = new Signal(){
+            @Override
+            public void sendSignal() {
+                Teacher teacher = teacherSystem.getTeacher(signInTeacher.getUsername());
+                if(teacher != null && teacher.getPassword().equals(signInTeacher.getPassword())){
+                    teacherPanel.teacherName = teacher.getUsername();
+                    teacherPanel.setFields(teacher.getAccountId(), teacher.getUsername(), teacher.getPhoneNumber(), teacher.getBirthDate());
+                    frame.setPanel(teacherPanel);
+                    return;
+                }
+                JOptionPane.showMessageDialog(AccountPanel.this, "Login Unsuccesfull!", "Try Again", JOptionPane.INFORMATION_MESSAGE);
+            }
+        };
+        return signal;
+    }
+    
+    private Signal getAdvisorSignal(){
+        AdvisorSystem advisorSystem = system.getAdvisorSystem();
+        Signal signal = new Signal(){
+            @Override
+            public void sendSignal() {
+                Advisor advisor = advisorSystem.getAdvisor(signInAdvisor.getUsername());
+                if(advisor != null && advisor.getPassword().equals(signInTeacher.getPassword())){
+                    advisorPanel.advisorName = advisor.getUsername();
+                    frame.setPanel(advisorPanel);
+                    return;
+                }
+                JOptionPane.showMessageDialog(AccountPanel.this, "Login Unsuccesfull!", "Try Again", JOptionPane.INFORMATION_MESSAGE);
+            }
+        };
+        return signal;
     }
     
     private Signal getAdvisorSignIn(Signal account){

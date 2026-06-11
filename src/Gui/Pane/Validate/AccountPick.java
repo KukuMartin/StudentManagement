@@ -4,6 +4,7 @@ import Gui.Misc.Tool.Label;
 import Gui.Pane.Pane;
 import Gui.Misc.Tool.Palette;
 import Gui.Misc.Tool.Signal;
+import School.System.SchoolSystem;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class AccountPick extends Pane{
+    SchoolSystem schoolSystem;
+    
     public AccountPick(Dimension frame, Palette palette, Label label, Signal advisorSignal, Signal teacherSignal) {
         super(frame, palette, label);
         

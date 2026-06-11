@@ -5,11 +5,12 @@ import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
 import Gui.Misc.Tool.Signal;
 import java.awt.Dimension;
-import java.awt.Font;
 import javax.swing.*;
 
 public class AccountSignIn extends Pane {
-
+    JTextField AccF;
+    JPasswordField PassyF;
+    
     public AccountSignIn(Dimension size, Palette palette, Label label, Signal account) {
         super(size, palette, label);
 
@@ -20,11 +21,11 @@ public class AccountSignIn extends Pane {
         Logintitle.setFont(label.getHeading());
         this.setComponent(Logintitle, getSize(Logintitle, 380), 0.5, 0.24);
 
-        JLabel accId = new JLabel("Account ID:");
+        JLabel accId = new JLabel("Username:");
         accId.setFont(label.getBody());
         this.setComponent(accId, getSize(accId, 150), .3, 0.35);
 
-        JTextField AccF = this.getTextField(8);
+        AccF = this.getTextField(8);
         AccF.setFont(label.getCaption());
         AccF.setBackground(palette.getNeutral());
         this.setComponent(AccF, true, new Dimension(300, 30), 0.5, 0.35);
@@ -33,29 +34,10 @@ public class AccountSignIn extends Pane {
         passy.setFont(label.getBody());
         this.setComponent(passy, getSize(passy, 150), 0.3, 0.45);
 
-        JPasswordField PassyF = this.getPasswordField(8);
+        PassyF = this.getPasswordField(8);
         PassyF.setFont(label.getCaption());
         PassyF.setBackground(palette.getNeutral());
         this.setComponent(PassyF, true, new Dimension(300, 30), 0.5, 0.45);
-
-        JLabel fai1 = new JLabel("2FA-1:");
-        fai1.setFont(label.getBody());
-        fai1.setBackground(palette.getNeutral());
-        this.setComponent(fai1, getSize(fai1, 100), 0.36, 0.55);
-
-        JPasswordField fai1F = this.getPasswordField(8);
-        fai1F.setFont(label.getCaption());
-        fai1F.setBackground(palette.getNeutral());
-        this.setComponent(fai1F, true, new Dimension(100, 30), 0.42, 0.55);
-
-        JLabel fai2 = new JLabel("2FA-2:");
-        fai2.setFont(label.getBody());
-        this.setComponent(fai2, getSize(fai2, 100), 0.56, 0.55);
-
-        JPasswordField fai2F = this.getPasswordField(8);
-        fai2F.setFont(label.getCaption());
-        fai2F.setBackground(palette.getNeutral());
-        this.setComponent(fai2F, true, new Dimension(100, 30), 0.62, 0.55);
 
         JLabel undertext = new JLabel("If you have not set any Two-Factor Authentication (2FA), simply press Log In to continue.");
         undertext.setFont(label.getBody());
@@ -79,5 +61,13 @@ public class AccountSignIn extends Pane {
         this.setComponent(back, this.getSize(back, 90), .062, .15);
         back.addActionListener(pick.getActionEvent());
         back.addMouseListener(this.getMouseEvent(back));
+    }
+    
+    public String getUsername(){
+        return AccF.getText();
+    }
+    
+    public String getPassword(){
+        return new String(PassyF.getPassword());
     }
 }

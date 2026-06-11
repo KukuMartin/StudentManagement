@@ -4,6 +4,8 @@ import Gui.Panel.AccountPanel;
 import Gui.Panel.Panel;
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
+import School.System.Account.Type.TeacherSystem;
+import School.System.SchoolSystem;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,11 +15,12 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 public class MainFrame extends Frame{
+    public static SchoolSystem schoolSystem = SchoolSystem.getInstance();
     
     public MainFrame(String title, Dimension size, Palette palette, Label label){
         super(title, size, palette, label, JFrame.EXIT_ON_CLOSE);
         
-        Panel panel = new AccountPanel(this);
+        Panel panel = new AccountPanel(this, schoolSystem);
         this.setPanel(panel);
     }
     

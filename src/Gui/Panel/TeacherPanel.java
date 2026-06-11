@@ -6,6 +6,8 @@ import Gui.Pane.Account.SubjectsEdit;
 import Gui.Pane.NavBar;
 import Gui.Misc.Tool.Signal;
 import Gui.Pane.Account.AttendanceEdit;
+import School.System.Account.Type.TeacherSystem;
+import java.time.LocalDate;
 import javax.swing.JButton;
 
 public class TeacherPanel extends Panel{
@@ -13,6 +15,8 @@ public class TeacherPanel extends Panel{
     private AccountView account;
     private SubjectsEdit subject;
     boolean activeAccount = true;
+    
+    String teacherName;
     
     public TeacherPanel(Frame frame, Signal signOut) {
         super(frame);
@@ -77,6 +81,9 @@ public class TeacherPanel extends Panel{
             }
         };
         return signal;
+    }
+    public void setFields(int accountId, String username, String phoneNumber, LocalDate birthDate) {
+        account.setFields(accountId, username, phoneNumber, birthDate);
     }
     
     private Signal getAttendanceSignal(){
