@@ -21,7 +21,6 @@ public class AccountView extends Pane {
 
     public AccountView(Dimension frame, Palette palette, Label label) {
         super(frame, palette, label);
-        this.save = save;
         this.setSize(frame);
         this.setBackground(palette.getBackground());
 
