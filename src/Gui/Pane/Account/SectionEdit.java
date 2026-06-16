@@ -3,15 +3,21 @@ package Gui.Pane.Account;
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
 import Gui.Pane.Pane;
+import School.Model.Account.Section;
+import School.Model.Account.Type.Student;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 public class SectionEdit extends Pane{
 
@@ -24,27 +30,41 @@ public class SectionEdit extends Pane{
         this.setLayout(null);
         this.setSize(frame);
 
-        initUI(frame, palette);
-        
-        model.addRow(new Object[]{"2024-001", "Student", "Juan", "Santos", "Dela Cruz", "Male", "2006-03-15", "09171234567", "12", "Rizal St", "San Isidro", "Calamba", "Laguna", "4027", "Philippines"});
-        model.addRow(new Object[]{"2024-002", "Student", "Maria", "Lopez", "Garcia", "Female", "2005-11-22", "09181234568", "45", "Mabini St", "San Jose", "Los Baños", "Laguna", "4030", "Philippines"});
-        model.addRow(new Object[]{"2024-003", "Student", "Carlos", "Reyes", "Torres", "Male", "2006-07-09", "09191234569", "78", "Bonifacio Ave", "Mayapa", "Calamba", "Laguna", "4027", "Philippines"});
-        model.addRow(new Object[]{"2024-004", "Student", "Angela", "Cruz", "Bautista", "Female", "2005-05-30", "09201234570", "23", "Del Pilar St", "Poblacion", "Santa Rosa", "Laguna", "4026", "Philippines"});
-        model.addRow(new Object[]{"2024-005", "Student", "Mark", "Fernandez", "Ramos", "Male", "2006-01-18", "09211234571", "56", "Quezon Ave", "Balibago", "Santa Rosa", "Laguna", "4026", "Philippines"});
+        initUI();
     }
 
-    private void initUI(Dimension frame, Palette palette) {
-        String[] columns = {                
-            "AccountID", "Type",
-            "FirstName", "MiddleName", "LastName",
-            "Gender", "Birthdate", "PhoneNumber",
-            "HouseNumber", "Street", "Barangay",
-            "City", "Province", "ZipCode", "Country"
-        };  
+    private void initUI() {
+        String[] columns = {     
+            "id", "first", "middle", "last",
+            "gender", "birthday", "phone",
+            "address"
+        };
+        int[] width = {
+            50, 120, 120, 120,
+            80, 100, 100, 300
+        };
+        boolean[] ifCenter = {
+            true, false, false, false,
+            true, true, true, false
+        };
+        
+        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        center.setHorizontalAlignment(JLabel.CENTER);
+        
+        
         
         model = new DefaultTableModel(columns, 0);
         table = new JTable(model);
 
+        for(int index = 0; index < columns.length; index++){
+            TableColumn column = table.getColumnModel().getColumn(index);
+            column.setPreferredWidth(width[index]);
+            if(!ifCenter[index]){
+                continue;
+            }
+            column.setCellRenderer(center);
+        }
+        
         table.setRowHeight(24);
         table.setFont(label.getCaption());
 
@@ -79,6 +99,23 @@ public class SectionEdit extends Pane{
         scrollPane.setBounds(sideMargin,topSpace,frame.width - (sideMargin * 2),frame.height - topSpace - 65);
         this.add(scrollPane);
         this.setComponentZOrder(gradesBtn, this.getComponentCount() - 1);
+    }
+    
+    public void addStudent(List<Student> students){
+        for(Student student : students){
+            Object[] row = {
+                student.getId(),
+                student.getFirstName(),
+                student.getMiddleName(),
+                student.getLastName(),
+                student.getGender(),
+                student.getBirthDate(),
+                student.getPhoneNumber(),
+                student.getAddress()
+            };
+            
+            model.addRow(row);
+        }
     }
 
     public void addRow(Object[] rowData) {

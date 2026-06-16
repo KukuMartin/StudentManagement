@@ -30,19 +30,17 @@ public class StudentManagement {
         this.accountSystem = accountSystem;
     }
 
-    public Student search(String username) {
+    public Student search(int id) {
 
-        String query = "SELECT * FROM " + table + " WHERE username = ?";
+        String query = "SELECT * FROM " + table + " WHERE id = ?";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setString(1, username);
+            command.setInt(1, id);
 
             ResultSet result = command.executeQuery();
 
             if (result.next()) {
-
-                int id = result.getInt("id");
                 int accountId = result.getInt("accountId");
                 int sectionId = result.getInt("sectionId");
 

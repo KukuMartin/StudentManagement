@@ -34,7 +34,7 @@ public class AccountPanel extends Panel{
         
         Signal signOut = frame.getSignal(this);
         teacherPanel = new TeacherPanel(frame, signOut);
-        advisorPanel = new AdvisorPanel(frame, signOut);
+        advisorPanel = new AdvisorPanel(frame, signOut, advisorSystem);
         
         Signal teacherSignal = this.getTeacherSignIn(getTeacherSignal());
         Signal advisorSignal = this.getAdvisorSignIn(getAdvisorSignal());

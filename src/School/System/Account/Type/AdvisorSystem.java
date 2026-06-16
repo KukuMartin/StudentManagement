@@ -20,9 +20,9 @@ public class AdvisorSystem {
         this.sectionSystem = new SectionSystem(sql);
 
         this.management = new AdvisorManagement(
-                sql,
-                sectionSystem,
-                accountSystem
+            sql,
+            sectionSystem,
+            accountSystem
         );
     }
 

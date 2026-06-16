@@ -53,12 +53,12 @@ public class StudentSystem {
         return result > 0;
     }
 
-    public Student getStudent(String username) {
-        if (username == null) {
+    public Student getStudent(int id) {
+        if (id <= 0) {
             return null;
         }
 
-        return management.search(username);
+        return management.search(id);
     }
 
     public List<Student> getStudents(int sectionId) {
