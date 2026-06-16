@@ -22,8 +22,8 @@ public class SectionSystem {
             return false;
         }
 
-        management.add(section);
-        return true;
+        int result = management.add(section);
+        return result > 0;
     }
 
     public boolean deleteSection(int id) {

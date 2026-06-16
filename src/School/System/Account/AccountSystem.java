@@ -19,8 +19,8 @@ public class AccountSystem {
             return false;
         }
 
-        management.add(account);
-        return true;
+        int result = management.add(account);
+        return result > 0;
     }
 
     public boolean deleteAccount(int id) {

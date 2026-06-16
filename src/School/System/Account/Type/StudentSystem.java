@@ -31,16 +31,15 @@ public class StudentSystem {
             return false;
         }
 
-        management.add(student);
-        return true;
+        int result = management.add(student);
+        return result > 0;
     }
 
     public boolean deleteStudent(int id) {
         if (id <= 0) {
             return false;
         }
-
-        Student temp = new Student(id, null, null, 0, 0, null, null, null, null, null, null);
+        
         int result = management.remove(id);
         return result > 0;
     }

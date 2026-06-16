@@ -70,8 +70,8 @@ public class StudentManagement {
         return null;
     }
 
-    public void add(Student student) {
-
+    public int add(Student student) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (studentId, course, accountId, sectionId) VALUES (?, ?, ?, ?)";
 
@@ -82,11 +82,12 @@ public class StudentManagement {
             command.setInt(3, student.getAccountId());
             command.setInt(4, student.getSectionId());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

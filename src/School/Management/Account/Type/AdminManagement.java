@@ -60,8 +60,8 @@ public class AdminManagement {
         return null;
     }
 
-    public void add(Admin admin) {
-
+    public int add(Admin admin) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (username, password, accountId) VALUES (?, ?, ?)";
 
@@ -71,11 +71,12 @@ public class AdminManagement {
             command.setString(2, admin.getPassword());
             command.setInt(3, admin.getAccountId());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

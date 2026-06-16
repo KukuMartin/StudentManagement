@@ -23,8 +23,8 @@ public class AdminSystem {
             return false;
         }
 
-        management.add(admin);
-        return true;
+        int result = management.add(admin);
+        return result > 0;
     }
 
     public boolean deleteAdmin(int id) {

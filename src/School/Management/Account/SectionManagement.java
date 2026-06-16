@@ -50,8 +50,8 @@ public class SectionManagement {
         return null;
     }
 
-    public void add(Section section) {
-
+    public int add(Section section) {
+        int result = 0;
         String query = "INSERT INTO " + table + " (name, code) VALUES (?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
@@ -59,11 +59,12 @@ public class SectionManagement {
             command.setString(1, section.getName());
             command.setString(2, section.getCode());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

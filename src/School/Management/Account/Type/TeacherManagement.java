@@ -69,8 +69,8 @@ public class TeacherManagement {
         return null;
     }
 
-    public void add(Teacher teacher) {
-
+    public int add(Teacher teacher) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (username, password, accountId) VALUES (?, ?, ?)";
 
@@ -80,11 +80,12 @@ public class TeacherManagement {
             command.setString(2, teacher.getPassword());
             command.setInt(3, teacher.getAccountId());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

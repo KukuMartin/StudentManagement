@@ -31,8 +31,8 @@ public class AdvisorSystem {
             return false;
         }
 
-        management.add(advisor);
-        return true;
+        int result = management.add(advisor);
+        return result > 0;
     }
 
     public boolean deleteAdvisor(int id) {

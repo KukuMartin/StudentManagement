@@ -44,8 +44,8 @@ public class AccountManagement {
         return null;
     }
 
-    public void add(Account account) {
-
+    public int add(Account account) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (name, gender, birthDate, phoneNumber, address) VALUES (?, ?, ?, ?, ?)";
 
@@ -57,11 +57,12 @@ public class AccountManagement {
             command.setString(4, account.getPhoneNumber());
             command.setString(5, account.getAddress());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

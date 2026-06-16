@@ -69,8 +69,8 @@ public class AdvisorManagement {
         return null;
     }
 
-    public void add(Advisor advisor) {
-
+    public int add(Advisor advisor) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (username, password, accountId) VALUES (?, ?, ?)";
 
@@ -80,11 +80,12 @@ public class AdvisorManagement {
             command.setString(2, advisor.getPassword());
             command.setInt(3, advisor.getAccountId());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

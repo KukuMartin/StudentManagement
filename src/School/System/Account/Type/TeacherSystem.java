@@ -31,8 +31,8 @@ public class TeacherSystem {
             return false;
         }
 
-        management.add(teacher);
-        return true;
+        int result = management.add(teacher);
+        return result > 0;
     }
 
     public boolean deleteTeacher(int id) {
