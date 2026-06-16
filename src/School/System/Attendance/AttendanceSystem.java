@@ -21,8 +21,8 @@ public class AttendanceSystem {
             return false;
         }
 
-        management.add(attendance);
-        return true;
+        int result = management.add(attendance);
+        return result > 0;
     }
 
     public boolean deleteAttendance(int id) {

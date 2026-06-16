@@ -20,8 +20,8 @@ public class DaySystem {
             return false;
         }
 
-        management.add(day);
-        return true;
+        int result = management.add(day);
+        return result >0;
     }
 
     public boolean deleteDay(int id) {

@@ -46,7 +46,8 @@ public class DayManagement {
         return resultDay;
     }
 
-    public void add(Day day) {
+    public int add(Day day) {
+        int result = 0;
         String query = "INSERT INTO " + table + " (date, state, attendanceId) VALUES (?, ?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
@@ -54,11 +55,12 @@ public class DayManagement {
             command.setString(2, day.getState().name());
             command.setInt(3, day.getAttendanceId());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

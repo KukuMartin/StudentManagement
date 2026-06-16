@@ -50,7 +50,8 @@ public class AttendanceManagement {
         return resultAttendance;
     }
 
-    public void add(Attendance attendance) {
+    public int add(Attendance attendance) {
+        int result = 0;
         String query = "INSERT INTO " + table + " (subjectId, period) VALUES (?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
@@ -58,11 +59,12 @@ public class AttendanceManagement {
             command.setInt(1, attendance.getSubjectId());
             command.setString(2, attendance.getPeriod().name());
 
-            command.executeUpdate();
+            result = command.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result; 
     }
 
     public int remove(int id) {
