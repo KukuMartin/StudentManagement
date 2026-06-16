@@ -35,9 +35,6 @@ public class NavBar extends Pane{
         
         this.setBackground(this.palette.getSecondary());
         this.setSize(this.size.width, this.size.height);
-        
-        
-        this.addMouseListener(this.getClickableJPanel(this));
     }
     
     //java documentation testing

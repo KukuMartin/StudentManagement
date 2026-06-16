@@ -14,7 +14,6 @@ public class TeacherPanel extends Panel{
     private NavBar navbar;
     private AccountView account;
     private SubjectsEdit subject;
-    boolean activeAccount = true;
     
     String teacherName;
     
@@ -28,7 +27,7 @@ public class TeacherPanel extends Panel{
         subject.addAttendance(this.getAttendanceSignal());
         
         navbar.addButton(this.getAccountButton(), this.getAccountSignal());
-        navbar.addButton(this.getSectionButton(), this.getSectionSignal());
+        navbar.addButton(this.getSubjectButton(), this.getSubjectSignal());
         
         this.setBackground(palette.getNeutral());
         this.setPane(account, Layer.MIDDLE);
@@ -50,15 +49,14 @@ public class TeacherPanel extends Panel{
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                if(!activeAccount){
+                if(!account.getIsActive()){
                     TeacherPanel.this.setPane(account, Layer.MIDDLE);
-                    activeAccount = true;
                 }            }
         };
         return signal;
     }
     
-    private JButton getSectionButton(){
+    private JButton getSubjectButton(){
         JButton button = account.getSquareButton("Subject", 8);
         
         button.setBackground(palette.getPrimary());
@@ -70,13 +68,12 @@ public class TeacherPanel extends Panel{
         return button;
     }
     
-    private Signal getSectionSignal(){
+    private Signal getSubjectSignal(){
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                if(activeAccount){
+                if(!subject.getIsActive()){
                     TeacherPanel.this.setPane(subject, Layer.MIDDLE);
-                    activeAccount = false;
                 }
             }
         };

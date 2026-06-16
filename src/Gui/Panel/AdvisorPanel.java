@@ -11,7 +11,6 @@ public class AdvisorPanel extends Panel{
     private NavBar navbar;
     private AccountView account;
     private SectionEdit section;
-    boolean activeAccount = true;
     
     public AdvisorPanel(Frame frame, Signal signOut) {
         super(frame);
@@ -45,7 +44,7 @@ public class AdvisorPanel extends Panel{
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                if(activeAccount){
+                if(!activeAccount){
                     AdvisorPanel.this.setPane(section, Layer.MIDDLE);
                     activeAccount = false;
                 }  

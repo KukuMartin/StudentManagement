@@ -45,14 +45,21 @@ public class Panel extends JLayeredPane{
     public void setPane(Pane pane, Layer layer){
         Component[] comps = this.getComponents();
         for(Component comp : comps){
-            if(this.getLayer(comp) == layer.getLayer()){
-                this.remove(comp);
+            if(this.getLayer(comp) != layer.getLayer()){
+                continue;
             }
+            
+            if(comp instanceof Pane){
+                ((Pane)comp).setIsActive(false);
+            }
+            
+            this.remove(comp);
         }
         
         pane.setLocation(0, 0);
         pane.setLayout(null);
         this.add(pane, layer.getLayer());
+        pane.setIsActive(true);
         this.repaint();
     }
     

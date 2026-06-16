@@ -49,7 +49,7 @@ CREATE TABLE Student (
     sectionId INT,
     accountId INT NOT NULL,
 
-    FOREIGN KEY (sectionId) REFERENCES Section(id) ON DELETE CASCADE,
+    FOREIGN KEY (sectionId) REFERENCES Section(id),
     FOREIGN KEY (accountId) REFERENCES Account(id) ON DELETE CASCADE
 );
 
@@ -111,16 +111,10 @@ CREATE TABLE Day (
 );
 
 
-INSERT INTO Account (firstName, middleName, lastName, gender, birthDate, phoneNumber) VALUES 
-('Eunice', 'A', 'Admin', 'MALE', '2001-05-10', '09111111111'),
-('Vincent', 'B', 'Advisor', 'FEMALE', '2005-07-15', '09222222222'),
-('Neil', 'C', 'Teacher', 'MALE', '1800-03-20', '09333333333');
-
-INSERT INTO Address (accountId, houseNumber, street, barangay, city, province, zipCode)
-VALUES
-(1, '101', 'Admin St', 'Barangay 1', 'Binan', 'Laguna', '4000'),
-(2, '202', 'Advisor St', 'Barangay 2', 'Binan', 'Laguna', '4000'),
-(3, '303', 'Teacher St', 'Barangay 3', 'Binan', 'Laguna', '4000');
+INSERT INTO Account (firstName, middleName, lastName, gender, birthDate, phoneNumber, address) VALUES 
+('Eunice', 'A', 'Admin', 'MALE', '2001-05-10', '09111111111', 'Binan'),
+('Vincent', 'B', 'Advisor', 'FEMALE', '2005-07-15', '09222222222', 'Dela Paz'),
+('Neil', 'C', 'Teacher', 'MALE', '1800-03-20', '09333333333', 'San Antonio');
 
 INSERT INTO Admin (username, password, accountId)
 VALUES ('admin', 'admin123', 1);

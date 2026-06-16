@@ -22,7 +22,6 @@ public class AccountManagement {
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
             command.setInt(1, id);
-
             ResultSet result = command.executeQuery();
 
             if (result.next()) {

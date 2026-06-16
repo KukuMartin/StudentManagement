@@ -79,7 +79,7 @@ public class AccountPanel extends Panel{
             public void sendSignal() {
                 Advisor advisor = advisorSystem.getAdvisor(signInAdvisor.getUsername());
                 if(advisor != null && advisor.getPassword().equals(signInTeacher.getPassword())){
-                    advisorPanel.advisorName = advisor.getUsername();
+//                    advisorPanel.advisorName = advisor.getUsername();
                     frame.setPanel(advisorPanel);
                     return;
                 }

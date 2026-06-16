@@ -25,6 +25,8 @@ public abstract class Pane extends JPanel{
     protected final Palette palette;
     protected final Label label;
     
+    private boolean isActive = false;
+    
     //misc
     private final static float clickIntensity = 0.3f;
     private final static float hoverIntensity = 0.1f;
@@ -273,4 +275,7 @@ public abstract class Pane extends JPanel{
         Point point = new Point(this.getX(size.width, xPercent), this.getY(size.height, yPercent));
         this.setUpText(text, editable, size, point);
     }
+    
+    public boolean getIsActive(){ return isActive; }
+    public void setIsActive(boolean isActive){ this.isActive = isActive; }
 }
