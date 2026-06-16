@@ -18,10 +18,12 @@ public class Student extends Account{
     private List<Subject> subjects;
 
     public Student(int id, String studentId, String course, int accountId, 
-            int sectionId, List<Subject> subjects, String name, String gender, 
-            LocalDate birthDate, String phoneNumber, String address) {
-        
-        super(id, name, gender, birthDate, phoneNumber, address);
+                int sectionId, List<Subject> subjects, 
+                String firstName, String middleName, String lastName, 
+                String gender, java.time.LocalDate birthDate,
+                String phoneNumber, String address) {
+
+        super(id, firstName, middleName, lastName, gender, birthDate, phoneNumber, address);
         
         this.id = id;
         this.studentId = studentId;

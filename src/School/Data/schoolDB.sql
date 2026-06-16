@@ -3,7 +3,9 @@ USE schoolDB;
 
 CREATE TABLE Account (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    firstName VARCHAR(50) NOT NULL,
+    middleName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
     gender VARCHAR(10) NOT NULL,
     birthDate DATE NOT NULL,
     phoneNumber VARCHAR(20) NOT NULL,

@@ -13,8 +13,6 @@ public class AdvisorPanel extends Panel{
     private SectionEdit section;
     boolean activeAccount = true;
     
-    String advisorName;
-    
     public AdvisorPanel(Frame frame, Signal signOut) {
         super(frame);
         

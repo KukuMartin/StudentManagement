@@ -27,8 +27,6 @@ public class AccountSystem {
         if (id <= 0) {
             return false;
         }
-
-        Account temp = new Account(id, null, null, null, null, null);
         int result = management.remove(id);
         return result > 0;
     }
@@ -58,7 +56,9 @@ public class AccountSystem {
         if (account == null) return true;
 
         if (account.getId() <= 0) return true;
-        if (account.getName()== null || account.getName().isBlank()) return true;
+        if (account.getFirstName()== null || account.getLastName().isBlank()) return true;
+        if (account.getMiddleName()== null || account.getMiddleName().isBlank()) return true;
+        if (account.getLastName()== null || account.getLastName().isBlank()) return true;
         if (account.getGender() == null || account.getGender().isBlank()) return true;
         if (account.getBirthDate() == null) return true;
         if (account.getPhoneNumber() == null || account.getPhoneNumber().isBlank()) return true;

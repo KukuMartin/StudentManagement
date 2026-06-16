@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Gui.Frame.Account;
+
 import Gui.Frame.Frame;
 import Gui.Frame.MainFrame;
 import Gui.Misc.Tool.Label;

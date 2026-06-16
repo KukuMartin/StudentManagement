@@ -29,7 +29,9 @@ public class AccountManagement {
 
                 return new Account(
                     result.getInt("id"),
-                    result.getString("name"),
+                    result.getString("firstName"),
+                    result.getString("middleName"),
+                    result.getString("lastName"),
                     result.getString("gender"),
                     result.getDate("birthDate").toLocalDate(),
                     result.getString("phoneNumber"),
@@ -47,15 +49,17 @@ public class AccountManagement {
     public int add(Account account) {
         int result = 0;
         String query = "INSERT INTO " + table +
-                " (name, gender, birthDate, phoneNumber, address) VALUES (?, ?, ?, ?, ?)";
+                " (firstName, middleName, lastName, gender, birthDate, phoneNumber, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setString(1, account.getName());
-            command.setString(2, account.getGender());
-            command.setDate(3, Date.valueOf(account.getBirthDate()));
-            command.setString(4, account.getPhoneNumber());
-            command.setString(5, account.getAddress());
+            command.setString(1, account.getFirstName());
+            command.setString(2, account.getMiddleName());
+            command.setString(3, account.getLastName());
+            command.setString(4, account.getGender());
+            command.setDate(5, Date.valueOf(account.getBirthDate()));
+            command.setString(6, account.getPhoneNumber());
+            command.setString(7, account.getAddress());
 
             result = command.executeUpdate();
 
@@ -93,11 +97,13 @@ public class AccountManagement {
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setString(1, account.getName());
-            command.setString(2, account.getGender());
-            command.setDate(3, Date.valueOf(account.getBirthDate()));
-            command.setString(4, account.getPhoneNumber());
-            command.setInt(5, account.getId());
+            command.setString(1, account.getFirstName());
+            command.setString(2, account.getMiddleName());
+            command.setString(3, account.getLastName());
+            command.setString(4, account.getGender());
+            command.setDate(5, Date.valueOf(account.getBirthDate()));
+            command.setString(6, account.getPhoneNumber());
+            command.setInt(7, account.getId());
 
             result = command.executeUpdate();
 
@@ -123,7 +129,9 @@ public class AccountManagement {
 
                 list.add(new Account(
                     id,
-                    result.getString("name"),
+                    result.getString("firstName"),
+                    result.getString("middleName"),
+                    result.getString("lastName"),
                     result.getString("gender"),
                     result.getDate("birthDate").toLocalDate(),
                     result.getString("phoneNumber"),

@@ -54,7 +54,9 @@ public class TeacherManagement {
                         accountId,
                         subjectSystem.getSubjects(id),
 
-                        account.getName(),
+                        account.getFirstName(),
+                        account.getMiddleName(),
+                        account.getLastName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
@@ -152,7 +154,9 @@ public class TeacherManagement {
                         accountId,
                         subjectSystem.getSubjects(id),
 
-                        account.getName(),
+                        account.getFirstName(),
+                        account.getMiddleName(),
+                        account.getLastName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),

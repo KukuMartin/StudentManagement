@@ -2,7 +2,6 @@ package School.Model.Account.Type;
 
 import School.Model.Account.Account;
 import School.Model.Subject.Subject;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Teacher extends Account {
@@ -14,10 +13,11 @@ public class Teacher extends Account {
     private List<Subject> subjects;
 
     public Teacher(int id, String username, String password, int accountId,
-                List<Subject> subjects, String name, String gender, 
-                java.time.LocalDate birthDate, String phoneNumber, String address) {
+                List<Subject> subjects, String firstName, String middleName, 
+                String lastName, String gender, java.time.LocalDate birthDate,
+                String phoneNumber, String address) {
 
-        super(id, name, gender, birthDate, phoneNumber, address);
+        super(id, firstName, middleName, lastName, gender, birthDate, phoneNumber, address);
 
         this.id = id;
         this.username = username;
