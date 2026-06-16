@@ -18,20 +18,21 @@ public class AssessmentSystem {
     }
 
     public boolean createAssessment(Assessment assessment) {
+        
         if (this.isAssessmentInvalid(assessment)) {
             return false;
         }
 
-        management.add(assessment);
-        return true;
+        int result = management.add(assessment);
+        return result > 0;
     }
 
-    public boolean deleteAssessment(Assessment assessment) {
-        if (assessment == null || assessment.getId() <= 0) {
+    public boolean deleteAssessment(int id) {
+        if (id <= 0) {
             return false;
         }
-
-        int result = management.remove(assessment);
+        
+        int result = management.remove(id);
         return result > 0;
     }
 

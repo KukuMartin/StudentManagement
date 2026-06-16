@@ -56,6 +56,7 @@ public class SubjectManagement {
     }
 
     public int add(Subject subject) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (teacherId, name, code, scheduleStart, scheduleEnd) VALUES (?, ?, ?, ?, ?)";
 
@@ -73,7 +74,7 @@ public class SubjectManagement {
             e.printStackTrace();
         }
 
-        return 0;
+        return result;
     }
     
     public int remove(int id) {

@@ -26,12 +26,12 @@ public class RecordSystem {
         return result > 0;
     }
 
-    public boolean deleteRecord(Record record) {
-        if (record == null || record.getId() <= 0) {
+    public boolean deleteRecord(int id) {
+        if (id <= 0) {
             return false;
         }
 
-        int result = management.remove(record);
+        int result = management.remove(id);
         return result > 0;
     }
 

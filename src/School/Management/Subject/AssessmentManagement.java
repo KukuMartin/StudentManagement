@@ -58,7 +58,8 @@ public class AssessmentManagement {
         return null;
     }
 
-    public void add(Assessment assessment) {
+    public int add(Assessment assessment) {
+        int result = 0;
         String query = "INSERT INTO " + table +
                 " (name, percent, recordId, period) VALUES (?, ?, ?, ?)";
 
@@ -74,6 +75,7 @@ public class AssessmentManagement {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

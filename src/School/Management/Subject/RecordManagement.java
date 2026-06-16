@@ -52,6 +52,7 @@ public class RecordManagement {
     }
 
     public int add(Record record) {
+        int result = 0;
         String query = "INSERT INTO " + table + " (subjectId, studentId) VALUES (?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
@@ -65,7 +66,7 @@ public class RecordManagement {
             e.printStackTrace();
         }
 
-        return 0;
+        return result;
     }
     
     public int remove(int id) {

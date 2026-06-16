@@ -27,12 +27,12 @@ public class SubjectSystem {
         return result > 0;
     }
 
-    public boolean deleteSubject(Subject subject) {
-        if (subject == null || subject.getId() <= 0) {
+    public boolean deleteSubject(int id) {
+        if (id <= 0) {
             return false;
         }
 
-        int result = management.remove(subject);
+        int result = management.remove(id);
         return result > 0;
     }
 

@@ -59,7 +59,8 @@ public class ActivityManagement {
         return null;
     }
 
-    public void add(int assessmentId, Activity activity) {
+    public int add(int assessmentId, Activity activity) {
+        int result = 0;
         String query = "INSERT INTO " + table + " (assessmentId, name, totalScore, currentScore) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
@@ -74,6 +75,7 @@ public class ActivityManagement {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     public int remove(int id) {

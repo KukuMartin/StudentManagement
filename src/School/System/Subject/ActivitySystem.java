@@ -15,6 +15,7 @@ public class ActivitySystem {
     }
 
     public boolean createActivity(int assessmentId, Activity activity) {
+        
         if (assessmentId <= 0) {
             return false;
         }
@@ -23,16 +24,16 @@ public class ActivitySystem {
             return false;
         }
 
-        management.add(assessmentId, activity);
-        return true;
+        int result = management.add(assessmentId, activity);
+        return result > 0;
     }
 
-    public boolean deleteActivity(Activity activity) {
-        if (activity == null || activity.getId() <= 0) {
-            return false;
+    public boolean deleteActivity(int id) {
+        if (id <= 0) {
+           return false;
         }
-
-        int result = management.remove(activity);
+        
+        int result = management.remove(id);
         return result > 0;
     }
 
