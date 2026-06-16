@@ -27,7 +27,6 @@ public class SectionAdd extends Frame{
 
         Panel panel = new Panel(this);
 
-        // ── NavBar ────────────────────────────────────────────────────────
         int navH = (int)(NavBar.getHeightPercent() * size.height);
 
         NavBar navBar = new NavBar(getDimension(), getPalette(), getLabel());
@@ -93,13 +92,13 @@ public class SectionAdd extends Frame{
         this.setPanel(panel);
     }
 //  to run
-//    public static void main(String[] args) {
-//        String title    = "Add New Section";
-//        Dimension size  = MainFrame.createSize();
-//        Palette palette = MainFrame.createPalette();
-//        Label label     = MainFrame.createLabel();
-//
-//        SectionAdd frame = new SectionAdd(title, size, palette, label);
-//        frame.setVisible(true);
-//    }
+    public static void main(String[] args) {
+        String title    = "Add New Section";
+        Dimension size  = MainFrame.createSize();
+        Palette palette = MainFrame.createPalette();
+        Label label     = MainFrame.createLabel();
+
+        SectionAdd frame = new SectionAdd(title, size, palette, label);
+        frame.setVisible(true);
+    }
 }

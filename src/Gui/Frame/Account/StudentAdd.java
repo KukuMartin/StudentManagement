@@ -1,5 +1,8 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Gui.Frame.Account;
-
 import Gui.Frame.Frame;
 import Gui.Frame.MainFrame;
 import Gui.Misc.Tool.Label;
@@ -65,36 +68,41 @@ public class StudentAdd extends Frame{
             createForm();
         }
 
+        
         private void createNavBar() {
 
             NavBar navBar = new NavBar(size, palette, label);
 
-            JButton homeBtn = navBar.getSquareButton("Home", 8);
+            JButton homeBtn = navBar.getSquareButton("Back", 10);
             homeBtn.setBackground(palette.getAccent());
             homeBtn.setForeground(palette.getTextLight());
             homeBtn.setFont(label.getBody());
 
-            navBar.addButton(homeBtn, getSignal(navBar, Layer.TOP));
+            //navBar.addButton(homeBtn, getSignal(navBar, Layer.TOP));
 
-            JButton exitBtn = navBar.getSquareButton("Exit", 8);
+            JButton exitBtn = navBar.getSquareButton("Exit", 10);
             exitBtn.setBackground(palette.getPrimary());
             exitBtn.setForeground(palette.getTextLight());
             exitBtn.setFont(label.getBody());
 
             exitBtn.addActionListener(e -> System.exit(0));
+            
+                int buttonWidth = 100;
+                int buttonHeight = navBar.getHeight() - 20;
+                int y = 10;
 
-            int x = size.width - 120;
-            int navBarHeight = 60;
-            int y = navBarHeight + 30;
+                exitBtn.setSize(buttonWidth, buttonHeight);
+                exitBtn.setLocation(300, 10);
 
-            exitBtn.setSize(100, navBar.getHeight() - 20);
-            exitBtn.setLocation(x, y);
+                homeBtn.setSize(buttonWidth, buttonHeight);
+                homeBtn.setLocation(350, 10);
 
-            navBar.add(exitBtn);
+                navBar.add(homeBtn);
+                navBar.add(exitBtn);
 
-            this.add(navBar, Layer.TOP.getLayer());
-        }
-
+                this.add(navBar, Layer.TOP.getLayer());
+}
+        
         private void createForm() {
             FormPane formPane = new FormPane(size, palette, label);
             setPane(formPane, Layer.MIDDLE);
@@ -131,7 +139,7 @@ public class StudentAdd extends Frame{
             setUpComponent(
                     heading,
                     new Dimension(400, 50),
-                    new Point(40, y)
+                    new Point(250, 50)
             );
 
             y += 60;
@@ -139,32 +147,21 @@ public class StudentAdd extends Frame{
             y = addField("First Name", leftXLabel, leftXField, y);
             y = addField("Middle Name", leftXLabel, leftXField, y);
             y = addField("Last Name", leftXLabel, leftXField, y);
+            y = addField("Account ID", leftXLabel, leftXField, y);
             y = addField("Gender", leftXLabel, leftXField, y);
             y = addField("Birth Date", leftXLabel, leftXField, y);
-            y = addField("Phone Number", leftXLabel, leftXField, y);
 
             int yRight = 140;
 
-            yRight = addField("House Number", rightXLabel, rightXField, yRight);
-            yRight = addField("Street", rightXLabel, rightXField, yRight);
-            yRight = addField("Barangay", rightXLabel, rightXField, yRight);
-            yRight = addField("City", rightXLabel, rightXField, yRight);
-            yRight = addField("Province", rightXLabel, rightXField, yRight);
-            yRight = addField("Zip Code", rightXLabel, rightXField, yRight);
+            yRight = addField("Phone Number", rightXLabel, rightXField, yRight);
+            yRight = addField("Address", rightXLabel, rightXField, yRight);
 
             JButton saveButton = getSquareButton("Save Student", 12);
-
             saveButton.setBackground(palette.getPrimary());
             saveButton.setForeground(palette.getTextLight());
             saveButton.setFont(label.getBody());
-
             saveButton.addMouseListener(getClickableComponent(saveButton));
-
-            setUpButton(
-                    saveButton,
-                    new Dimension(200, 40),
-                    new Point(250, Math.max(y, yRight) + 40)
-            );
+            this.setUpButton(saveButton, new Dimension(230, 40), 0.8, 0.60);
         }
 
         private int addField(String text,
@@ -187,7 +184,7 @@ public class StudentAdd extends Frame{
 
             JTextField field = getSquareTextField(12);
 
-            field.setBackground(palette.getLight());
+            field.setBackground(palette.getNeutral());
             field.setForeground(palette.getTextDark());
             field.setFont(label.getBody());
 
