@@ -37,7 +37,7 @@ public class AccountPanel extends Panel{
         advisorPanel = new AdvisorPanel(frame, signOut);
         
         Signal teacherSignal = this.getTeacherSignIn(getTeacherSignal());
-        Signal advisorSignal = this.getAdvisorSignIn(frame.getSignal(advisorPanel));
+        Signal advisorSignal = this.getAdvisorSignIn(getAdvisorSignal());
         
         
         Pane pick = new AccountPick(size, palette, label, advisorSignal, teacherSignal);
@@ -59,10 +59,10 @@ public class AccountPanel extends Panel{
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                Teacher teacher = teacherSystem.getTeacher(signInTeacher.getUsername());
-                if(teacher != null && teacher.getPassword().equals(signInTeacher.getPassword())){
-                    teacherPanel.teacherName = teacher.getUsername();
-                    teacherPanel.setFields(teacher.getAccountId(), teacher.getUsername(), teacher.getPhoneNumber(), teacher.getBirthDate());
+                Teacher account = teacherSystem.getTeacher(signInTeacher.getUsername());
+                if(account != null && account.getPassword().equals(signInTeacher.getPassword())){
+                    teacherPanel.teacherName = account.getUsername();
+                    teacherPanel.setFields(account.getAccountId(), account.getUsername(), account.getPhoneNumber(), account.getBirthDate());
                     frame.setPanel(teacherPanel);
                     return;
                 }
@@ -77,9 +77,10 @@ public class AccountPanel extends Panel{
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                Advisor advisor = advisorSystem.getAdvisor(signInAdvisor.getUsername());
-                if(advisor != null && advisor.getPassword().equals(signInTeacher.getPassword())){
-//                    advisorPanel.advisorName = advisor.getUsername();
+                Advisor account = advisorSystem.getAdvisor(signInAdvisor.getUsername());
+                if(account != null && account.getPassword().equals(signInAdvisor.getPassword())){
+                    advisorPanel.advisorName = account.getUsername();
+                    advisorPanel.setFields(account.getAccountId(), account.getUsername(), account.getPhoneNumber(), account.getBirthDate());
                     frame.setPanel(advisorPanel);
                     return;
                 }

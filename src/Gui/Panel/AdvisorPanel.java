@@ -5,12 +5,15 @@ import Gui.Pane.Account.AccountView;
 import Gui.Pane.Account.SectionEdit;
 import Gui.Pane.NavBar;
 import Gui.Misc.Tool.Signal;
+import java.time.LocalDate;
 import javax.swing.JButton;
 
 public class AdvisorPanel extends Panel{
     private NavBar navbar;
     private AccountView account;
     private SectionEdit section;
+    
+    String advisorName;
     
     public AdvisorPanel(Frame frame, Signal signOut) {
         super(frame);
@@ -62,6 +65,10 @@ public class AdvisorPanel extends Panel{
         
         button.addMouseListener(navbar.getClickableComponent(button));
         return button;
+    }
+    
+    public void setFields(int accountId, String username, String phoneNumber, LocalDate birthDate) {
+        account.setFields(accountId, username, phoneNumber, birthDate);
     }
     
     private Signal getSectionSignal(){

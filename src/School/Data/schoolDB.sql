@@ -117,10 +117,10 @@ INSERT INTO Account (firstName, middleName, lastName, gender, birthDate, phoneNu
 ('Neil', 'C', 'Teacher', 'MALE', '1800-03-20', '09333333333', 'San Antonio');
 
 INSERT INTO Admin (username, password, accountId)
-VALUES ('admin', 'admin123', 1);
+VALUES ('admin', '123', 1);
 
 INSERT INTO Advisor (username, password, accountId)
-VALUES ('advisor', 'advisor123', 2);
+VALUES ('advisor', '123', 2);
 
 INSERT INTO Teacher (username, password, accountId)
-VALUES ('teacher', 'teacher123', 3);
+VALUES ('teacher', '123', 3);
