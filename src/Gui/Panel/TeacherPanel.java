@@ -36,13 +36,13 @@ public class TeacherPanel extends Panel{
     }
     
     private JButton getAccountButton(){
-        JButton button = account.getButton("Account", 8);
+        JButton button = account.getSquareButton("Account", 8);
         
         button.setBackground(palette.getPrimary());
         button.setForeground(palette.getTextLight());
         
         button.setFont(label.getBody());
-        button.addMouseListener(navbar.getMouseEvent(button));
+        button.addMouseListener(navbar.getClickableComponent(button));
         return button;
     }
     
@@ -59,14 +59,14 @@ public class TeacherPanel extends Panel{
     }
     
     private JButton getSectionButton(){
-        JButton button = account.getButton("Subject", 8);
+        JButton button = account.getSquareButton("Subject", 8);
         
         button.setBackground(palette.getPrimary());
         button.setForeground(palette.getTextLight());
         
         button.setFont(label.getBody());
         
-        button.addMouseListener(navbar.getMouseEvent(button));
+        button.addMouseListener(navbar.getClickableComponent(button));
         return button;
     }
     

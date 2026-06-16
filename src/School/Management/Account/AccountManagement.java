@@ -5,18 +5,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import School.Data.DatabaseTable;
-import School.System.Account.AddressSystem;
 
 public class AccountManagement {
 
     private final Connection sql;
     private final String table = DatabaseTable.ACCOUNT;
 
-    private AddressSystem addressSystem;
-
-    public AccountManagement(Connection sql, AddressSystem addressSystem) {
+    public AccountManagement(Connection sql) {
         this.sql = sql;
-        this.addressSystem = addressSystem;
     }
 
     public Account search(int id) {
@@ -33,13 +29,11 @@ public class AccountManagement {
 
                 return new Account(
                     result.getInt("id"),
-                    result.getString("firstName"),
-                    result.getString("middleName"),
-                    result.getString("lastName"),
+                    result.getString("name"),
                     result.getString("gender"),
                     result.getDate("birthDate").toLocalDate(),
                     result.getString("phoneNumber"),
-                    addressSystem.getAddress(id)
+                    result.getString("address")
                 );
             }
 
@@ -53,16 +47,15 @@ public class AccountManagement {
     public void add(Account account) {
 
         String query = "INSERT INTO " + table +
-                " (firstName, middleName, lastName, gender, birthDate, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
+                " (name, gender, birthDate, phoneNumber, address) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setString(1, account.getFirstName());
-            command.setString(2, account.getMiddleName());
-            command.setString(3, account.getLastName());
-            command.setString(4, account.getGender());
-            command.setDate(5, Date.valueOf(account.getBirthDate()));
-            command.setString(6, account.getPhoneNumber());
+            command.setString(1, account.getName());
+            command.setString(2, account.getGender());
+            command.setDate(3, Date.valueOf(account.getBirthDate()));
+            command.setString(4, account.getPhoneNumber());
+            command.setString(5, account.getAddress());
 
             command.executeUpdate();
 
@@ -99,13 +92,11 @@ public class AccountManagement {
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setString(1, account.getFirstName());
-            command.setString(2, account.getMiddleName());
-            command.setString(3, account.getLastName());
-            command.setString(4, account.getGender());
-            command.setDate(5, Date.valueOf(account.getBirthDate()));
-            command.setString(6, account.getPhoneNumber());
-            command.setInt(7, account.getId());
+            command.setString(1, account.getName());
+            command.setString(2, account.getGender());
+            command.setDate(3, Date.valueOf(account.getBirthDate()));
+            command.setString(4, account.getPhoneNumber());
+            command.setInt(5, account.getId());
 
             result = command.executeUpdate();
 
@@ -131,13 +122,11 @@ public class AccountManagement {
 
                 list.add(new Account(
                     id,
-                    result.getString("firstName"),
-                    result.getString("middleName"),
-                    result.getString("lastName"),
+                    result.getString("name"),
                     result.getString("gender"),
                     result.getDate("birthDate").toLocalDate(),
                     result.getString("phoneNumber"),
-                    addressSystem.getAddress(id)
+                    result.getString("address")
                 ));
             }
 

@@ -3,7 +3,6 @@ package School.System.Account.Type;
 import School.Management.Account.Type.AdminManagement;
 import School.Model.Account.Type.Admin;
 import School.System.Account.AccountSystem;
-import School.System.Account.AddressSystem;
 
 import java.sql.Connection;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 public class AdminSystem {
 
     private AdminManagement management;
-    private AddressSystem addressSystem;
     private AccountSystem accountSystem;
 
     public AdminSystem(Connection sql) {
@@ -34,7 +32,7 @@ public class AdminSystem {
             return false;
         }
 
-        Admin temp = new Admin(id, null, null, 0, null, null, null, null, null, null, null);
+        Admin temp = new Admin(id, null, null, 0, null, null, null, null, null);
         int result = management.remove(temp);
         return result > 0;
     }
@@ -60,11 +58,7 @@ public class AdminSystem {
         return management.getAdmins();
     }
 
-    public AddressSystem getAddressSystem() {
-        return addressSystem;
-    }
-
-    private boolean isAdminInvalid(Admin admin) {
+    public boolean isAdminInvalid(Admin admin) {
         if (admin == null) return true;
 
         if (admin.getId() <= 0) return true;

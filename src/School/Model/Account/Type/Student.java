@@ -1,7 +1,6 @@
 package School.Model.Account.Type;
 
 import School.Model.Account.Account;
-import School.Model.Account.Address;
 import School.Model.Subject.Subject;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,12 +17,11 @@ public class Student extends Account{
 
     private List<Subject> subjects;
 
-    public Student(int id, String studentId, String course, 
-            int accountId, int sectionId, List<Subject> subjects,
-            String firstName, String middleName, 
-            String lastName, String gender, LocalDate birthDate, 
-            String phoneNumber, Address address) {
-        super(id, firstName, middleName, lastName, gender, birthDate, phoneNumber, address);
+    public Student(int id, String studentId, String course, int accountId, 
+            int sectionId, List<Subject> subjects, String name, String gender, 
+            LocalDate birthDate, String phoneNumber, String address) {
+        
+        super(id, name, gender, birthDate, phoneNumber, address);
         
         this.id = id;
         this.studentId = studentId;

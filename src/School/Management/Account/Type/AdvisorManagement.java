@@ -3,7 +3,6 @@ package School.Management.Account.Type;
 import School.Data.DatabaseTable;
 import School.Model.Account.Type.Advisor;
 import School.System.Account.AccountSystem;
-import School.System.Account.AddressSystem;
 import School.System.Account.SectionSystem;
 
 import java.sql.Connection;
@@ -19,18 +18,15 @@ public class AdvisorManagement {
     private Connection sql;
 
     private SectionSystem sectionSystem;
-    private AddressSystem addressSystem;
     private AccountSystem accountSystem;
 
     public AdvisorManagement(
             Connection sql,
             SectionSystem sectionSystem,
-            AddressSystem addressSystem,
             AccountSystem accountSystem
     ) {
         this.sql = sql;
         this.sectionSystem = sectionSystem;
-        this.addressSystem = addressSystem;
         this.accountSystem = accountSystem;
     }
 
@@ -58,14 +54,11 @@ public class AdvisorManagement {
                         accountId,
                         sectionSystem.getAllSections(id),
 
-                        account.getFirstName(),
-                        account.getMiddleName(),
-                        account.getLastName(),
+                        account.getName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
-
-                        addressSystem.getAddress(accountId)
+                        account.getAddress()
                 );
             }
 
@@ -158,14 +151,11 @@ public class AdvisorManagement {
                         accountId,
                         sectionSystem.getAllSections(id),
 
-                        account.getFirstName(),
-                        account.getMiddleName(),
-                        account.getLastName(),
+                        account.getName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
-
-                        addressSystem.getAddress(accountId)
+                        account.getAddress()
                 ));
             }
 

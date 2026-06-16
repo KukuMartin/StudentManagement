@@ -37,7 +37,7 @@ public class NavBar extends Pane{
         this.setSize(this.size.width, this.size.height);
         
         
-        this.addMouseListener(this.getMouseEvent(this));
+        this.addMouseListener(this.getClickableJPanel(this));
     }
     
     //java documentation testing
@@ -56,15 +56,15 @@ public class NavBar extends Pane{
         y = yPadding;
         
         button.addActionListener(signal.getActionEvent());
-        button.addMouseListener(this.getMouseEvent(button));
+        button.addMouseListener(this.getClickableComponent(button));
         
-        this.setComponent(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
+        this.setUpButton(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
         buttons.add(button);
     }
     
     public void addSignOut(Signal signOut){
         int x, y;
-        JButton button = this.getButton("< Exit", 8); //TODO: turn into imageIcon
+        JButton button = this.getSquareButton("< Exit", 8); //TODO: turn into imageIcon
         
         button.setBackground(palette.getAccent());
         button.setForeground(palette.getTextLight());
@@ -72,12 +72,12 @@ public class NavBar extends Pane{
         button.setFont(label.getBody());
         
         button.addActionListener(signOut.getActionEvent());
-        button.addMouseListener(this.getMouseEvent(button));
+        button.addMouseListener(this.getClickableComponent(button));
         
         x = frame.width - buttonWidth - 22;
         y = yPadding;
         
-        this.setComponent(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
+        this.setUpButton(button, new Dimension(buttonWidth, buttonHeight), new Point(x, y));
     }
     
     public static double getHeightPercent(){

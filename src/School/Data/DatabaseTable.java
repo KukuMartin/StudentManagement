@@ -2,7 +2,6 @@ package School.Data;
 
 public class DatabaseTable {
     public static final String ACCOUNT = "Account";
-    public static final String ADDRESS = "Address";
     public static final String ADMIN = "Admin";
     public static final String SECTION = "Section";
     public static final String ADVISOR = "Advisor";

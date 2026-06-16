@@ -72,14 +72,14 @@ public class StudentAdd extends Frame{
 
             NavBar navBar = new NavBar(size, palette, label);
 
-            JButton homeBtn = navBar.getButton("Home", 8);
+            JButton homeBtn = navBar.getSquareButton("Home", 8);
             homeBtn.setBackground(palette.getAccent());
             homeBtn.setForeground(palette.getTextLight());
             homeBtn.setFont(label.getBody());
 
             navBar.addButton(homeBtn, getSignal(navBar, Layer.TOP));
 
-            JButton exitBtn = navBar.getButton("Exit", 8);
+            JButton exitBtn = navBar.getSquareButton("Exit", 8);
             exitBtn.setBackground(palette.getPrimary());
             exitBtn.setForeground(palette.getTextLight());
             exitBtn.setFont(label.getBody());
@@ -131,7 +131,7 @@ public class StudentAdd extends Frame{
             heading.setFont(label.getHeading());
             heading.setForeground(palette.getTextDark());
 
-            setComponent(
+            setUpComponent(
                     heading,
                     new Dimension(400, 50),
                     new Point(40, y)
@@ -155,15 +155,15 @@ public class StudentAdd extends Frame{
             yRight = addField("Province", rightXLabel, rightXField, yRight);
             yRight = addField("Zip Code", rightXLabel, rightXField, yRight);
 
-            JButton saveButton = getButton("Save Student", 12);
+            JButton saveButton = getSquareButton("Save Student", 12);
 
             saveButton.setBackground(palette.getPrimary());
             saveButton.setForeground(palette.getTextLight());
             saveButton.setFont(label.getBody());
 
-            saveButton.addMouseListener(getMouseEvent(saveButton));
+            saveButton.addMouseListener(getClickableComponent(saveButton));
 
-            setComponent(
+            setUpButton(
                     saveButton,
                     new Dimension(200, 40),
                     new Point(250, Math.max(y, yRight) + 40)
@@ -179,7 +179,7 @@ public class StudentAdd extends Frame{
             labelField.setFont(label.getBody());
             labelField.setForeground(palette.getTextDark());
 
-            setComponent(
+            setUpComponent(
                     labelField,
                     new Dimension(150, 30),
                     new Point(xLabel, y)
@@ -188,13 +188,13 @@ public class StudentAdd extends Frame{
             int fieldWidth = (int)(frame.width * 0.30);
             int fieldHeight = 35;
 
-            JTextField field = getTextField(12);
+            JTextField field = getSquareTextField(12);
 
             field.setBackground(palette.getLight());
             field.setForeground(palette.getTextDark());
             field.setFont(label.getBody());
 
-            setComponent(
+            setUpText(
                     field,
                     true,
                     new Dimension(fieldWidth, fieldHeight),

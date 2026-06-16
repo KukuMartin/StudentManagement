@@ -26,47 +26,47 @@ public class AccountView extends Pane {
 
         windowTitle = new JLabel("Your Account");
         windowTitle.setFont(label.getHeading());
-        this.setComponent(windowTitle, getSize(windowTitle, 260), 0.5, 0.17);
+        this.setUpComponent(windowTitle, getSize(windowTitle, 260), 0.5, 0.17);
 
         accID = new JLabel("Account ID:");
         accID.setFont(label.getBody());
-        this.setComponent(accID, getSize(accID, 200), 0.2, 0.27);
+        this.setUpComponent(accID, getSize(accID, 200), 0.2, 0.27);
 
-        idField = this.getTextField("", 8);
+        idField = this.getSquareTextField("", 8);
         idField.setBackground(palette.getNeutral());
-        this.setComponent(idField, false, new Dimension(500, 30), 0.55, 0.27);
+        this.setUpText(idField, false, new Dimension(500, 30), 0.55, 0.27);
 
         accType = new JLabel("Username:");
         accType.setFont(label.getBody());
-        this.setComponent(accType, getSize(accType, 200), 0.2, 0.37);
+        this.setUpComponent(accType, getSize(accType, 200), 0.2, 0.37);
 
-        typeField = this.getTextField("", 8);
+        typeField = this.getSquareTextField("", 8);
         typeField.setBackground(palette.getNeutral());
-        this.setComponent(typeField, false, new Dimension(500, 30), 0.55, 0.37);
+        this.setUpText(typeField, false, new Dimension(500, 30), 0.55, 0.37);
 
         phone = new JLabel("Phone Number:");
         phone.setFont(label.getBody());
-        this.setComponent(phone, getSize(phone, 200), 0.2, 0.47);
+        this.setUpComponent(phone, getSize(phone, 200), 0.2, 0.47);
 
-        phoneField = this.getTextField("", 8);
+        phoneField = this.getSquareTextField("", 8);
         phoneField.setBackground(palette.getNeutral());
-        this.setComponent(phoneField, false, new Dimension(500, 30), 0.55, 0.47);
+        this.setUpText(phoneField, false, new Dimension(500, 30), 0.55, 0.47);
 
         birthday = new JLabel("Birth Date:");
         birthday.setFont(label.getBody());
-        this.setComponent(birthday, getSize(birthday, 200), 0.2, 0.57);
+        this.setUpComponent(birthday, getSize(birthday, 200), 0.2, 0.57);
 
-        birthdayField = this.getTextField("", 8);
+        birthdayField = this.getSquareTextField("", 8);
         birthdayField.setBackground(palette.getNeutral());
-        this.setComponent(birthdayField, false, new Dimension(500, 30), 0.55, 0.57);
+        this.setUpText(birthdayField, false, new Dimension(500, 30), 0.55, 0.57);
 
-        mgButton = this.getButton("Manage", 8);
+        mgButton = this.getSquareButton("Manage", 8);
         mgButton.setBackground(palette.getSecondary());
         mgButton.setForeground(palette.getTextLight());
         mgButton.setFont(label.getBody());
-        this.setComponent(mgButton, getSize(mgButton, 150), 0.5, 0.85);
+        this.setUpButton(mgButton, getSize(mgButton, 150), 0.5, 0.85);
 
-        mgButton.addMouseListener(this.getMouseEvent(mgButton));
+        mgButton.addMouseListener(this.getClickableComponent(mgButton));
         mgButton.addActionListener(this.getManageSignal().getActionEvent());
     }
 

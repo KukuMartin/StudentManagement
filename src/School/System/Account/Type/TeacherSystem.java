@@ -3,7 +3,6 @@ package School.System.Account.Type;
 import School.Management.Account.Type.TeacherManagement;
 import School.Model.Account.Type.Teacher;
 import School.System.Account.AccountSystem;
-import School.System.Account.AddressSystem;
 import School.System.Subject.SubjectSystem;
 
 import java.sql.Connection;
@@ -12,19 +11,16 @@ import java.util.List;
 public class TeacherSystem {
 
     private TeacherManagement management;
-    private AddressSystem addressSystem;
     private SubjectSystem subjectSystem;
     private AccountSystem accountSystem;
 
     public TeacherSystem(Connection sql) {
 
         this.accountSystem = new AccountSystem(sql);
-        this.addressSystem = new AddressSystem(sql);
         this.subjectSystem = new SubjectSystem(sql);
 
         this.management = new TeacherManagement(
                 sql,
-                addressSystem,
                 subjectSystem,
                 accountSystem
         );
@@ -44,7 +40,7 @@ public class TeacherSystem {
             return false;
         }
 
-        Teacher temp = new Teacher(id, null, null, 0, null, null, null, null, null, null, null, null);
+        Teacher temp = new Teacher(id, null, null, 0, null, null, null, null, null, null);
         int result = management.remove(temp);
         return result > 0;
     }
@@ -70,15 +66,11 @@ public class TeacherSystem {
         return management.getTeachers();
     }
 
-    public AddressSystem getAddressSystem() {
-        return addressSystem;
-    }
-
     public SubjectSystem getSubjectSystem() {
         return subjectSystem;
     }
 
-    private boolean isTeacherInvalid(Teacher teacher) {
+    public boolean isTeacherInvalid(Teacher teacher) {
         if (teacher == null) return true;
 
         if (teacher.getId() <= 0) return true;

@@ -65,10 +65,10 @@ public class SectionEdit extends Pane{
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
         //new second========
-        JButton gradesBtn = this.getButton("Section", 8);
+        JButton gradesBtn = this.getSquareButton("Section", 8);
         gradesBtn.setBackground(palette.getPrimary());
         gradesBtn.setForeground(palette.getTextLight());
-        setComponent(gradesBtn, new Dimension(110, 40), new Point(40, 60));
+        setUpButton(gradesBtn, new Dimension(110, 40), new Point(40, 60));
 
         //new first===========
         JScrollPane scrollPane = new JScrollPane(table);

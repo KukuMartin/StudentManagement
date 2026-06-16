@@ -33,13 +33,13 @@ public class AdvisorPanel extends Panel{
     }
     
     private JButton getAccoutButton(){
-        JButton button = account.getButton("Account", 8);
+        JButton button = account.getSquareButton("Account", 8);
         button.setBackground(palette.getPrimary());
         button.setForeground(palette.getTextLight());
         
         button.setFont(label.getBody());
         
-        button.addMouseListener(navbar.getMouseEvent(button));
+        button.addMouseListener(navbar.getClickableComponent(button));
         return button;
     }
     
@@ -57,14 +57,14 @@ public class AdvisorPanel extends Panel{
     }
     
     private JButton getSectionButton(){
-        JButton button = account.getButton("Section", 8);
+        JButton button = account.getSquareButton("Section", 8);
         
         button.setBackground(palette.getPrimary());
         button.setForeground(palette.getTextLight());
         
         button.setFont(label.getBody());
         
-        button.addMouseListener(navbar.getMouseEvent(button));
+        button.addMouseListener(navbar.getClickableComponent(button));
         return button;
     }
     

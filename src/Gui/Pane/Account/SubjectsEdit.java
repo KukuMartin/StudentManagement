@@ -77,38 +77,38 @@ public class SubjectsEdit extends Pane{
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
         //new second========
-        JButton gradesBtn = this.getButton("Grade", 8);
+        JButton gradesBtn = this.getSquareButton("Grade", 8);
         gradesBtn.setBackground(palette.getPrimary());
         gradesBtn.setForeground(palette.getTextLight());
 
-        attendanceBtn = this.getButton("Attendance", 8);
+        attendanceBtn = this.getSquareButton("Attendance", 8);
         attendanceBtn.setBackground(palette.getPrimary());
         attendanceBtn.setForeground(palette.getTextLight());
 
-        setComponent(gradesBtn, new Dimension(70, 40), new Point(40, 60));
-        setComponent(attendanceBtn, new Dimension(100, 40), new Point(120, 60));
+        setUpButton(gradesBtn, new Dimension(70, 40), new Point(40, 60));
+        setUpButton(attendanceBtn, new Dimension(100, 40), new Point(120, 60));
 
         // hover n clikc
-        gradesBtn.addMouseListener(getMouseEvent(gradesBtn));
-        attendanceBtn.addMouseListener(getMouseEvent(attendanceBtn));
+        gradesBtn.addMouseListener(getClickableComponent(gradesBtn));
+        attendanceBtn.addMouseListener(getClickableComponent(attendanceBtn));
     
     
         
          //new third=======
-        JButton addcBtn = this.getButton("Add Column", 8);
+        JButton addcBtn = this.getSquareButton("Add Column", 8);
         addcBtn.setBackground(palette.getPrimary());
         addcBtn.setForeground(palette.getTextLight());
 
-        JButton delcBtn = this.getButton("Delete Column", 8);
+        JButton delcBtn = this.getSquareButton("Delete Column", 8);
         delcBtn.setBackground(palette.getPrimary());
         delcBtn.setForeground(palette.getTextLight());
 
-        setComponent(addcBtn, new Dimension(110, 20), new Point(40, 390));
-        setComponent(delcBtn, new Dimension(120, 20), new Point(170, 390));
+        setUpButton(addcBtn, new Dimension(110, 20), new Point(40, 390));
+        setUpButton(delcBtn, new Dimension(120, 20), new Point(170, 390));
 
         // hoverr n click
-        addcBtn.addMouseListener(getMouseEvent(addcBtn));
-        delcBtn.addMouseListener(getMouseEvent(delcBtn));
+        addcBtn.addMouseListener(getClickableComponent(addcBtn));
+        delcBtn.addMouseListener(getClickableComponent(delcBtn));
         addcBtn.addActionListener(this.getAddSignal().getActionEvent());
         delcBtn.addActionListener(this.getRemoveSignal().getActionEvent());
 

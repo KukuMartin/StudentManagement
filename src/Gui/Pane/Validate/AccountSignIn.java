@@ -19,48 +19,48 @@ public class AccountSignIn extends Pane {
 
         JLabel Logintitle = new JLabel("Log in to your SMS");
         Logintitle.setFont(label.getHeading());
-        this.setComponent(Logintitle, getSize(Logintitle, 380), 0.5, 0.24);
+        this.setUpComponent(Logintitle, getSize(Logintitle, 380), 0.5, 0.24);
 
         JLabel accId = new JLabel("Username:");
         accId.setFont(label.getBody());
-        this.setComponent(accId, getSize(accId, 150), .3, 0.35);
+        this.setUpComponent(accId, getSize(accId, 150), .3, 0.35);
 
-        AccF = this.getTextField(8);
+        AccF = this.getSquareTextField(8);
         AccF.setFont(label.getCaption());
         AccF.setBackground(palette.getNeutral());
-        this.setComponent(AccF, true, new Dimension(300, 30), 0.5, 0.35);
+        this.setUpText(AccF, true, new Dimension(300, 30), 0.5, 0.35);
         
         JLabel passy = new JLabel("Password:");
         passy.setFont(label.getBody());
-        this.setComponent(passy, getSize(passy, 150), 0.3, 0.45);
+        this.setUpComponent(passy, getSize(passy, 150), 0.3, 0.45);
 
-        PassyF = this.getPasswordField(8);
+        PassyF = this.getSquarePasswordField(8);
         PassyF.setFont(label.getCaption());
         PassyF.setBackground(palette.getNeutral());
-        this.setComponent(PassyF, true, new Dimension(300, 30), 0.5, 0.45);
+        this.setUpText(PassyF, true, new Dimension(300, 30), 0.5, 0.45);
 
         JLabel undertext = new JLabel("If you have not set any Two-Factor Authentication (2FA), simply press Log In to continue.");
         undertext.setFont(label.getBody());
-        this.setComponent(undertext, new Dimension(650, undertext.getPreferredSize().height), 0.5, 0.74);
+        this.setUpComponent(undertext, new Dimension(650, undertext.getPreferredSize().height), 0.5, 0.74);
 
-        JButton login = this.getButton("Log in", 10);
+        JButton login = this.getSquareButton("Log in", 10);
         login.setBackground(palette.getAccent());
         login.setForeground(palette.getTextLight());
         login.setFont(label.getBody());
-        this.setComponent(login, new Dimension(150, 30), 0.5, 0.82);
+        this.setUpButton(login, new Dimension(150, 30), 0.5, 0.82);
         login.addActionListener(account.getActionEvent());
-        login.addMouseListener(this.getMouseEvent(login));
+        login.addMouseListener(this.getClickableComponent(login));
     }
     
     public void addBack(Signal pick){
-        JButton back = this.getButton("< Back", 10);
+        JButton back = this.getSquareButton("< Back", 10);
         back.setBackground(palette.getAccent());
         back.setForeground(palette.getTextLight());
         back.setFont(label.getBody());
         
-        this.setComponent(back, this.getSize(back, 90), .062, .15);
+        this.setUpButton(back, this.getSize(back, 90), .062, .15);
         back.addActionListener(pick.getActionEvent());
-        back.addMouseListener(this.getMouseEvent(back));
+        back.addMouseListener(this.getClickableComponent(back));
     }
     
     public String getUsername(){

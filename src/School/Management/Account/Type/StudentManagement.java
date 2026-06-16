@@ -3,7 +3,6 @@ package School.Management.Account.Type;
 import School.Data.DatabaseTable;
 import School.Model.Account.Type.Student;
 import School.System.Account.AccountSystem;
-import School.System.Account.AddressSystem;
 import School.System.Subject.SubjectSystem;
 
 import java.sql.Connection;
@@ -20,18 +19,15 @@ public class StudentManagement {
 
     private SubjectSystem subjectSystem;
     private AccountSystem accountSystem;
-    private AddressSystem addressSystem;
 
     public StudentManagement(
             Connection sql,
             SubjectSystem subjectSystem,
-            AccountSystem accountSystem,
-            AddressSystem addressSystem
+            AccountSystem accountSystem
     ) {
         this.sql = sql;
         this.subjectSystem = subjectSystem;
         this.accountSystem = accountSystem;
-        this.addressSystem = addressSystem;
     }
 
     public Student search(String username) {
@@ -59,13 +55,11 @@ public class StudentManagement {
                         accountId,
                         sectionId,
                         subjectSystem.getSubjects(id),
-                        account.getFirstName(),
-                        account.getMiddleName(),
-                        account.getLastName(),
+                        account.getName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
-                        addressSystem.getAddress(accountId)
+                        account.getAddress()
                 );
             }
 
@@ -164,13 +158,11 @@ public class StudentManagement {
                         accountId,
                         sectionId,
                         subjectSystem.getSubjects(id),
-                        account.getFirstName(),
-                        account.getMiddleName(),
-                        account.getLastName(),
+                        account.getName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
-                        addressSystem.getAddress(accountId)
+                        account.getAddress()
                 ));
             }
 

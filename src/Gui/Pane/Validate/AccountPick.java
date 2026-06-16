@@ -24,27 +24,27 @@ public class AccountPick extends Pane{
         
         JLabel subtitle = new JLabel("Student Record System");
         subtitle.setFont(label.getHeading());
-        this.setComponent(subtitle, getSize(subtitle, 450), .5, .5);
+        this.setUpComponent(subtitle, getSize(subtitle, 450), .5, .5);
         
         JLabel selection = new JLabel("Select your SRS version");
         selection.setFont(new Font("SansSerif", Font.PLAIN,15));
-        this.setComponent(selection, getSize(selection, 180), .5, .75);
+        this.setUpComponent(selection, getSize(selection, 180), .5, .75);
               
-        JButton teacher = this.getButton("I'm a Teacher", 10);
+        JButton teacher = this.getSquareButton("I'm a Teacher", 10);
         teacher.setBackground(palette.getAccent());
         teacher.setForeground(palette.getTextLight());
         teacher.setFont(label.getBody());
-        this.setComponent(teacher, getSize(teacher, 150), .4, .84);
+        this.setUpButton(teacher, getSize(teacher, 150), .4, .84);
         teacher.addActionListener(teacherSignal.getActionEvent());
-        teacher.addMouseListener(this.getMouseEvent(teacher));
+        teacher.addMouseListener(this.getClickableComponent(teacher));
         
-        JButton advisor = this.getButton("I'm an Advisor", 10);
+        JButton advisor = this.getSquareButton("I'm an Advisor", 10);
         advisor.setBackground(palette.getAccent());
         advisor.setForeground(palette.getTextLight());
         advisor.setFont(label.getBody());
-        this.setComponent(advisor, getSize(advisor, 150), .6, .84);
+        this.setUpButton(advisor, getSize(advisor, 150), .6, .84);
         advisor.addActionListener(advisorSignal.getActionEvent());
-        advisor.addMouseListener(this.getMouseEvent(advisor));
+        advisor.addMouseListener(this.getClickableComponent(advisor));
     }
     
     private void createTitle(float xPercent, float yPercentS){
@@ -57,6 +57,6 @@ public class AccountPick extends Pane{
                 "</html>");
         title.setFont(label.getTitle());
         size = title.getPreferredSize();
-        this.setComponent(title, getSize(title, size.width + 10), xPercent, yPercentS);
+        this.setUpComponent(title, getSize(title, size.width + 10), xPercent, yPercentS);
     }
 }

@@ -3,24 +3,11 @@ USE schoolDB;
 
 CREATE TABLE Account (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    firstName VARCHAR(50) NOT NULL,
-    middleName VARCHAR(50) NOT NULL,
-    lastName VARCHAR(50) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     gender VARCHAR(10) NOT NULL,
     birthDate DATE NOT NULL,
-    phoneNumber VARCHAR(20) NOT NULL
-);
-
-CREATE TABLE Address (
-    accountId INT PRIMARY KEY,
-    houseNumber VARCHAR(20),
-    street VARCHAR(100),
-    barangay VARCHAR(100),
-    city VARCHAR(100),
-    province VARCHAR(100),
-    zipCode VARCHAR(20),
-
-    FOREIGN KEY (accountId) REFERENCES Account(id) ON DELETE CASCADE
+    phoneNumber VARCHAR(20) NOT NULL,
+    address VARCHAR(150) NOT NULL
 );
 
 CREATE TABLE Admin (
@@ -57,7 +44,7 @@ CREATE TABLE Student (
     id INT AUTO_INCREMENT PRIMARY KEY,
     studentId VARCHAR(50) NOT NULL UNIQUE,
     course VARCHAR(50) NOT NULL,
-    sectionId INT NOT NULL,
+    sectionId INT,
     accountId INT NOT NULL,
 
     FOREIGN KEY (sectionId) REFERENCES Section(id) ON DELETE CASCADE,
@@ -66,11 +53,11 @@ CREATE TABLE Student (
 
 CREATE TABLE Subject (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     code VARCHAR(20) NOT NULL UNIQUE,
     scheduleStart TIME,
     scheduleEnd TIME,
-    teacherId INT NOT NULL,
+    teacherId INT,
 
     FOREIGN KEY (teacherId) REFERENCES Teacher(id)
 );

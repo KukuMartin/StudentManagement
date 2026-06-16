@@ -45,13 +45,11 @@ public class AdminManagement {
                         result.getString("username"),
                         result.getString("password"),
                         accountId,
-                        account.getFirstName(),
-                        account.getMiddleName(),
-                        account.getLastName(),
+                        account.getName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
-                        accountSystem.getAddressSystem().getAddress(accountId)
+                        account.getAddress()
                 );
             }
 
@@ -142,13 +140,11 @@ public class AdminManagement {
                         result.getString("username"),
                         result.getString("password"),
                         accountId,
-                        account.getFirstName(),
-                        account.getMiddleName(),
-                        account.getLastName(),
+                        account.getName(),
                         account.getGender(),
                         account.getBirthDate(),
                         account.getPhoneNumber(),
-                        accountSystem.getAddressSystem().getAddress(accountId)
+                        account.getAddress()
                 ));
             }
 

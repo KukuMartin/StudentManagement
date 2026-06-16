@@ -35,7 +35,7 @@ public abstract class Pane extends JPanel{
         this.label = label;
     }
     
-    public MouseAdapter getMouseEvent(JComponent comp){
+    public MouseAdapter getClickableComponent(JComponent comp){
         MouseAdapter mouseEvent = new MouseAdapter(){
             private final Color originalColor = comp.getBackground();
             private final Color originalText = comp.getForeground();
@@ -79,8 +79,7 @@ public abstract class Pane extends JPanel{
         };
         return mouseEvent;
     }
-    
-    public MouseAdapter getMouseEvent(JPanel panel){
+    public MouseAdapter getClickableJPanel(JPanel panel){
         MouseAdapter mouseEvent = new MouseAdapter(){
             boolean entered = false;
             
@@ -153,7 +152,6 @@ public abstract class Pane extends JPanel{
         };
         return mouseEvent;
     }
-    
     private void setColor(Component comp, Color color, Color text){
         comp.setBackground(color);
         comp.setForeground(text);
@@ -164,18 +162,16 @@ public abstract class Pane extends JPanel{
         int x = (int)(frame.width * xPercent) - (int)(width / 2.0);
         return x;
     }
-    
     protected int getY(int height, double yPercent){
         int x = (int)(frame.height * yPercent) - (height / 2);
         return x;
     }
-    
     public Dimension getSize(JComponent comp, int width){
         Dimension size = new Dimension(width, comp.getPreferredSize().height);
         return size;
     }
     
-    public JPanel getPanel(int arc){
+    public JPanel getSquareJPanel(int arc){
         JPanel panel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
@@ -187,8 +183,7 @@ public abstract class Pane extends JPanel{
         panel.setOpaque(false);
         return panel;
     }
-    
-    public JButton getButton(String text, int arc){
+    public JButton getSquareButton(String text, int arc){
         JButton button = new JButton(text){
             @Override
             protected void paintComponent(Graphics g){
@@ -200,8 +195,7 @@ public abstract class Pane extends JPanel{
         button.setOpaque(false);
         return button;
     }
-    
-    public JTextField getTextField(String name, int arc){
+    public JTextField getSquareTextField(String name, int arc){
         JTextField text = new JTextField(name){
             @Override
             protected void paintComponent(Graphics g){
@@ -213,13 +207,11 @@ public abstract class Pane extends JPanel{
         text.setOpaque(false);
         return text;
     }
-    
-    public JTextField getTextField(int arc){
-        JTextField text = this.getTextField("", arc);
+    public JTextField getSquareTextField(int arc){
+        JTextField text = this.getSquareTextField("", arc);
         return text;
     }
-    
-    public JPasswordField getPasswordField(int arc){
+    public JPasswordField getSquarePasswordField(int arc){
         JPasswordField text = new JPasswordField(){
             @Override
             protected void paintComponent(Graphics g){
@@ -231,8 +223,7 @@ public abstract class Pane extends JPanel{
         text.setOpaque(false);
         return text;
     }
-    
-    public JTextArea getTextArea(String name, int arc){
+    public JTextArea getSquareTextArea(String name, int arc){
         JTextArea text = new JTextArea(name){
             @Override
             protected void paintComponent(Graphics g){
@@ -244,49 +235,42 @@ public abstract class Pane extends JPanel{
         text.setOpaque(false);
         return text;
     }
-    
-    public JTextArea getTextArea(int arc){
-        JTextArea text = this.getTextArea("", arc);
+    public JTextArea getSquareTextArea(int arc){
+        JTextArea text = this.getSquareTextArea("", arc);
         return text;
     }
     
-    //JCOMPONENTS
-    protected void setComponent(JComponent component, Dimension size, Point point){
+    protected void setUpComponent(JComponent component, Dimension size, Point point){
         component.setLocation(point.x, point.y);
         component.setSize(size.width, size.height);
         
         this.add(component);
     }
-    
-    protected void setComponent(JComponent comp, Dimension size, double xPercent, double yPercent){
+    protected void setUpComponent(JComponent comp, Dimension size, double xPercent, double yPercent){
         Point point = new Point(this.getX(size.width, xPercent), this.getY(size.height, yPercent));
-        this.setComponent(comp, size, point);
+        this.setUpComponent(comp, size, point);
     }
     
-    //JButton
-    protected void setComponent(JButton button, Dimension size, Point point){
-        this.setComponent((JComponent)button, size, point);
+    protected void setUpButton(JButton button, Dimension size, Point point){
+        this.setUpComponent((JComponent)button, size, point);
         
         button.setContentAreaFilled(false);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
-    }
-    
-    protected void setComponent(JButton button, Dimension size, double xPercent, double yPercent){
+    }    
+    protected void setUpButton(JButton button, Dimension size, double xPercent, double yPercent){
         Point point = new Point(this.getX(size.width, xPercent), this.getY(size.height, yPercent));
-        this.setComponent(button, size, point);
+        this.setUpButton(button, size, point);
     }
     
-    //TEXTCOMPONENT
-    protected void setComponent(JTextComponent text, boolean editable, Dimension size, Point point){
-        this.setComponent(text, size, point);
+    protected void setUpText(JTextComponent text, boolean editable, Dimension size, Point point){
+        this.setUpComponent(text, size, point);
         
         text.setEditable(editable);
         text.setBorder(null);
     }
-    
-    protected void setComponent(JTextComponent text, boolean editable, Dimension size, double xPercent, double yPercent){
+    protected void setUpText(JTextComponent text, boolean editable, Dimension size, double xPercent, double yPercent){
         Point point = new Point(this.getX(size.width, xPercent), this.getY(size.height, yPercent));
-        this.setComponent(text, editable, size, point);
+        this.setUpText(text, editable, size, point);
     }
 }

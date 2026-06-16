@@ -49,43 +49,43 @@ public class SectionAdd extends Frame{
                 JLabel lblTitle = new JLabel("Add New Section");
                 lblTitle.setFont(label.getHeading());
                 lblTitle.setForeground(palette.getTextDark());
-                setComponent(lblTitle, new Dimension(400, 100), new Point(230, 30));
+                setUpComponent(lblTitle, new Dimension(400, 100), new Point(230, 30));
 
                
                 JLabel lblName = new JLabel("Section Name");
                 lblName.setFont(label.getSubHeading());
                 lblName.setForeground(palette.getTextDark());
-                setComponent(lblName, new Dimension(180, 40), new Point(70, 140));
+                setUpComponent(lblName, new Dimension(180, 40), new Point(70, 140));
                 
                 
-                JTextField txtSectionName = getTextField(8);
+                JTextField txtSectionName = getSquareTextField(8);
                 txtSectionName.setBackground(palette.getNeutral());
                 txtSectionName.setForeground(palette.getTextDark());
-                setComponent(txtSectionName, true, new Dimension(550, 45), new Point(250, 140));
+                setUpText(txtSectionName, true, new Dimension(550, 45), new Point(250, 140));
 
                 
                 JLabel lblCode = new JLabel("Section Code");
                 lblCode.setFont(label.getSubHeading());
                 lblCode.setForeground(palette.getTextDark());
-                setComponent(lblCode, new Dimension(180, 40), new Point(70, 210));
+                setUpComponent(lblCode, new Dimension(180, 40), new Point(70, 210));
 
                 
-                JTextField txtSectionCode = getTextField(8);
+                JTextField txtSectionCode = getSquareTextField(8);
                 txtSectionCode.setBackground(palette.getNeutral());
                 txtSectionCode.setForeground(palette.getTextDark());
-                setComponent(txtSectionCode, true, new Dimension(550, 45), new Point(250, 210));
+                setUpText(txtSectionCode, true, new Dimension(550, 45), new Point(250, 210));
 
                 
-                JButton btnAdd = getButton("Add Section", 30);
+                JButton btnAdd = getSquareButton("Add Section", 30);
                 btnAdd.setBackground(new Color(80, 200, 40));
                 btnAdd.setForeground(palette.getTextLight());
                 btnAdd.setFont(label.getSubHeading());
-                btnAdd.addMouseListener(getMouseEvent(btnAdd));
+                btnAdd.addMouseListener(getClickableComponent(btnAdd));
                 btnAdd.addActionListener(e -> {
                     System.out.println(txtSectionName.getText());
                     System.out.println(txtSectionCode.getText());
                 });
-                setComponent(btnAdd, new Dimension(200, 50), new Point(325, 330));
+                setUpButton(btnAdd, new Dimension(200, 50), new Point(325, 330));
             }
         };
 

@@ -1,7 +1,6 @@
 package School.Model.Account.Type;
 
 import School.Model.Account.Account;
-import School.Model.Account.Address;
 import School.Model.Account.Section;
 import School.System.Account.SectionSystem;
 import School.System.Account.Type.AdminSystem;
@@ -16,12 +15,11 @@ public class Advisor extends Account{
     private int accountId;
     private List<Section> sections;
 
-    public Advisor(int id, String username, String password, 
-            int accountId, List<Section> sections,
-            String firstName, String middleName, 
-            String lastName, String gender, LocalDate birthDate, 
-            String phoneNumber, Address address) {
-        super(id, firstName, middleName, lastName, gender, birthDate, phoneNumber, address);
+    public Advisor(int id, String username, String password, int accountId,
+                List<Section> sections, String name, String gender,
+                java.time.LocalDate birthDate, String phoneNumber, String address) {
+
+        super(id, name, gender, birthDate, phoneNumber, address);
         
         this.id = id;
         this.username = username;
