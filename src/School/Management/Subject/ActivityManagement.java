@@ -76,13 +76,13 @@ public class ActivityManagement {
         }
     }
 
-    public int remove(Activity activity) {
+    public int remove(int id) {
         String query = "DELETE FROM " + table + " WHERE id = ?";
         int resultValue = 0;
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, activity.getId());
+            command.setInt(1,id);
             resultValue = command.executeUpdate();
 
         } catch (SQLException e) {

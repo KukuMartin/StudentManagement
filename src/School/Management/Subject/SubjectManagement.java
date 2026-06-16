@@ -75,14 +75,14 @@ public class SubjectManagement {
 
         return 0;
     }
-
-    public int remove(Subject subject) {
+    
+    public int remove(int id) {
         String query = "DELETE FROM " + table + " WHERE id = ?";
         int resultValue = 0;
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, subject.getId());
+            command.setInt(1,id);
             resultValue = command.executeUpdate();
 
         } catch (SQLException e) {

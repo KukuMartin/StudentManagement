@@ -67,14 +67,14 @@ public class RecordManagement {
 
         return 0;
     }
-
-    public int remove(Record record) {
+    
+    public int remove(int id) {
         String query = "DELETE FROM " + table + " WHERE id = ?";
         int resultValue = 0;
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, record.getId());
+            command.setInt(1,id);
             resultValue = command.executeUpdate();
 
         } catch (SQLException e) {

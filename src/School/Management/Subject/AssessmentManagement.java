@@ -76,13 +76,13 @@ public class AssessmentManagement {
         }
     }
 
-    public int remove(Assessment assessment) {
+    public int remove(int id) {
         String query = "DELETE FROM " + table + " WHERE id = ?";
         int resultValue = 0;
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, assessment.getId());
+            command.setInt(1,id);
             resultValue = command.executeUpdate();
 
         } catch (SQLException e) {
