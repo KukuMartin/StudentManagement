@@ -41,7 +41,7 @@ public class TeacherSystem {
         }
 
         Teacher temp = new Teacher(id, null, null, 0, null, null, null, null, null, null);
-        int result = management.remove(temp);
+        int result = management.remove(id);
         return result > 0;
     }
 

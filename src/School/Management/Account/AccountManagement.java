@@ -64,7 +64,7 @@ public class AccountManagement {
         }
     }
 
-    public int remove(Account account) {
+    public int remove(int id) {
 
         String query = "DELETE FROM " + table + " WHERE id = ?";
 
@@ -72,7 +72,7 @@ public class AccountManagement {
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, account.getId());
+            command.setInt(1, id);
 
             result = command.executeUpdate();
 

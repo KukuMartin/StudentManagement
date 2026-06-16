@@ -87,7 +87,7 @@ public class TeacherManagement {
         }
     }
 
-    public int remove(Teacher teacher) {
+    public int remove(int id) {
 
         String query = "DELETE FROM " + table + " WHERE id = ?";
 
@@ -95,7 +95,7 @@ public class TeacherManagement {
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, teacher.getId());
+            command.setInt(1, id);
 
             result = command.executeUpdate();
 

@@ -29,7 +29,7 @@ public class DaySystem {
             return false;
         }
 
-        int result = management.remove(new Day(id, null, null, 0));
+        int result = management.remove(id);
         return result > 0;
     }
 

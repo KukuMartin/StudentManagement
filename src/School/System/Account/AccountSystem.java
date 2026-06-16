@@ -29,7 +29,7 @@ public class AccountSystem {
         }
 
         Account temp = new Account(id, null, null, null, null, null);
-        int result = management.remove(temp);
+        int result = management.remove(id);
         return result > 0;
     }
 

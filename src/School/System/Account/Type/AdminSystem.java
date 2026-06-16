@@ -33,7 +33,7 @@ public class AdminSystem {
         }
 
         Admin temp = new Admin(id, null, null, 0, null, null, null, null, null);
-        int result = management.remove(temp);
+        int result = management.remove(id);
         return result > 0;
     }
 

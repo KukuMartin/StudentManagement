@@ -25,12 +25,12 @@ public class AttendanceSystem {
         return true;
     }
 
-    public boolean deleteAttendance(Attendance attendance) {
-        if (attendance == null || attendance.getId() <= 0) {
+    public boolean deleteAttendance(int id) {
+        if (id <= 0) {
             return false;
         }
 
-        int result = management.remove(attendance);
+        int result = management.remove(id);
         return result > 0;
     }
 

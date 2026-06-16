@@ -65,13 +65,13 @@ public class AttendanceManagement {
         }
     }
 
-    public int remove(Attendance attendance) {
+    public int remove(int id) {
         String query = "DELETE FROM " + table + " WHERE id = ?";
         int result = 0;
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, attendance.getId());
+            command.setInt(1, id);
             result = command.executeUpdate();
 
         } catch (SQLException e) {

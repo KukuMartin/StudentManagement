@@ -66,7 +66,7 @@ public class SectionManagement {
         }
     }
 
-    public int remove(Section section) {
+    public int remove(int id) {
 
         String query = "DELETE FROM " + table + " WHERE id = ?";
 
@@ -74,7 +74,7 @@ public class SectionManagement {
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, section.getId());
+            command.setInt(1, id);
 
             result = command.executeUpdate();
 

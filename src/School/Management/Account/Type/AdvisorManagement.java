@@ -87,7 +87,7 @@ public class AdvisorManagement {
         }
     }
 
-    public int remove(Advisor advisor) {
+    public int remove(int id) {
 
         String query = "DELETE FROM " + table + " WHERE id = ?";
 
@@ -95,7 +95,7 @@ public class AdvisorManagement {
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
-            command.setInt(1, advisor.getId());
+            command.setInt(1, id);
 
             result = command.executeUpdate();
 
