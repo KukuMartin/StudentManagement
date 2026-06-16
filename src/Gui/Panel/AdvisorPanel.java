@@ -44,10 +44,9 @@ public class AdvisorPanel extends Panel{
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                if(!activeAccount){
-                    AdvisorPanel.this.setPane(section, Layer.MIDDLE);
-                    activeAccount = false;
-                }  
+                if(!account.getIsActive()){
+                    AdvisorPanel.this.setPane(account, Layer.MIDDLE);
+                }   
             }
         };
         return signal;
@@ -69,10 +68,10 @@ public class AdvisorPanel extends Panel{
         Signal signal = new Signal(){
             @Override
             public void sendSignal() {
-                if(activeAccount){
+                if(!section.getIsActive()){
                     AdvisorPanel.this.setPane(section, Layer.MIDDLE);
-                    activeAccount = false;
-                }           }
+                }           
+            }
         };
         return signal;
     }
