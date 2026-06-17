@@ -2,298 +2,216 @@ package Gui.Frame.Subject;
 
 import Gui.Frame.Frame;
 import Gui.Frame.MainFrame;
-
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
-import Gui.Misc.Tool.Signal;
-import Gui.Pane.NavBar;
-import Gui.Pane.Pane;
-import Gui.Panel.Panel;
-import School.Model.Subject.Activity;
-import School.Model.Subject.Assessment;
-import School.Model.Subject.Period;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class AssessmentAdd extends Frame {
+public class AssessmentAdd extends Frame implements ActionListener {
 
-    private Assessment savedAssessment = null;
-    private List<Activity> activities = new ArrayList<>();
-    private final int[] nextActivityId = {1};
+    private int idCounter = 1;
+    private List<SubjectModel> subjects = new ArrayList<>();
+
+    private JTextField txtName;
+    private JTextField txtCode;
+    private JTextField txtStart;
+    private JTextField txtEnd;
+    private JPanel header;
+    private JButton btnAdd;
+    private JButton btnRemove;
+    private JButton btnSave;
+
+    private JTable table;
+    private DefaultTableModel model;
 
     public AssessmentAdd(String title, Dimension size, Palette palette, Label label) {
+
         super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
 
-        Panel panel = new Panel(this);
+        setLayout(null);
+        getContentPane().setBackground(Color.WHITE);
+        
+        header = new JPanel();
+        header.setBounds(0, 0, getDimension().width, 70);
+        header.setBackground(getPalette().getPrimary());
+        add(header);
 
-        int navH = (int)(NavBar.getHeightPercent() * size.height);
+        JLabel lblTitle = new JLabel("ADD ASSESSMENT", SwingConstants.CENTER);
+        lblTitle.setBounds(165, 75, 500, 40);
+        lblTitle.setFont(getLabel().getHeading());
+        lblTitle.setForeground(getPalette().getTextDark());
+        add(lblTitle);
 
-        NavBar navBar = new NavBar(getDimension(), getPalette(), getLabel());
-        navBar.setLocation(0, 0);
-        navBar.addSignOut(new Signal() {
-            @Override
-            public void sendSignal() {
-                AssessmentAdd.this.dispose();
-            }
-        });
-        panel.setPane(navBar, Panel.Layer.TOP);
+        JLabel lblName = new JLabel("Name:");
+        lblName.setBounds(30, 135, 120, 30);
+        add(lblName);
 
-        String[] cols = { "#", "Activity Name", "Score", "Max", "Grade %" };
-        DefaultTableModel tableModel = new DefaultTableModel(cols, 0) {
-            @Override
-            public boolean isCellEditable(int r, int c) { return false; }
-        };
+        txtName = new JTextField();
+        txtName.setBounds(150, 135, 200, 35);
+        add(txtName);
 
-        Pane content = new Pane(getDimension(), getPalette(), getLabel()) {
-            {
-                setBackground(palette.getBackground());
-                setLocation(0, navH);
-                setSize(size.width, size.height - navH);
+        JLabel lblCode = new JLabel("Subject Code:");
+        lblCode.setBounds(30, 195, 120, 30);
+        add(lblCode);
 
-                JLabel lblTitle = new JLabel("Add Assessment");
-                lblTitle.setFont(label.getHeading());
-                lblTitle.setForeground(palette.getTextDark());
-                setUpComponent(lblTitle, new Dimension(400, 40), new Point(230, 20));
+        txtCode = new JTextField();
+        txtCode.setBounds(150, 195, 200, 35);
+        add(txtCode);
 
-                JLabel lblName = new JLabel("Assessment Name");
-                lblName.setFont(label.getSubHeading());
-                lblName.setForeground(palette.getTextDark());
-                setUpComponent(lblName, new Dimension(180, 40), new Point(70, 80));
+        JLabel lblStart = new JLabel("Schedule Start:");
+        lblStart.setBounds(30, 260, 120, 30);
+        add(lblStart);
 
-                JTextField txtName = getSquareTextField(8);
-                txtName.setBackground(palette.getNeutral());
-                txtName.setForeground(palette.getTextDark());
-                setUpText(txtName, true, new Dimension(550, 45), new Point(250, 80));
+        txtStart = new JTextField();
+        txtStart.setBounds(150, 260, 200, 35);
+        add(txtStart);
 
-                JLabel lblWeight = new JLabel("Weight (0.0-1.0)");
-                lblWeight.setFont(label.getSubHeading());
-                lblWeight.setForeground(palette.getTextDark());
-                setUpComponent(lblWeight, new Dimension(180, 40), new Point(70, 145));
+        JLabel lblEnd = new JLabel("Schedule End:");
+        lblEnd.setBounds(30, 320, 120, 30);
+        add(lblEnd);
 
-                JTextField txtWeight = getSquareTextField(8);
-                txtWeight.setBackground(palette.getNeutral());
-                txtWeight.setForeground(palette.getTextDark());
-                setUpText(txtWeight, true, new Dimension(200, 45), new Point(250, 145));
+        txtEnd = new JTextField();
+        txtEnd.setBounds(150, 320, 200, 35);
+        add(txtEnd);
 
-                JLabel lblRecordId = new JLabel("Record ID");
-                lblRecordId.setFont(label.getSubHeading());
-                lblRecordId.setForeground(palette.getTextDark());
-                setUpComponent(lblRecordId, new Dimension(120, 40), new Point(480, 145));
+        
+        model = new DefaultTableModel(
+                new String[]{"ID", "Name", "Code", "Start", "End"},
+                0
+        );
 
-                JTextField txtRecordId = getSquareTextField(8);
-                txtRecordId.setBackground(palette.getNeutral());
-                txtRecordId.setForeground(palette.getTextDark());
-                setUpText(txtRecordId, true, new Dimension(170, 45), new Point(600, 145));
+        table = new JTable(model);
 
-                JLabel lblPeriod = new JLabel("Period");
-                lblPeriod.setFont(label.getSubHeading());
-                lblPeriod.setForeground(palette.getTextDark());
-                setUpComponent(lblPeriod, new Dimension(120, 40), new Point(70, 210));
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBounds(370, 120, 450, 250);
 
-                JComboBox<Period> cbPeriod = new JComboBox<>(Period.values());
-                cbPeriod.setBackground(palette.getNeutral());
-                cbPeriod.setForeground(palette.getTextDark());
-                cbPeriod.setFont(label.getSubHeading());
-                setUpComponent(cbPeriod, new Dimension(200, 45), new Point(250, 210));
+        add(scroll);
 
-                JLabel lblActivities = new JLabel("Activities");
-                lblActivities.setFont(label.getSubHeading());
-                lblActivities.setForeground(palette.getTextDark());
-                setUpComponent(lblActivities, new Dimension(150, 30), new Point(70, 280));
+        // BUTTONS
+        btnAdd = new JButton("Add");
+        btnAdd.setBounds(570, 375, 120, 40);
+        btnAdd.setFont(getLabel().getBody());
+        btnAdd.setBackground(getPalette().getPrimary());
+        btnAdd.setForeground(getPalette().getTextLight());
+        btnAdd.addActionListener(this);
+        add(btnAdd);
 
-                JTextField txtActName = getSquareTextField(8);
-                txtActName.setBackground(palette.getNeutral());
-                txtActName.setForeground(palette.getTextDark());
-                txtActName.setToolTipText("Activity Name");
-                setUpText(txtActName, true, new Dimension(250, 40), new Point(70, 320));
+        btnRemove = new JButton("Remove");
+        btnRemove.setBounds(700, 375, 120, 40);
+        btnRemove.setFont(getLabel().getBody());
+        btnRemove.setBackground(getPalette().getPrimary());
+        btnRemove.setForeground(getPalette().getTextLight());
+        btnRemove.addActionListener(this);
+        add(btnRemove);
 
-                JTextField txtScore = getSquareTextField(8);
-                txtScore.setBackground(palette.getNeutral());
-                txtScore.setForeground(palette.getTextDark());
-                txtScore.setToolTipText("Score");
-                setUpText(txtScore, true, new Dimension(120, 40), new Point(330, 320));
-
-                JTextField txtMax = getSquareTextField(8);
-                txtMax.setBackground(palette.getNeutral());
-                txtMax.setForeground(palette.getTextDark());
-                txtMax.setToolTipText("Max Score");
-                setUpText(txtMax, true, new Dimension(120, 40), new Point(460, 320));
-
-                JButton btnAddActivity = getSquareButton("+ Add", 20);
-                btnAddActivity.setBackground(new Color(60, 160, 240));
-                btnAddActivity.setForeground(palette.getTextLight());
-                btnAddActivity.setFont(label.getSubHeading());
-                btnAddActivity.addMouseListener(getClickableComponent(btnAddActivity));
-                btnAddActivity.addActionListener(e -> {
-                    String actName  = txtActName.getText().trim();
-                    String scoreStr = txtScore.getText().trim();
-                    String maxStr   = txtMax.getText().trim();
-
-                    if (actName.isEmpty() || scoreStr.isEmpty() || maxStr.isEmpty()) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Please fill in Activity Name, Score, and Max Score.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    double score, max;
-                    try {
-                        score = Double.parseDouble(scoreStr);
-                        max   = Double.parseDouble(maxStr);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Score and Max Score must be numbers.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    if (max <= 0) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Max Score must be greater than 0.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    if (score < 0 || score > max) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Score must be between 0 and Max Score.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    Activity act = new Activity(nextActivityId[0]++, actName, score, max);
-                    activities.add(act);
-                    tableModel.addRow(new Object[]{
-                        activities.size(),
-                        act.getName(),
-                        act.getScore(),
-                        act.getMaxScore(),
-                        String.format("%.1f%%", act.getPercent() * 100)
-                    });
-
-                    txtActName.setText("");
-                    txtScore.setText("");
-                    txtMax.setText("");
-                    txtActName.requestFocus();
-                });
-                setUpButton(btnAddActivity, new Dimension(110, 40), new Point(590, 320));
-
-                JTable table = new JTable(tableModel);
-                table.setFont(label.getSubHeading());
-                table.setForeground(palette.getTextDark());
-                table.setBackground(palette.getNeutral());
-                table.setRowHeight(28);
-                table.setSelectionBackground(new Color(180, 210, 255));
-                table.getTableHeader().setFont(label.getSubHeading());
-
-                JScrollPane scroll = new JScrollPane(table);
-                setUpComponent(scroll, new Dimension(730, 180), new Point(70, 375));
-
-                JButton btnRemove = getSquareButton("Remove Selected", 20);
-                btnRemove.setBackground(new Color(220, 53, 69));
-                btnRemove.setForeground(palette.getTextLight());
-                btnRemove.setFont(label.getSubHeading());
-                btnRemove.addMouseListener(getClickableComponent(btnRemove));
-                btnRemove.addActionListener(e -> {
-                    int row = table.getSelectedRow();
-                    if (row < 0) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Select an activity to remove.",
-                            "No Selection", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-
-                    int confirm = JOptionPane.showConfirmDialog(AssessmentAdd.this,
-                        "Remove \"" + activities.get(row).getName() + "\"?",
-                        "Confirm Remove", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                    if (confirm != JOptionPane.YES_OPTION) return;
-
-                    activities.remove(row);
-                    tableModel.removeRow(row);
-
-                    for (int i = 0; i < tableModel.getRowCount(); i++)
-                        tableModel.setValueAt(i + 1, i, 0);
-                });
-                setUpButton(btnRemove, new Dimension(200, 40), new Point(600, 565));
-
-                JButton btnSave = getSquareButton("Save Assessment", 30);
-                btnSave.setBackground(new Color(80, 200, 40));
-                btnSave.setForeground(palette.getTextLight());
-                btnSave.setFont(label.getSubHeading());
-                btnSave.addMouseListener(getClickableComponent(btnSave));
-                btnSave.addActionListener(e -> {
-                    String name   = txtName.getText().trim();
-                    String pctStr = txtWeight.getText().trim();
-                    String recStr = txtRecordId.getText().trim();
-
-                    if (name.isEmpty() || pctStr.isEmpty() || recStr.isEmpty()) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Name, Weight, and Record ID are required.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    double percent;
-                    int recordId;
-                    try {
-                        percent = Double.parseDouble(pctStr);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Weight must be a number (e.g. 0.30).",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    try {
-                        recordId = Integer.parseInt(recStr);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Record ID must be an integer.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    if (percent < 0 || percent > 1) {
-                        JOptionPane.showMessageDialog(AssessmentAdd.this,
-                            "Weight must be between 0.00 and 1.00.",
-                            "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    Period period = (Period) cbPeriod.getSelectedItem();
-                    int newId = (int)(System.currentTimeMillis() % 100000);
-
-                    savedAssessment = new Assessment(
-                        newId, name, percent, recordId, period, new ArrayList<>(activities)
-                    );
-
-                    JOptionPane.showMessageDialog(AssessmentAdd.this,
-                        "<html><b>" + name + "</b> saved!<br>"
-                        + "Activities: " + activities.size() + "<br>"
-                        + "Computed grade: "
-                        + String.format("%.2f%%", savedAssessment.getGrade() * 100) + "</html>",
-                        "Saved", JOptionPane.INFORMATION_MESSAGE);
-
-                    AssessmentAdd.this.dispose();
-                });
-                setUpButton(btnSave, new Dimension(200, 50), new Point(290, 630));
-            }
-        };
-
-        panel.setPane(content, Panel.Layer.BOTTOM);
-        this.setPanel(panel);
+        btnSave = new JButton("Save");
+        btnSave.setBounds(350, 510, 120, 40);
+        btnSave.setFont(getLabel().getBody());
+        btnSave.setBackground(getPalette().getPrimary());
+        btnSave.setForeground(getPalette().getTextLight());
+        btnSave.addActionListener(this);
+        add(btnSave);
     }
 
-    public Assessment getSavedAssessment() {
-        return savedAssessment;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == btnAdd) {
+
+            try {
+
+                SubjectModel s = new SubjectModel(
+                        idCounter++,
+                        txtName.getText(),
+                        txtCode.getText(),
+                        LocalTime.parse(txtStart.getText()),
+                        LocalTime.parse(txtEnd.getText())
+                );
+
+                subjects.add(s);
+
+                model.addRow(new Object[]{
+                        s.id,
+                        s.name,
+                        s.code,
+                        s.scheduleStart,
+                        s.scheduleEnd
+                });
+
+                txtName.setText("");
+                txtCode.setText("");
+                txtStart.setText("");
+                txtEnd.setText("");
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Use HH:mm format"
+                );
+            }
+        }
+
+        if (e.getSource() == btnRemove) {
+
+            int row = table.getSelectedRow();
+
+            if (row == -1 && model.getRowCount() > 0) {
+                row = model.getRowCount() - 1;
+            }
+
+            if (row >= 0) {
+
+                subjects.remove(row);
+                model.removeRow(row);
+            }
+        }
+
+        if (e.getSource() == btnSave) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Subjects saved: " + subjects.size()
+            );
+
+            dispose();
+        }
     }
 
+    private static class SubjectModel {
+
+        private int id;
+        private String name;
+        private String code;
+        private LocalTime scheduleStart;
+        private LocalTime scheduleEnd;
+
+        public SubjectModel(
+                int id,
+                String name,
+                String code,
+                LocalTime scheduleStart,
+                LocalTime scheduleEnd
+        ) {
+
+            this.id = id;
+            this.name = name;
+            this.code = code;
+            this.scheduleStart = scheduleStart;
+            this.scheduleEnd = scheduleEnd;
+        }
+    }
+    
     public static void main(String[] args) {
 
         AssessmentAdd frame = new AssessmentAdd(
-                "Add Assessment",
+                "Subject Schedule",
                 MainFrame.createSize(),
                 MainFrame.createPalette(),
                 MainFrame.createLabel()
@@ -301,5 +219,4 @@ public class AssessmentAdd extends Frame {
 
         frame.setVisible(true);
     }
-    }
-
+}
