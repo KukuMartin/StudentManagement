@@ -9,17 +9,16 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.Color;
 
-public class TeacherAdd extends Frame {
+public class TeacherEdit extends Frame {
     
-    JLabel titleHeader, lblUsername, lblFirstName, lblLastName, lblMiddleName, lblSubject, lblGender, lblBirthdate, lblAddress, lblPhone, lblPassword;
-    JTextField txtUsername, txtFirstName, txtLastName, txtMiddleName, txtSubject, txtAddress, txtPhone, txtPassword;
+    JLabel titleHeader, lblUsername, lblFirstName, lblLastName, lblMiddleName, lblGender, lblBirthdate, lblAddress, lblPhone, lblPassword;
+    JTextField txtUsername, txtFirstName, txtLastName, txtMiddleName, txtAddress, txtPhone, txtPassword;
     JComboBox<String> cmbGender;
-    JButton save, cancel, btnSubjectAction; // Added btnSubjectAction
+    JButton save, cancel;
     JSpinner date;
 
-    public TeacherAdd(String title, Dimension size, Palette palette, Label label, int operation, Signal save, String purpose, String buttonName, Teacher teacher) {
+    public TeacherEdit(String title, Dimension size, Palette palette, Label label, int operation, Signal save, String purpose, String buttonName, Teacher teacher) {
         super(title, size, palette, label, operation);
 
         setTitle(purpose);
@@ -76,90 +75,62 @@ public class TeacherAdd extends Frame {
         txtMiddleName.setBounds(520, 220, 250, 30);
         add(txtMiddleName);
 
-        lblSubject = new JLabel("Subject");
-        lblSubject.setFont(label.getBody());
-        lblSubject.setBounds(40, 270, 150, 20);
-        add(lblSubject);
-
-        txtSubject = new JTextField(teacher.getSubjects().get(0).getName());
-        txtSubject.setBounds(40, 295, 610, 30);
-        add(txtSubject);
-
-        btnSubjectAction = new JButton("Add");
-        btnSubjectAction.setBounds(660, 295, 110, 30);
-        btnSubjectAction.setBackground(palette.getPrimary());
-        btnSubjectAction.setForeground(palette.getTextLight());
-        btnSubjectAction.setFont(label.getBody());
-        btnSubjectAction.setFocusable(false);
-        btnSubjectAction.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (btnSubjectAction.getText().equals("Add")) {
-                    btnSubjectAction.setText("Edit");
-                    txtSubject.setEditable(false);
-                } else {
-                    btnSubjectAction.setText("Add");
-                    txtSubject.setEditable(true); 
-                }
-            }
-        });
-        add(btnSubjectAction);
+        // --- Shifted Gender components left into the old Subject column space ---
         lblGender = new JLabel("Gender");
         lblGender.setFont(label.getBody());
-        lblGender.setBounds(40, 345, 150, 20);
+        lblGender.setBounds(40, 270, 150, 20);
         add(lblGender);
 
         String[] genders = {"MALE", "FEMALE", "OTHER"};
         cmbGender = new JComboBox<>(genders);
-        cmbGender.setBounds(40, 370, 350, 30); // Width expanded to balance layout
+        cmbGender.setBounds(40, 295, 220, 30);
         cmbGender.setBackground(palette.getBackground());
         cmbGender.setSelectedItem(teacher.getGender());
         cmbGender.setForeground(palette.getTextDark());
         add(cmbGender);
 
+        // --- Shifted Birthdate components left into the old Gender column space ---
         lblBirthdate = new JLabel("Birthdate");
         lblBirthdate.setFont(label.getBody());
-        lblBirthdate.setBounds(420, 345, 150, 20);
+        lblBirthdate.setBounds(280, 270, 150, 20);
         add(lblBirthdate);
 
         date = new JSpinner(new SpinnerDateModel());
         date.setValue(teacher.getBirthDate());
-        date.setBounds(420, 370, 350, 30); 
+        date.setBounds(280, 295, 220, 30); // Width standardized to 220 to match columns cleanly
         JSpinner.DateEditor editor = new JSpinner.DateEditor(date, "MM/dd/yyyy");
         date.setEditor(editor);
         add(date);
 
         lblAddress = new JLabel("Address");
         lblAddress.setFont(label.getBody());
-        lblAddress.setBounds(40, 420, 150, 20);
+        lblAddress.setBounds(40, 345, 150, 20);
         add(lblAddress);
 
         txtAddress = new JTextField(teacher.getAddress());
-        txtAddress.setBounds(40, 445, 730, 30);
+        txtAddress.setBounds(40, 370, 730, 30);
         add(txtAddress);
 
         lblPhone = new JLabel("Phone No.");
         lblPhone.setFont(label.getBody());
-        lblPhone.setBounds(40, 495, 150, 20);
+        lblPhone.setBounds(40, 420, 150, 20);
         add(lblPhone);
 
         txtPhone = new JTextField(teacher.getPhoneNumber());
-        txtPhone.setBounds(40, 520, 350, 30);
+        txtPhone.setBounds(40, 445, 350, 30);
         add(txtPhone);
 
         lblPassword = new JLabel("Password");
         lblPassword.setFont(label.getBody());
-        lblPassword.setBounds(420, 495, 150, 20);
+        lblPassword.setBounds(420, 120, 150, 20);
         add(lblPassword);
 
         txtPassword = new JTextField(teacher.getPhoneNumber());
-        txtPassword.setBounds(420, 520, 350, 30);
+        txtPassword.setBounds(420, 145, 350, 30);
         add(txtPassword);
-        
-        setSize(830, 680);
 
         this.save = new JButton(buttonName);
-        this.save.setBounds(540, 580, 110, 35);
+        this.save.setBounds(540, 500, 110, 35);
         this.save.setBackground(palette.getPrimary());
         this.save.setForeground(palette.getTextLight());
         this.save.setFont(label.getBody());
@@ -175,7 +146,7 @@ public class TeacherAdd extends Frame {
         add(this.save);
 
         cancel = new JButton("Cancel");
-        cancel.setBounds(660, 580, 110, 35);
+        cancel.setBounds(660, 500, 110, 35);
         cancel.setBackground(palette.getSecondary());
         cancel.setForeground(palette.getTextLight());
         cancel.setFont(label.getBody());
@@ -183,7 +154,8 @@ public class TeacherAdd extends Frame {
         cancel.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                int response = JOptionPane.showConfirmDialog(TeacherAdd.this, 
+                int response = JOptionPane.showConfirmDialog(
+                        TeacherEdit.this, 
                         "Are you sure you want to cancel?", 
                         "Confirm Cancel", 
                         JOptionPane.YES_NO_OPTION, 

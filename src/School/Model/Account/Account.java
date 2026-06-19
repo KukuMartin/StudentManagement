@@ -36,7 +36,7 @@ public class Account {
     public String getPhoneNumber() { return phoneNumber; }
     public String getAddress() { return address; }
 
-    public void update(Account account) {
+    public void Update(Account account) {
         this.firstName = account.getFirstName();
         this.middleName = account.getMiddleName();
         this.lastName = account.getLastName();

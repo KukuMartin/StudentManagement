@@ -1,201 +1,217 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Gui.Frame.Account;
+
 import Gui.Frame.Frame;
-import Gui.Frame.MainFrame;
 import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
-import Gui.Panel.Panel;
-import Gui.Pane.NavBar;
-import Gui.Pane.Pane;
+import Gui.Misc.Tool.Signal;
+import School.Model.Account.Account;
+import School.Model.Account.Type.Student;
+import School.System.Account.AccountSystem;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.time.LocalDate;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JFrame;
-/**
- *
- * @author Netmanet
- */
-public class StudentAdd extends Frame{
-    
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String gender;
-    private LocalDate birthDate;
-    private String phoneNumber;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
-    private String houseNumber;
-    private String street;
-    private String barangay;
-    private String city;
-    private String province;
-    private String zipCode;
+public class StudentAdd extends Frame {
 
-    public StudentAdd(String title,
-                      Dimension size,
-                      Palette palette,
-                      Label label) {
+    JLabel titleHeader, lblStudentID, lblCourse, lblFirstName, lblLastName, lblMiddleName,
+           lblGender, lblBirthdate, lblAddress, lblPhone;
+
+    JTextField txtStudentID, txtCourse, txtFirstName, txtLastName, txtMiddleName,
+               txtAddress, txtPhone;
+
+    JComboBox<String> cmbGender;
+    JButton save, cancel;
+    JSpinner date;
+
+    public StudentAdd(String title, Dimension size, Palette palette, Label label,
+                      Signal save, String purpose, Student student) {
 
         super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
 
-        this.setPanel(new StudentPanel(this));
-    }
+        setTitle(purpose);
+        setSize(830, 650); // Slightly increased window height for extra fields
+        setLocationRelativeTo(null);
+        setLayout(null);
 
-    public static void main(String[] args) {
+        getContentPane().setBackground(palette.getBackground());
 
-        StudentAdd frame = new StudentAdd(
-                "Add Student",
-                MainFrame.createSize(),
-                MainFrame.createPalette(),
-                MainFrame.createLabel()
-        );
+        JPanel topBar = new JPanel();
+        topBar.setBackground(palette.getAccent());
+        topBar.setBounds(0, 0, 850, 40);
+        add(topBar);
 
-        frame.setVisible(true);
-    }
+        titleHeader = new JLabel("Student Information");
+        titleHeader.setFont(label.getHeading());
+        titleHeader.setForeground(palette.getTextDark());
+        titleHeader.setBounds(40, 50, 400, 50);
+        add(titleHeader);
 
-    private static class StudentPanel extends Panel {
+        // --- ROW 1: STUDENT ID & COURSE ---
+        lblStudentID = new JLabel("Student ID");
+        lblStudentID.setFont(label.getBody());
+        lblStudentID.setBounds(40, 115, 150, 20);
+        add(lblStudentID);
 
-        public StudentPanel(Frame frame) {
-            super(frame);
+        txtStudentID = new JTextField(student.getStudentId());
+        txtStudentID.setBounds(40, 140, 350, 30);
+        add(txtStudentID);
 
-            createNavBar();
-            createForm();
+        lblCourse = new JLabel("Course");
+        lblCourse.setFont(label.getBody());
+        lblCourse.setBounds(420, 115, 150, 20);
+        add(lblCourse);
+
+        txtCourse = new JTextField(student.getCourse());
+        txtCourse.setBounds(420, 140, 350, 30);
+        add(txtCourse);
+
+        lblFirstName = new JLabel("First Name");
+        lblFirstName.setFont(label.getBody());
+        lblFirstName.setBounds(40, 185, 150, 20);
+        add(lblFirstName);
+
+        txtFirstName = new JTextField(student.getFirstName());
+        txtFirstName.setBounds(40, 210, 220, 30);
+        add(txtFirstName);
+
+        lblLastName = new JLabel("Last Name");
+        lblLastName.setFont(label.getBody());
+        lblLastName.setBounds(520, 185, 150, 20);
+        add(lblLastName);
+
+        txtLastName = new JTextField(student.getLastName());
+        txtLastName.setBounds(520, 210, 250, 30);
+        add(txtLastName);
+
+        lblMiddleName = new JLabel("Middle Name");
+        lblMiddleName.setFont(label.getBody());
+        lblMiddleName.setBounds(280, 185, 150, 20);
+        add(lblMiddleName);
+
+        txtMiddleName = new JTextField(student.getMiddleName());
+        txtMiddleName.setBounds(280, 210, 220, 30);
+        add(txtMiddleName);
+
+        lblGender = new JLabel("Gender");
+        lblGender.setFont(label.getBody());
+        lblGender.setBounds(40, 255, 150, 20);
+        add(lblGender);
+
+        String[] genders = {"MALE", "FEMALE", "OTHER"};
+        cmbGender = new JComboBox<>(genders);
+        cmbGender.setBounds(40, 280, 220, 30);
+        cmbGender.setBackground(palette.getBackground());
+        cmbGender.setForeground(palette.getTextDark());
+        cmbGender.setSelectedItem(student.getGender());
+        add(cmbGender);
+
+        lblBirthdate = new JLabel("Birthdate");
+        lblBirthdate.setFont(label.getBody());
+        lblBirthdate.setBounds(280, 255, 150, 20);
+        add(lblBirthdate);
+
+        date = new JSpinner(new SpinnerDateModel());
+        date.setBounds(280, 280, 220, 30);
+        if (student.getBirthDate() != null) {
+            date.setValue(java.sql.Date.valueOf(student.getBirthDate()));
         }
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(date, "MM/dd/yyyy");
+        date.setEditor(editor);
+        add(date);
 
+        lblPhone = new JLabel("Phone No.");
+        lblPhone.setFont(label.getBody());
+        lblPhone.setBounds(520, 255, 150, 20);
+        add(lblPhone);
+
+        txtPhone = new JTextField(student.getPhoneNumber());
+        txtPhone.setBounds(520, 280, 250, 30);
+        add(txtPhone);
+
+        lblAddress = new JLabel("Address");
+        lblAddress.setFont(label.getBody());
+        lblAddress.setBounds(40, 325, 150, 20);
+        add(lblAddress);
+
+        txtAddress = new JTextField(student.getAddress());
+        txtAddress.setBounds(40, 350, 730, 30);
+        add(txtAddress);
+
+        this.save = new JButton("Submit");
+        this.save.setBounds(540, 540, 110, 35);
+        this.save.setBackground(palette.getPrimary());
+        this.save.setForeground(palette.getTextLight());
+        this.save.setFont(label.getBody());
+        this.save.setFocusable(false);
+
+        this.save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String studentID = txtStudentID.getText().trim();
+                String course = txtCourse.getText().trim();
+                String firstName = txtFirstName.getText().trim();
+                String lastName = txtLastName.getText().trim();
+                String middleName = txtMiddleName.getText().trim();
+                String gender = (String) cmbGender.getSelectedItem();
+                String address = txtAddress.getText().trim();
+                String phone = txtPhone.getText().trim();
+
+                java.util.Date spinnerDate = (java.util.Date) date.getValue();
+                java.time.LocalDate birthDate = spinnerDate.toInstant()
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDate();
+
+                Student updatedStudent = new Student(
+                    student.getId(),       
+                    studentID,   
+                    course,      
+                    student.getAccountId(),    
+                    student.getSectionId(),     
+                    null,
+                    firstName,                 
+                    middleName,                
+                    lastName,                
+                    gender,                      
+                    birthDate,                 
+                    phone,
+                    address                 
+                );
+
+                student.Update(updatedStudent);
+                student.Update((Account)updatedStudent);
+
+                save.sendSignal();
+                dispose();
+            }
+        });
+        add(this.save);
+
+        cancel = new JButton("Cancel");
+        cancel.setBounds(660, 540, 110, 35);
+        cancel.setBackground(palette.getPrimary());
+        cancel.setForeground(palette.getTextLight());
+        cancel.setFont(label.getBody());
+        cancel.setFocusable(false);
+
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(
+                        StudentAdd.this,
+                        "Are you sure you want to cancel?",
+                        "Confirm Cancel",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (response == JOptionPane.YES_OPTION) {
+                    dispose();
+                }
+            }
+        });
+        add(cancel);
         
-        private void createNavBar() {
-
-            NavBar navBar = new NavBar(size, palette, label);
-
-            JButton homeBtn = navBar.getSquareButton("Back", 10);
-            homeBtn.setBackground(palette.getAccent());
-            homeBtn.setForeground(palette.getTextLight());
-            homeBtn.setFont(label.getBody());
-
-            //navBar.addButton(homeBtn, getSignal(navBar, Layer.TOP));
-
-            JButton exitBtn = navBar.getSquareButton("Exit", 10);
-            exitBtn.setBackground(palette.getPrimary());
-            exitBtn.setForeground(palette.getTextLight());
-            exitBtn.setFont(label.getBody());
-
-            exitBtn.addActionListener(e -> System.exit(0));
-            
-                int buttonWidth = 100;
-                int buttonHeight = navBar.getHeight() - 20;
-                int y = 10;
-
-                exitBtn.setSize(buttonWidth, buttonHeight);
-                exitBtn.setLocation(300, 10);
-
-                homeBtn.setSize(buttonWidth, buttonHeight);
-                homeBtn.setLocation(350, 10);
-
-                navBar.add(homeBtn);
-                navBar.add(exitBtn);
-
-                this.add(navBar, Layer.TOP.getLayer());
-}
-        
-        private void createForm() {
-            FormPane formPane = new FormPane(size, palette, label);
-            setPane(formPane, Layer.MIDDLE);
-        }
-    }
-
-    private static class FormPane extends Pane {
-
-        public FormPane(Dimension frame,
-                        Palette palette,
-                        Label label) {
-
-            super(frame, palette, label);
-
-            this.setSize(frame);
-            this.setBackground(palette.getBackground());
-
-            buildForm();
-        }
-
-        private void buildForm() {
-
-            int leftXLabel = 40;
-            int leftXField = 180;
-
-            int rightXLabel = 460;
-            int rightXField = 570;
-            int y = 80;
-
-            JLabel heading = new JLabel("Student Registration");
-            heading.setFont(label.getHeading());
-            heading.setForeground(palette.getTextDark());
-
-            setUpComponent(
-                    heading,
-                    new Dimension(400, 50),
-                    new Point(250, 50)
-            );
-
-            y += 60;
-
-            y = addField("First Name", leftXLabel, leftXField, y);
-            y = addField("Middle Name", leftXLabel, leftXField, y);
-            y = addField("Last Name", leftXLabel, leftXField, y);
-            y = addField("Account ID", leftXLabel, leftXField, y);
-            y = addField("Gender", leftXLabel, leftXField, y);
-            y = addField("Birth Date", leftXLabel, leftXField, y);
-
-            int yRight = 140;
-
-            yRight = addField("Phone Number", rightXLabel, rightXField, yRight);
-            yRight = addField("Address", rightXLabel, rightXField, yRight);
-
-            JButton saveButton = getSquareButton("Save Student", 12);
-            saveButton.setBackground(palette.getPrimary());
-            saveButton.setForeground(palette.getTextLight());
-            saveButton.setFont(label.getBody());
-            saveButton.addMouseListener(getClickableComponent(saveButton));
-            this.setUpButton(saveButton, new Dimension(230, 40), 0.8, 0.60);
-        }
-
-        private int addField(String text,
-                             int xLabel,
-                             int xField,
-                             int y) {
-
-            JLabel labelField = new JLabel(text + ":");
-            labelField.setFont(label.getBody());
-            labelField.setForeground(palette.getTextDark());
-
-            setUpComponent(
-                    labelField,
-                    new Dimension(150, 30),
-                    new Point(xLabel, y)
-            );
-
-            int fieldWidth = (int)(frame.width * 0.30);
-            int fieldHeight = 35;
-
-            JTextField field = getSquareTextField(12);
-
-            field.setBackground(palette.getNeutral());
-            field.setForeground(palette.getTextDark());
-            field.setFont(label.getBody());
-
-            setUpText(
-                    field,
-                    true,
-                    new Dimension(fieldWidth, fieldHeight),
-                    new Point(xField, y)
-            );
-
-            return y + 45;
-        }
+        this.setVisible(true);
     }
 }

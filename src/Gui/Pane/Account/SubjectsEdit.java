@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -28,16 +27,10 @@ public class SubjectsEdit extends Pane{
         this.setLayout(null);
         this.setSize(frame);
 
-        initUI(frame, palette);
-        
-        model.addRow(new Object[]{"2024-001", 90, 85, 88, 92, 87, 91, 89, 93, 94, 90, 95, 96});
-        model.addRow(new Object[]{"2024-002", 84, 86, 80, 89, 90, 88, 87, 91, 92, 90, 93, 94});
-        model.addRow(new Object[]{"2024-003", 78, 82, 85, 80, 84, 86, 88, 89, 87, 90, 91, 92});
-        model.addRow(new Object[]{"2024-004", 95, 94, 96, 93, 92, 97, 98, 96, 95, 94, 99, 98});
-        model.addRow(new Object[]{"2024-005", 88, 89, 90, 91, 87, 86, 85, 92, 93, 94, 90, 91});
+        initUI();
     }
 
-    private void initUI(Dimension frame, Palette palette) {
+    private void initUI() {
         String[] columns = {
             "Student Id",
             "WW#1",

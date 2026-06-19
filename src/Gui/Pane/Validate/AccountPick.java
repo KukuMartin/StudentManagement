@@ -8,13 +8,14 @@ import School.System.SchoolSystem;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class AccountPick extends Pane{
     SchoolSystem schoolSystem;
     
-    public AccountPick(Dimension frame, Palette palette, Label label, Signal advisorSignal, Signal teacherSignal) {
+    public AccountPick(Dimension frame, Palette palette, Label label, Signal adminSignal, Signal advisorSignal, Signal teacherSignal) {
         super(frame, palette, label);
         
         this.setBackground(palette.getBackground());
@@ -34,15 +35,23 @@ public class AccountPick extends Pane{
         teacher.setBackground(palette.getAccent());
         teacher.setForeground(palette.getTextLight());
         teacher.setFont(label.getBody());
-        this.setUpButton(teacher, getSize(teacher, 150), .4, .84);
+        this.setUpButton(teacher, getSize(teacher, 150), .5, .84);
         teacher.addActionListener(teacherSignal.getActionEvent());
         teacher.addMouseListener(this.getClickableComponent(teacher));
+        
+        JButton admin = this.getSquareButton("I'm an Admin", 10);
+        admin.setBackground(palette.getAccent());
+        admin.setForeground(palette.getTextLight());
+        admin.setFont(label.getBody());
+        this.setUpButton(admin, getSize(admin, 150), new Point(teacher.getX() - teacher.getWidth() - 10, teacher.getY()));
+        admin.addActionListener(advisorSignal.getActionEvent());
+        admin.addMouseListener(this.getClickableComponent(admin));
         
         JButton advisor = this.getSquareButton("I'm an Advisor", 10);
         advisor.setBackground(palette.getAccent());
         advisor.setForeground(palette.getTextLight());
         advisor.setFont(label.getBody());
-        this.setUpButton(advisor, getSize(advisor, 150), .6, .84);
+        this.setUpButton(advisor, getSize(advisor, 150), new Point(teacher.getX() + teacher.getWidth() + 10, teacher.getY()));
         advisor.addActionListener(advisorSignal.getActionEvent());
         advisor.addMouseListener(this.getClickableComponent(advisor));
     }

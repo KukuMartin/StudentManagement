@@ -40,7 +40,7 @@ public class AccountPanel extends Panel{
         Signal advisorSignal = this.getAdvisorSignIn(getAdvisorSignal());
         
         
-        Pane pick = new AccountPick(size, palette, label, advisorSignal, teacherSignal);
+        Pane pick = new AccountPick(size, palette, label, advisorSignal, advisorSignal, teacherSignal);
         signInTeacher.addBack(this.getSignal(pick, Layer.MIDDLE));
         signInAdvisor.addBack(this.getSignal(pick, Layer.MIDDLE));
         this.setPane(pick, Layer.MIDDLE);
@@ -62,7 +62,7 @@ public class AccountPanel extends Panel{
                 Teacher account = teacherSystem.getTeacher(signInTeacher.getUsername());
                 if(account != null && account.getPassword().equals(signInTeacher.getPassword())){
                     teacherPanel.teacherName = account.getUsername();
-                    teacherPanel.setFields(account.getAccountId(), account.getUsername(), account.getPhoneNumber(), account.getBirthDate());
+                    teacherPanel.setFields(account.getAccountId(), account.getUsername(), account.getFirstName(), account.getMiddleName(), account.getLastName(), account.getGender(), account.getPhoneNumber(), account.getBirthDate(), account.getAddress());
                     frame.setPanel(teacherPanel);
                     return;
                 }
@@ -79,8 +79,8 @@ public class AccountPanel extends Panel{
             public void sendSignal() {
                 Advisor account = advisorSystem.getAdvisor(signInAdvisor.getUsername());
                 if(account != null && account.getPassword().equals(signInAdvisor.getPassword())){
-                    advisorPanel.advisorName = account.getUsername();
-                    advisorPanel.setFields(account.getAccountId(), account.getUsername(), account.getPhoneNumber(), account.getBirthDate());
+                    advisorPanel.start(account.getId());
+                    advisorPanel.setFields(account.getAccountId(), account.getUsername(), account.getFirstName(), account.getMiddleName(), account.getLastName(), account.getGender(), account.getPhoneNumber(), account.getBirthDate(), account.getAddress());
                     frame.setPanel(advisorPanel);
                     return;
                 }

@@ -14,13 +14,13 @@ public class AccountSystem {
         management = new AccountManagement(sql);
     }
 
-    public boolean createAccount(Account account) {
+    public int createAccount(Account account) {
         if (isAccountInvalid(account)) {
-            return false;
+            return -1;
         }
 
         int result = management.add(account);
-        return result > 0;
+        return result;
     }
 
     public boolean deleteAccount(int id) {
@@ -55,10 +55,10 @@ public class AccountSystem {
     public boolean isAccountInvalid(Account account) {
         if (account == null) return true;
 
-        if (account.getId() <= 0) return true;
-        if (account.getFirstName()== null || account.getLastName().isBlank()) return true;
-        if (account.getMiddleName()== null || account.getMiddleName().isBlank()) return true;
-        if (account.getLastName()== null || account.getLastName().isBlank()) return true;
+        // Fixed the first line to check firstName instead of lastName
+        if (account.getFirstName() == null || account.getFirstName().isBlank()) return true;
+        if (account.getMiddleName() == null || account.getMiddleName().isBlank()) return true;
+        if (account.getLastName() == null || account.getLastName().isBlank()) return true;
         if (account.getGender() == null || account.getGender().isBlank()) return true;
         if (account.getBirthDate() == null) return true;
         if (account.getPhoneNumber() == null || account.getPhoneNumber().isBlank()) return true;

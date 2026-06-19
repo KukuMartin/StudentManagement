@@ -68,4 +68,35 @@ public class Palette {
         
         return (new Color(Color.HSBtoRGB(hue, saturation, value)));
     }
+    
+    public static Color lighten(Color color, float intensity){
+        float[] hsb = Color.RGBtoHSB(
+            color.getRed(),
+            color.getGreen(),
+            color.getBlue(),
+            null
+        );
+
+        float hue = hsb[0];
+        float saturation = hsb[1];
+        float value = hsb[2];
+
+        if (value > 0.95f && saturation < 0.05f) {
+            hue = 0.6f;
+            saturation = 0.1f * intensity; 
+            value = 1f;
+
+            return new Color(Color.HSBtoRGB(hue, saturation, value));
+        }
+
+        float hueShift = .02f * intensity;
+        float satDecrease = .1f * intensity;
+        float valIncrease = .6f * intensity;
+
+        hue = Math.max(0f, Math.min(1f, hue - hueShift));
+        saturation = Math.max(0f, saturation - satDecrease);
+        value = Math.min(1f, value + valIncrease);
+
+        return new Color(Color.HSBtoRGB(hue, saturation, value));
+    }
 }

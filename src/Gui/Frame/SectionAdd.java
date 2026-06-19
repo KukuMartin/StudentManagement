@@ -24,7 +24,9 @@ public class SectionAdd extends Frame{
 
     public SectionAdd(String title, Dimension size, Palette palette, Label label) {
         super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
-
+    }
+    
+    public void initUi(){
         Panel panel = new Panel(this);
 
         int navH = (int)(NavBar.getHeightPercent() * size.height);
@@ -90,15 +92,5 @@ public class SectionAdd extends Frame{
 
         panel.setPane(content, Panel.Layer.BOTTOM);
         this.setPanel(panel);
-    }
-//  to run
-    public static void main(String[] args) {
-        String title    = "Add New Section";
-        Dimension size  = MainFrame.createSize();
-        Palette palette = MainFrame.createPalette();
-        Label label     = MainFrame.createLabel();
-
-        SectionAdd frame = new SectionAdd(title, size, palette, label);
-        frame.setVisible(true);
     }
 }

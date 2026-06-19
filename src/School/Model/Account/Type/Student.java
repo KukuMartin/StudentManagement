@@ -12,8 +12,8 @@ public class Student extends Account{
     private int id;
     private String studentId;
     private String course;
-    private int accountId;
-    private int sectionId;
+    public int accountId;
+    public int sectionId;
 
     private List<Subject> subjects;
 
@@ -62,7 +62,9 @@ public class Student extends Account{
     public int getAccountId(){ return accountId; }
     public int getSectionId(){ return sectionId; }
     
-    public void Update(Advisor advisor){
-        course = course;
+    public void Update(Student student){
+        this.studentId = student.studentId;
+        this.course = student.course;
+        this.sectionId = student.sectionId;
     }
-}
+}   

@@ -55,6 +55,6 @@ public class Advisor extends Account{
     public String getPassword() { return password; }
     public int getId() { return id; }
     public int getAccountId() { return accountId; }
-    public List<Section> getSubjects() { return sections; }
+    public List<Section> getSection() { return sections; }
     
 }

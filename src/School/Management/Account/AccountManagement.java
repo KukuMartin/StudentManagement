@@ -49,8 +49,8 @@ public class AccountManagement {
         int result = 0;
         String query = "INSERT INTO " + table +
                 " (firstName, middleName, lastName, gender, birthDate, phoneNumber, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (PreparedStatement command = sql.prepareStatement(query)) {
+        
+        try (PreparedStatement command = sql.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
             command.setString(1, account.getFirstName());
             command.setString(2, account.getMiddleName());
@@ -61,11 +61,18 @@ public class AccountManagement {
             command.setString(7, account.getAddress());
 
             result = command.executeUpdate();
+            if(result > 0){
+                try (ResultSet generatedKeys = command.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1); // Returns the newly created accountId
+                    }
+                }
+            }   
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return -1;
     }
 
     public int remove(int id) {
@@ -88,30 +95,28 @@ public class AccountManagement {
     }
 
     public int update(Account account) {
+    // 1. Added address = ? to the query string
+    String query = "UPDATE " + table +
+            " SET firstName = ?, middleName = ?, lastName = ?, gender = ?, birthDate = ?, phoneNumber = ?, address = ? WHERE id = ?";
 
-        String query = "UPDATE " + table +
-                " SET firstName = ?, middleName = ?, lastName = ?, gender = ?, birthDate = ?, phoneNumber = ? WHERE id = ?";
+    int result = 0;
 
-        int result = 0;
+    try (PreparedStatement command = sql.prepareStatement(query)) {
+        command.setString(1, account.getFirstName());
+        command.setString(2, account.getMiddleName());
+        command.setString(3, account.getLastName());
+        command.setString(4, account.getGender());
+        command.setDate(5, Date.valueOf(account.getBirthDate()));
+        command.setString(6, account.getPhoneNumber());
+        command.setString(7, account.getAddress()); // 2. Inserted address at slot 7
+        command.setInt(8, account.getId());          // 3. Pushed the Account ID filter to slot 8
 
-        try (PreparedStatement command = sql.prepareStatement(query)) {
-
-            command.setString(1, account.getFirstName());
-            command.setString(2, account.getMiddleName());
-            command.setString(3, account.getLastName());
-            command.setString(4, account.getGender());
-            command.setDate(5, Date.valueOf(account.getBirthDate()));
-            command.setString(6, account.getPhoneNumber());
-            command.setInt(7, account.getId());
-
-            result = command.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return result;
+        result = command.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return result;
+}
 
     public List<Account> getAccounts() {
 

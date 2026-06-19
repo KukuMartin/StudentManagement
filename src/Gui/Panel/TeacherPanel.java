@@ -79,8 +79,9 @@ public class TeacherPanel extends Panel{
         };
         return signal;
     }
-    public void setFields(int accountId, String username, String phoneNumber, LocalDate birthDate) {
-        account.setFields(accountId, username, phoneNumber, birthDate);
+    
+    public void setFields(int accountId, String username, String firstName, String middleName, String lastName, String gender, String phoneNumber, LocalDate birthDate, String address) {
+        account.setFields(accountId, username, firstName, middleName, lastName, gender, phoneNumber, birthDate, address);
     }
     
     private Signal getAttendanceSignal(){

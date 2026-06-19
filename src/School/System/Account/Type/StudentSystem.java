@@ -30,7 +30,7 @@ public class StudentSystem {
         if (isStudentInvalid(student)) {
             return false;
         }
-
+        
         int result = management.add(student);
         return result > 0;
     }
@@ -72,14 +72,16 @@ public class StudentSystem {
     public SubjectSystem getSubjectSystem() {
         return subjectSystem;
     }
+    
+    public AccountSystem getAccountSystem() {
+        return accountSystem;
+    }
 
     public boolean isStudentInvalid(Student student) {
         if (student == null) return true;
 
-        if (student.getId() <= 0) return true;
         if (student.getStudentId() == null || student.getStudentId().isBlank()) return true;
         if (student.getCourse() == null || student.getCourse().isBlank()) return true;
-        if (student.getAccountId() <= 0) return true;
         if (student.getSectionId() <= 0) return true;
 
         return false;

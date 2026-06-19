@@ -8,9 +8,9 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public abstract class Frame extends JFrame{
-    private final Dimension size;
-    private final Palette palette;
-    private final Label label;
+    protected final Dimension size;
+    protected final Palette palette;
+    protected final Label label;
     
     public Frame(String title, Dimension size, Palette palette, Label label, int operation){
         this.size = size;
