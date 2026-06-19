@@ -6,29 +6,17 @@ import Gui.Misc.Tool.Label;
 import Gui.Misc.Tool.Palette;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class AssessmentAdd extends Frame implements ActionListener {
 
-    private int idCounter = 1;
-    private List<SubjectModel> subjects = new ArrayList<>();
-
     private JTextField txtName;
-    private JTextField txtCode;
-    private JTextField txtStart;
-    private JTextField txtEnd;
-    private JPanel header;
-    private JButton btnAdd;
-    private JButton btnRemove;
-    private JButton btnSave;
+    private JTextField txtPercent;
 
-    private JTable table;
-    private DefaultTableModel model;
+    private JButton btnSubmit;
+    private JButton btnCancel;
 
     public AssessmentAdd(String title, Dimension size, Palette palette, Label label) {
 
@@ -36,182 +24,133 @@ public class AssessmentAdd extends Frame implements ActionListener {
 
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
-        
-        header = new JPanel();
-        header.setBounds(0, 0, getDimension().width, 70);
+
+        int frameWidth = getDimension().width;
+
+        JPanel header = new JPanel();
+        header.setBounds(0, 0, frameWidth, 70);
         header.setBackground(getPalette().getPrimary());
         add(header);
 
+        int titleWidth = 500;
+        int titleX = (frameWidth - titleWidth) / 2;
         JLabel lblTitle = new JLabel("ADD ASSESSMENT", SwingConstants.CENTER);
-        lblTitle.setBounds(165, 75, 500, 40);
+        lblTitle.setBounds(titleX, 85, titleWidth, 40);
         lblTitle.setFont(getLabel().getHeading());
         lblTitle.setForeground(getPalette().getTextDark());
         add(lblTitle);
 
+        int fieldWidth = 320;
+        int fieldX = (frameWidth - fieldWidth) / 2;
+
         JLabel lblName = new JLabel("Name:");
-        lblName.setBounds(30, 135, 120, 30);
+        lblName.setBounds(fieldX, 140, fieldWidth, 25);
+        lblName.setFont(getLabel().getBody());
         add(lblName);
 
         txtName = new JTextField();
-        txtName.setBounds(150, 135, 200, 35);
+        txtName.setBounds(fieldX, 170, fieldWidth, 35);
+        txtName.setBackground(getPalette().getNeutral());
+        txtName.setForeground(getPalette().getTextDark());
+        txtName.setFont(getLabel().getCaption());
         add(txtName);
 
-        JLabel lblCode = new JLabel("Subject Code:");
-        lblCode.setBounds(30, 195, 120, 30);
-        add(lblCode);
+        JLabel lblPercent = new JLabel("Percent:");
+        lblPercent.setBounds(fieldX, 220, fieldWidth, 25);
+        lblPercent.setFont(getLabel().getBody());
+        add(lblPercent);
 
-        txtCode = new JTextField();
-        txtCode.setBounds(150, 195, 200, 35);
-        add(txtCode);
+        txtPercent = new JTextField();
+        txtPercent.setBounds(fieldX, 250, fieldWidth, 35);
+        txtPercent.setBackground(getPalette().getNeutral());
+        txtPercent.setForeground(getPalette().getTextDark());
+        txtPercent.setFont(getLabel().getCaption());
+        add(txtPercent);
 
-        JLabel lblStart = new JLabel("Schedule Start:");
-        lblStart.setBounds(30, 260, 120, 30);
-        add(lblStart);
+        int btnWidth = 140;
+        int btnGap = 20;
+        int totalBtnWidth = (btnWidth * 2) + btnGap;
+        int btnX = (frameWidth - totalBtnWidth) / 2;
 
-        txtStart = new JTextField();
-        txtStart.setBounds(150, 260, 200, 35);
-        add(txtStart);
+        btnSubmit = new JButton("Submit");
+        btnSubmit.setBounds(btnX, 315, btnWidth, 40);
+        btnSubmit.setFont(getLabel().getBody());
+        btnSubmit.setBackground(getPalette().getPrimary());
+        btnSubmit.setForeground(getPalette().getTextLight());
+        btnSubmit.addActionListener(this);
+        add(btnSubmit);
 
-        JLabel lblEnd = new JLabel("Schedule End:");
-        lblEnd.setBounds(30, 320, 120, 30);
-        add(lblEnd);
-
-        txtEnd = new JTextField();
-        txtEnd.setBounds(150, 320, 200, 35);
-        add(txtEnd);
-
-        
-        model = new DefaultTableModel(
-                new String[]{"ID", "Name", "Code", "Start", "End"},
-                0
-        );
-
-        table = new JTable(model);
-
-        JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(370, 120, 450, 250);
-
-        add(scroll);
-
-        // BUTTONS
-        btnAdd = new JButton("Add");
-        btnAdd.setBounds(570, 375, 120, 40);
-        btnAdd.setFont(getLabel().getBody());
-        btnAdd.setBackground(getPalette().getPrimary());
-        btnAdd.setForeground(getPalette().getTextLight());
-        btnAdd.addActionListener(this);
-        add(btnAdd);
-
-        btnRemove = new JButton("Remove");
-        btnRemove.setBounds(700, 375, 120, 40);
-        btnRemove.setFont(getLabel().getBody());
-        btnRemove.setBackground(getPalette().getPrimary());
-        btnRemove.setForeground(getPalette().getTextLight());
-        btnRemove.addActionListener(this);
-        add(btnRemove);
-
-        btnSave = new JButton("Save");
-        btnSave.setBounds(350, 510, 120, 40);
-        btnSave.setFont(getLabel().getBody());
-        btnSave.setBackground(getPalette().getPrimary());
-        btnSave.setForeground(getPalette().getTextLight());
-        btnSave.addActionListener(this);
-        add(btnSave);
+        btnCancel = new JButton("Cancel");
+        btnCancel.setBounds(btnX + btnWidth + btnGap, 315, btnWidth, 40);
+        btnCancel.setFont(getLabel().getBody());
+        btnCancel.setBackground(getPalette().getPrimary());
+        btnCancel.setForeground(getPalette().getTextLight());
+        btnCancel.addActionListener(this);
+        add(btnCancel);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == btnAdd) {
+        if (e.getSource() == btnSubmit) {
 
-            try {
+            String name = txtName.getText().trim();
+            String percentText = txtPercent.getText().trim();
 
-                SubjectModel s = new SubjectModel(
-                        idCounter++,
-                        txtName.getText(),
-                        txtCode.getText(),
-                        LocalTime.parse(txtStart.getText()),
-                        LocalTime.parse(txtEnd.getText())
-                );
-
-                subjects.add(s);
-
-                model.addRow(new Object[]{
-                        s.id,
-                        s.name,
-                        s.code,
-                        s.scheduleStart,
-                        s.scheduleEnd
-                });
-
-                txtName.setText("");
-                txtCode.setText("");
-                txtStart.setText("");
-                txtEnd.setText("");
-
-            } catch (Exception ex) {
+            if (name.isEmpty() || percentText.isEmpty()) {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Use HH:mm format"
+                        "Please fill all fields!"
                 );
-            }
-        }
-
-        if (e.getSource() == btnRemove) {
-
-            int row = table.getSelectedRow();
-
-            if (row == -1 && model.getRowCount() > 0) {
-                row = model.getRowCount() - 1;
+                return;
             }
 
-            if (row >= 0) {
+            double percent;
 
-                subjects.remove(row);
-                model.removeRow(row);
+            try {
+
+                percent = Double.parseDouble(percentText);
+
+            } catch (NumberFormatException ex) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Percent must be a number!"
+                );
+                return;
             }
-        }
-
-        if (e.getSource() == btnSave) {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Subjects saved: " + subjects.size()
+                    "Assessment Saved!"
+                            + "\n\nName: " + name
+                            + "\nPercent: " + percent
             );
 
-            dispose();
+            txtName.setText("");
+            txtPercent.setText("");
+        }
+
+        if (e.getSource() == btnCancel) {
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to cancel?",
+                    "Confirm Cancel",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+                dispose();
+            }
         }
     }
 
-    private static class SubjectModel {
-
-        private int id;
-        private String name;
-        private String code;
-        private LocalTime scheduleStart;
-        private LocalTime scheduleEnd;
-
-        public SubjectModel(
-                int id,
-                String name,
-                String code,
-                LocalTime scheduleStart,
-                LocalTime scheduleEnd
-        ) {
-
-            this.id = id;
-            this.name = name;
-            this.code = code;
-            this.scheduleStart = scheduleStart;
-            this.scheduleEnd = scheduleEnd;
-        }
-    }
-    
     public static void main(String[] args) {
 
         AssessmentAdd frame = new AssessmentAdd(
-                "Subject Schedule",
+                "Add Assessment",
                 MainFrame.createSize(),
                 MainFrame.createPalette(),
                 MainFrame.createLabel()
