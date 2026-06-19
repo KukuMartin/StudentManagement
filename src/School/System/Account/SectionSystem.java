@@ -17,12 +17,12 @@ public class SectionSystem {
         management = new SectionManagement(sql, studentSystem);
     }
 
-    public boolean createSection(Section section) {
+    public boolean createSection(Section section, int advisorId) {
         if (isSectionInvalid(section)) {
             return false;
         }
 
-        int result = management.add(section);
+        int result = management.add(section, advisorId);
         return result > 0;
     }
 
@@ -51,6 +51,14 @@ public class SectionSystem {
         }
 
         return management.search(id);
+    }
+    
+    public Section getSection(String name) {
+        if (name != null && name.trim().isBlank()) {
+            return null;
+        }
+
+        return management.search(name);
     }
 
     public List<Section> getAllSections(int advisorId) {

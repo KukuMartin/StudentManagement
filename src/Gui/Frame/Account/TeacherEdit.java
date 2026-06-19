@@ -138,7 +138,7 @@ public class TeacherEdit extends Frame {
         this.save.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(TeacherAdd.this, "Teacher Information Saved!");
+                JOptionPane.showMessageDialog(TeacherEdit.this, "Teacher Information Saved!");
                 save.sendSignal();
                 dispose();
             }

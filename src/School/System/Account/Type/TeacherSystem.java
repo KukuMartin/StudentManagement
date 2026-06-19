@@ -67,6 +67,11 @@ public class TeacherSystem {
     public SubjectSystem getSubjectSystem() {
         return subjectSystem;
     }
+    
+    
+    public AccountSystem getAccountSystem() {
+        return accountSystem;
+    }
 
     public boolean isTeacherInvalid(Teacher teacher) {
         if (teacher == null) return true;

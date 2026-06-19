@@ -44,7 +44,7 @@ public class AccountPick extends Pane{
         admin.setForeground(palette.getTextLight());
         admin.setFont(label.getBody());
         this.setUpButton(admin, getSize(admin, 150), new Point(teacher.getX() - teacher.getWidth() - 10, teacher.getY()));
-        admin.addActionListener(advisorSignal.getActionEvent());
+        admin.addActionListener(adminSignal.getActionEvent());
         admin.addMouseListener(this.getClickableComponent(admin));
         
         JButton advisor = this.getSquareButton("I'm an Advisor", 10);

@@ -102,7 +102,7 @@ public class AccountView extends Pane {
         this.setUpComponent(accAddress, getSize(accAddress, 200), 0.2, 0.76);
         this.add(accAddress);
 
-        addressArea = addressArea = this.getSquareTextField("", 8);;
+        addressArea = this.getSquareTextField("", 8);;
         addressArea.setFont(label.getCaption());
         addressArea.setBackground(palette.getNeutral());
         this.setUpText(addressArea, false, new Dimension(500, 30), 0.55, 0.76);

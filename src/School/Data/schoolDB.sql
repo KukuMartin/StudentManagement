@@ -42,7 +42,7 @@ CREATE TABLE Section (
     code VARCHAR(20) UNIQUE,
     advisorId int NOT NULL,
 
-    FOREIGN KEY (advisorId) REFERENCES Advisor(id)
+    FOREIGN KEY (advisorId) REFERENCES Advisor(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Student (
@@ -52,7 +52,7 @@ CREATE TABLE Student (
     sectionId INT,
     accountId INT NOT NULL,
 
-    FOREIGN KEY (sectionId) REFERENCES Section(id),
+    FOREIGN KEY (sectionId) REFERENCES Section(id) ON DELETE CASCADE,
     FOREIGN KEY (accountId) REFERENCES Account(id) ON DELETE CASCADE
 );
 
@@ -118,6 +118,7 @@ INSERT INTO Account (firstName, middleName, lastName, gender, birthDate, phoneNu
 ('Eunice', 'A', 'Admin', 'MALE', '2001-05-10', '09111111111', 'Binan'),
 ('Vincent', 'B', 'Advisor', 'FEMALE', '2005-07-15', '09222222222', 'Dela Paz'),
 ('Neil', 'C', 'Teacher', 'MALE', '1800-03-20', '09333333333', 'San Antonio'),
+('Noy', 'C', 'Teacher', 'MALE', '1800-03-20', '09333333333', 'San Antonio'),
 ('StudA', 'D', 'Student', 'MALE', '2005-01-01', '09111111101', 'City A'),
 ('StudB', 'E', 'Student', 'FEMALE', '2005-02-02', '09111111102', 'City B'),
 ('StudC', 'F', 'Student', 'MALE', '2005-03-03', '09111111103', 'City C'),
@@ -126,11 +127,12 @@ INSERT INTO Account (firstName, middleName, lastName, gender, birthDate, phoneNu
 INSERT INTO Admin (username, password, accountId)
 VALUES ('admin', '123', 1);
 
-INSERT INTO Advisor (username, password, accountId)
-VALUES ('advisor', '123', 2);
+INSERT INTO Advisor (username, password, accountId) VALUES
+('advisor', '123', 2),
 
-INSERT INTO Teacher (username, password, accountId)
-VALUES ('teacher', '123', 3);
+INSERT INTO Teacher (username, password, accountId) VALUES 
+('teach', '123', 3),
+('te', '12', 4);
 
 INSERT INTO Section (name, code, advisorId)
 VALUES ('Section A', 'SEC-A', 1);

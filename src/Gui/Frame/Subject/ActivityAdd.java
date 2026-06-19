@@ -108,8 +108,4 @@ public class ActivityAdd extends Frame {
 
         setVisible(true);
     }
-    
-    public static void main(String[] a){
-        ActivityAdd act = new ActivityAdd();
-    }
 }

@@ -49,15 +49,43 @@ public class SectionManagement {
 
         return null;
     }
+    
+    public Section search(String name) {
 
-    public int add(Section section) {
+        String query = "SELECT * FROM " + table + " WHERE name = ?";
+
+        try (PreparedStatement command = sql.prepareStatement(query)) {
+
+            command.setString(1, name);
+
+            ResultSet result = command.executeQuery();
+
+            if (result.next()) {
+                int id = result.getInt("id");
+                return new Section(
+                    id,
+                    result.getString("name"),
+                    result.getString("code"),
+                    studentSystem.getStudents(id)
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public int add(Section section, int advisorId) {
         int result = 0;
-        String query = "INSERT INTO " + table + " (name, code) VALUES (?, ?)";
+        String query = "INSERT INTO " + table + " (name, code, advisorId) VALUES (?, ?, ?)";
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 
             command.setString(1, section.getName());
             command.setString(2, section.getCode());
+            command.setInt(3, advisorId);
 
             result = command.executeUpdate();
 
@@ -111,7 +139,9 @@ public class SectionManagement {
 
         List<Section> list = new ArrayList<>();
 
-        String query = "SELECT * FROM " + table + " WHERE id = ?";
+        // ====== FIXED: Changed "WHERE id = ?" to "WHERE advisorId = ?" ======
+        String query = "SELECT * FROM " + table + " WHERE advisorId = ?";
+        // ====================================================================
 
         try (PreparedStatement command = sql.prepareStatement(query)) {
 

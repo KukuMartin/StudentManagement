@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class Advisor extends Account{
-    private int id;
+    public int id;
     private String username;
     private String password;
-    private int accountId;
-    private List<Section> sections;
+    public int accountId;
+    public List<Section> sections;
 
     public Advisor(int id, String username, String password, int accountId, List<Section> section,
                 String firstName, String middleName, String lastName, 

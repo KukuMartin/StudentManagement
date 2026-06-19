@@ -67,11 +67,14 @@ public class AdvisorSystem {
     public SectionSystem getSectionSystem() {
         return sectionSystem;
     }
+    
+    
+    public AccountSystem getAccountSystem() {
+        return accountSystem;
+    }
 
     public boolean isAdvisorInvalid(Advisor advisor) {
         if (advisor == null) return true;
-
-        if (advisor.getId() <= 0) return true;
         if (advisor.getAccountId() <= 0) return true;
         if (advisor.getUsername() == null || advisor.getUsername().isBlank()) return true;
         if (advisor.getPassword() == null || advisor.getPassword().isBlank()) return true;

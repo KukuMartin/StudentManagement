@@ -30,7 +30,7 @@ public class StudentAdd extends Frame {
         super(title, size, palette, label, JFrame.DISPOSE_ON_CLOSE);
 
         setTitle(purpose);
-        setSize(830, 650); // Slightly increased window height for extra fields
+        setSize(830, 650);
         setLocationRelativeTo(null);
         setLayout(null);
 
@@ -47,7 +47,6 @@ public class StudentAdd extends Frame {
         titleHeader.setBounds(40, 50, 400, 50);
         add(titleHeader);
 
-        // --- ROW 1: STUDENT ID & COURSE ---
         lblStudentID = new JLabel("Student ID");
         lblStudentID.setFont(label.getBody());
         lblStudentID.setBounds(40, 115, 150, 20);
